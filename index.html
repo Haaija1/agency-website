@@ -3,9 +3,163 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agency Website — scaffold</title>
+<!-- REPLACE: agency name in <title> + meta description once branding is locked (shared — coordinate with Willie) -->
+<title>AI Automation Agency — audits, implementation, operations</title>
+<meta name="description" content="We map your actual process, build the automation that genuinely helps, and keep it accurate once it's running. Four tiers: audit, implementation, operations retainer, hybrid licensing." />
+<meta name="theme-color" content="#0c0d0a" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Scaffold placeholder — replaced by design pass (Task 5/6)</h1>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ SHARED HEADER / NAV (placeholder — branding TBD, coordinate before changing) ============ -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">[AGENCY NAME]</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#case-study">Proof of work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO + ABOUT: Willie owns this section, placeholder below -->
+<!-- Do not implement Hero/About here. Willie is building them in design/Agency-Site-Concept-Willie.html
+     on branch design/willie. Delete this whole placeholder block at merge time and drop his
+     markup in its place. -->
+<div class="owned-elsewhere" role="note">
+  <p>HERO + ABOUT/STORY</p>
+  <p>Owned by Willie (branch <code>design/willie</code>) — renders here in the merged page.</p>
+</div>
+<!-- END Willie placeholder -->
+
+<!-- ============ SERVICES ============ -->
+<section id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <p class="kicker">What We Do</p>
+    <h2 id="services-title">Four ways to work with us, <em>not one fixed project.</em></h2>
+    <p class="lede">Every engagement fits one of these tiers. Most clients move left to right — an audit first, an implementation second, and a retainer for as long as the system keeps running.</p>
+
+    <table class="ptable">
+      <thead>
+        <tr><th scope="col">Tier</th><th scope="col">Price</th><th scope="col">What it is</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tier"><span class="n">01</span>Discovery &amp; Audit</td>
+          <td class="price">$1,500 – $3,000</td>
+          <td class="desc">One-time. We map your actual process, find where automation genuinely helps, and hand you a roadmap — before you commit to a build.</td>
+        </tr>
+        <tr>
+          <td class="tier"><span class="n">02</span>Implementation</td>
+          <td class="price">$5,000 – $15,000+</td>
+          <td class="desc">One-time. We design, build, test against your real data, and deploy. You get a working system, not a prototype.</td>
+        </tr>
+        <tr>
+          <td class="tier"><span class="n">03</span>Operations Retainer</td>
+          <td class="price">$1,000 – $3,000 / mo</td>
+          <td class="desc">Ongoing. Monitoring, tuning, and reporting as your data and rules change. Automations left unmonitored drift — this is what keeps yours accurate.</td>
+        </tr>
+        <tr>
+          <td class="tier"><span class="n">04</span>Hybrid / Licensing</td>
+          <td class="price">$5k–$12k setup + $500–$2k / mo</td>
+          <td class="desc">For repeatable problems across similar businesses — a proven template, customized and licensed to your operation.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="ptable-note">Pricing shown reflects our standard ranges — every quote is scoped to your actual process during Discovery, not assumed in advance.</p>
+  </div>
+</section>
+
+<!-- ============ CASE STUDY ============ -->
+<section id="case-study" aria-labelledby="case-study-title">
+  <div class="wrap">
+    <div class="cs-head">
+      <div>
+        <p class="kicker">Proof Of Work</p>
+        <h2 id="case-study-title">Five scattered inputs, one error-checked payroll file <em>every month.</em></h2>
+      </div>
+      <p class="cs-status">Client details redacted pending sign-off</p>
+    </div>
+    <p class="lede">A multi-branch retail client was reconciling payroll by hand every month from WhatsApp messages, a shared spreadsheet, and a bank statement. We automated the consolidation — and while validating it against their own historical numbers, it caught a real commission-calculation error before it ever reached a payslip.</p>
+
+    <div class="proof">
+      <article class="proof-item">
+        <p class="num" aria-hidden="true">01</p>
+        <div>
+          <h3>The problem</h3>
+          <p>Attendance came in as free-text WhatsApp replies from branch managers, hours lived in a shared spreadsheet, and commission depended on manually reading a bank statement — including subtracting refunds by hand. Small, silent errors were easy to miss until a payslip was already wrong.</p>
+        </div>
+      </article>
+      <article class="proof-item">
+        <p class="num" aria-hidden="true">02</p>
+        <div>
+          <h3>What we built</h3>
+          <p>A structured intake pipeline that files each input the moment it arrives, one tested calculation module per source, and a hard rule: anything the system wasn't 100% certain about got flagged for human review — never silently resolved.</p>
+        </div>
+      </article>
+      <article class="proof-item">
+        <p class="num" aria-hidden="true">03</p>
+        <div>
+          <h3>The result</h3>
+          <p>The automation caught a discrepancy in one branch's revenue figure — worth real money in the monthly commission payout — invisible until checked against independently verified numbers.</p>
+          <p class="caveat">Exact figures and client name withheld until the client signs off — see case-study-payroll-consolidation-DRAFT.md. Do not publish specifics before that happens.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="cs-stats">
+      <div class="cs-stat"><p class="n">62</p><p class="l">automated tests validating every calculation against real historical data</p></div>
+      <div class="cs-stat"><p class="n">0</p><p class="l">manual WhatsApp/spreadsheet reconciliation required per pay cycle</p></div>
+      <div class="cs-stat"><p class="n">1</p><p class="l">real commission error caught before it reached a payslip</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <p class="kicker">Get In Touch</p>
+    <h2 id="contact-title">Tell us what's <em>actually</em> eating your team's time.</h2>
+    <p class="lede">A short call is enough to know if there's a real fit — no pitch deck required on your end.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Book a discovery call</h3>
+        <p>15 minutes, no obligation. We'll ask about your process, not sell you a demo.</p>
+        <!-- REPLACE: calendar booking link (e.g. Calendly) -->
+        <a class="btn" href="#" data-placeholder="calendar-link">Book a call →</a>
+      </div>
+      <div class="contact-card">
+        <h3>Message us directly</h3>
+        <p>Prefer to write first? Send us the short version — WhatsApp if you want a fast reply, email if you'd rather attach the details.</p>
+        <div class="contact-actions">
+          <!-- REPLACE_WHATSAPP_NUMBER — international format, digits only, no + or spaces (e.g. 27821234567) -->
+          <a class="btn secondary" href="https://wa.me/REPLACE_WHATSAPP_NUMBER" rel="noopener" target="_blank">WhatsApp us →</a>
+          <!-- REPLACE_EMAIL_ADDRESS — the real inbox this should land in -->
+          <a class="btn secondary" href="mailto:REPLACE_EMAIL_ADDRESS">Email us →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; <span>2026</span> [AGENCY NAME] — AI automation, built and monitored.</p>
+  </div>
+</footer>
+
 </body>
 </html>
