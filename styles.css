@@ -95,7 +95,7 @@ button:focus-visible{
 }
 .site-nav a:hover{ color:var(--ink); border-bottom-color:var(--accent); }
 
-/* ---------- Placeholder for Willie's Hero + About/Story ---------- */
+/* ---------- Placeholder for Willie's About/Story (Hero itself is now real, see below) ---------- */
 .owned-elsewhere{
   padding:80px 24px; text-align:center;
   border-bottom:1px dashed var(--line);
@@ -104,6 +104,34 @@ button:focus-visible{
 }
 .owned-elsewhere p:first-child{ color:var(--muted); letter-spacing:.18em; }
 .owned-elsewhere code{ font-family:'IBM Plex Mono', monospace; color:var(--accent); }
+
+/* ==========================================================================
+   Hero — owned by Willie (merged from design/willie via PR #1 / codex/weave-hero)
+   Extracted verbatim from his inline <style> block; only the duplicate
+   :root/base-reset rules were dropped since this stylesheet already defines
+   them. Do not restyle without coordinating with him first.
+   ========================================================================== */
+.weave-hero { max-width: 1600px; margin-inline: auto; padding: 2.5rem clamp(1.5rem, 5.5vw, 6rem) 3rem; }
+.weave-hero__identity { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+.weave-hero__wordmark { margin: 0; font: 700 2.5rem/1 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
+.weave-hero__wordmark span { color: var(--accent); }
+.weave-hero__descriptor { margin: 0; color: var(--muted); font: 400 .875rem/1.6 'IBM Plex Mono', monospace; }
+.weave-hero__content { padding-block: clamp(4rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem); }
+.weave-hero__eyebrow { display: flex; align-items: center; gap: .875rem; margin: 0 0 2.25rem; color: var(--muted); font: 500 .875rem/1.6 'IBM Plex Mono', monospace; }
+.weave-hero__eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); flex: 0 0 auto; }
+.weave-hero__layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); align-items: end; gap: clamp(2rem, 5vw, 5rem); }
+.weave-hero h1 { margin: 0; max-width: 10ch; font: 600 clamp(3.75rem, 7.7vw, 7.75rem)/1.02 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
+.weave-hero h1 span { display: block; color: var(--accent); }
+.weave-hero__intro { padding-bottom: .375rem; }
+.weave-hero__copy { margin: 0 0 2rem; max-width: 28ch; color: var(--muted); font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.6; }
+.weave-hero__copy strong { color: var(--ink); font-weight: 400; }
+.weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--accent); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--accent); transition: background-color .15s ease, border-color .15s ease; }
+.weave-hero__cta:hover { background: var(--ink); border-color: var(--ink); }
+.weave-hero__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+.weave-hero__cta svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; }
+.weave-hero__closing { margin: 0; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--muted); font: 400 .875rem/1.7 'IBM Plex Mono', monospace; }
+@media (min-width: 1000px) { .weave-hero { min-height: min(900px, 100svh); display: flex; flex-direction: column; } .weave-hero__content { flex: 1; display: flex; flex-direction: column; justify-content: center; } }
+@media (max-width: 760px) { .weave-hero { padding-top: 1.75rem; } .weave-hero__layout { grid-template-columns: 1fr; gap: 2.5rem; } .weave-hero h1 { font-size: clamp(3.25rem, 12vw, 5.75rem); } .weave-hero__copy { max-width: 35ch; } .weave-hero__content { padding-block: 3.75rem; } .weave-hero__eyebrow { margin-bottom: 1.5rem; } }
 
 /* ---------- Services (structured tier table, not a card grid) ---------- */
 .ptable{ width:100%; border-collapse:collapse; margin-top:56px; }

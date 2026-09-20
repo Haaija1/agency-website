@@ -1,20 +1,31 @@
-# Agency Website
+# Weave Agency Website
 
 Static marketing/portfolio site. Plain HTML/CSS/JS, no framework, no build step.
-Hosted on Vercel with automatic per-branch preview deploys.
+The website will be hosted using cPanel. GitHub stores the website source.
+
+## Current draft
+
+`index.html` has: Willie's Hero section (done), a placeholder for his About/Story
+(not started), and Dave/Haaija's Services, Case Study, and Contact sections (done).
+All CSS lives in `styles.css` — the Hero's original inline `<style>` block was
+extracted in so there's one shared stylesheet, not two. Opens directly in a browser,
+no build step. Google Fonts requires an internet connection; system fonts fall back.
 
 ## Branches & ownership split
 
 Working in parallel without merge conflicts: each branch owns different sections of
-`index.html`. Don't edit outside your own sections — reconcile at merge time via PR.
+`index.html`. Don't edit outside your own sections — reconcile at merge time via PR
+(push to your own branch first — merging straight to `main` skips review).
 
-| Branch | Owner | Owns |
+| Section | Owner | Status |
 |---|---|---|
-| `design/dave` | Haaija (design by Dave/Claude, build via Claude Code on Opus) | Services section, Case Study section, Contact section |
-| `design/willie` | Willie | Hero section, About/Story section |
+| Hero | Willie | ✅ done, merged |
+| About / Story | Willie | ⏳ not started — placeholder in `index.html` |
+| Services | Haaija/Dave | ✅ done |
+| Case Study | Haaija/Dave | ✅ done — kept anonymized, pending real client sign-off |
+| Contact | Haaija/Dave | ✅ structure done — needs real WhatsApp number, email, calendar link (see placeholders in `index.html`) |
 
-Adjust the split in this table if you agree on something different — just keep it written
-down here so both of you know the boundary.
+Adjust this table as sections land — keep it accurate so neither of you builds on stale info.
 
 ## Brand tokens (shared — don't invent new ones per branch)
 
@@ -42,4 +53,7 @@ npx serve .
 
 ## Deploy
 
-Push to any branch → Vercel auto-builds a preview URL. Push to `main` → production.
+Publish the approved `index.html` to the website's document root using cPanel.
+GitHub changes do not by themselves confirm a cPanel deployment; any automatic
+deployment integration must be configured separately. This repository update
+does not publish the draft to the live website.

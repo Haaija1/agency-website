@@ -1,25 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- REPLACE: agency name in <title> + meta description once branding is locked (shared — coordinate with Willie) -->
-<title>AI Automation Agency — audits, implementation, operations</title>
-<meta name="description" content="We map your actual process, build the automation that genuinely helps, and keep it accurate once it's running. Four tiers: audit, implementation, operations retainer, hybrid licensing." />
-<meta name="theme-color" content="#0c0d0a" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Weave — AI automation for growing businesses. Less repetitive work. More time for the work that matters.">
+  <meta name="theme-color" content="#0c0d0a">
+  <title>Weave — AI automation for growing businesses</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230c0d0a'/%3E%3Cpath d='M5 9l5 15 6-12 6 12 5-15' fill='none' stroke='%23ff6a35' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- ============ SHARED HEADER / NAV (placeholder — branding TBD, coordinate before changing) ============ -->
+<!-- ============ SHARED HEADER / NAV (persistent nav — Willie's Hero below carries the primary brand moment) ============ -->
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="#top">[AGENCY NAME]</a>
+    <a class="brand" href="#top">Weave</a>
     <nav class="site-nav" aria-label="Primary">
       <ul>
         <li><a href="#services">Services</a></li>
@@ -32,15 +32,32 @@
 
 <main id="main">
 
-<!-- HERO + ABOUT: Willie owns this section, placeholder below -->
-<!-- Do not implement Hero/About here. Willie is building them in design/Agency-Site-Concept-Willie.html
-     on branch design/willie. Delete this whole placeholder block at merge time and drop his
-     markup in its place. -->
+<!-- ============ HERO — owned by Willie (merged from design/willie via codex/weave-hero) ============ -->
+<section class="weave-hero" aria-labelledby="weave-headline">
+  <div class="weave-hero__identity">
+    <p class="weave-hero__wordmark" aria-label="Weave">weave<span aria-hidden="true">.</span></p>
+    <p class="weave-hero__descriptor">AI automation for growing businesses</p>
+  </div>
+  <div class="weave-hero__content">
+    <p class="weave-hero__eyebrow">Less repetition. More possibility.</p>
+    <div class="weave-hero__layout">
+      <h1 id="weave-headline">Make room for <span>better work.</span></h1>
+      <div class="weave-hero__intro">
+        <p class="weave-hero__copy"><strong>Your time is better spent moving your business forward.</strong> Weave helps automate repetitive work, so you can focus on what comes next.</p>
+        <!-- Integration target: connect this to the future contact section before launch. -->
+        <a class="weave-hero__cta" href="#contact">Let’s talk automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <p class="weave-hero__closing">More time for the work that matters.</p>
+</section>
+
+<!-- About / Story: Willie's section, intentionally deferred until the company story is ready. -->
 <div class="owned-elsewhere" role="note">
-  <p>HERO + ABOUT/STORY</p>
-  <p>Owned by Willie (branch <code>design/willie</code>) — renders here in the merged page.</p>
+  <p>ABOUT / STORY</p>
+  <p>Owned by Willie (branch <code>design/willie</code>) — coming soon.</p>
 </div>
-<!-- END Willie placeholder -->
+<!-- END About placeholder -->
 
 <!-- ============ SERVICES ============ -->
 <section id="services" aria-labelledby="services-title">
@@ -157,7 +174,7 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>&copy; <span>2026</span> [AGENCY NAME] — AI automation, built and monitored.</p>
+    <p>&copy; <span>2026</span> Weave — AI automation, built and monitored.</p>
   </div>
 </footer>
 
