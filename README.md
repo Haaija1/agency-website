@@ -1,7 +1,16 @@
-# Agency Website
+# Weave Agency Website
 
 Static marketing/portfolio site. Plain HTML/CSS/JS, no framework, no build step.
-Hosted on Vercel with automatic per-branch preview deploys.
+The website will be hosted using cPanel. GitHub stores the website source.
+
+## Current draft
+
+`index.html` contains Weave's responsive Hero section, with embedded CSS and the
+shared brand fonts and colours. It opens directly in a browser without a build.
+Google Fonts requires an internet connection; system fonts provide a fallback.
+
+The About/Story section is deferred until company content is ready. The Hero's
+contact button targets `#contact`; add the Contact section before launch.
 
 ## Branches & ownership split
 
@@ -42,4 +51,7 @@ npx serve .
 
 ## Deploy
 
-Push to any branch → Vercel auto-builds a preview URL. Push to `main` → production.
+Publish the approved `index.html` to the website's document root using cPanel.
+GitHub changes do not by themselves confirm a cPanel deployment; any automatic
+deployment integration must be configured separately. This repository update
+does not publish the draft to the live website.
