@@ -4,7 +4,7 @@ Static HTML and CSS; no build step. Based on HJ’s integrated design/dave versi
 
 ## Current page
 
-Hero, About, four services without public pricing, a clearly labelled illustrative workflow, and WhatsApp contact at +27 73 851 6860. The WhatsApp link opens a draft; it does not send a message automatically. No enquiry form, tracking scripts, or calendar booking is configured.
+Hero, About, four services without public pricing, a clearly labelled illustrative workflow, and WhatsApp contacts at +27 73 851 6860 and +27 76 400 9597. The WhatsApp link opens a draft; it does not send a message automatically. No enquiry form, tracking scripts, or calendar booking is configured.
 
 Unapproved payroll client claims and metrics were removed from the public page. The workflow example is illustrative, not a customer testimonial or measured result.
 
