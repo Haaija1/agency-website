@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body id="top">
 
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -23,7 +23,7 @@
     <nav class="site-nav" aria-label="Primary">
       <ul>
         <li><a href="#services">Services</a></li>
-        <li><a href="#case-study">Proof of work</a></li>
+        <li><a href="#case-study">Workflow example</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -52,92 +52,62 @@
   <p class="weave-hero__closing">More time for the work that matters.</p>
 </section>
 
-<!-- About / Story: Willie's section, intentionally deferred until the company story is ready. -->
-<div class="owned-elsewhere" role="note">
-  <p>ABOUT / STORY</p>
-  <p>Owned by Willie (branch <code>design/willie</code>) — coming soon.</p>
-</div>
-<!-- END About placeholder -->
+<section id="about" aria-labelledby="about-title">
+  <div class="wrap">
+    <p class="kicker">Why Weave</p>
+    <h2 id="about-title">Your tools should work <em>together.</em></h2>
+    <p class="lede">When a business grows, the work between its systems grows too: copying information, chasing updates, and checking the same details twice. Weave connects those steps so your team can spend more time on work that needs their judgement.</p>
+    <div class="proof">
+      <article class="proof-item"><p class="num" aria-hidden="true">01</p><div><h3>Start with the work</h3><p>We look at how your team works today, where information gets stuck, and which tasks are worth automating.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">02</p><div><h3>Build around your business</h3><p>We connect the tools you already use where practical. AI is an option when it helps; clear rules and simple integrations often do the job.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">03</p><div><h3>Keep people in control</h3><p>Approvals, exceptions, and handovers are part of the design. Your team should know what happens automatically and when someone needs to step in.</p></div></article>
+    </div>
+  </div>
+</section>
 
 <!-- ============ SERVICES ============ -->
 <section id="services" aria-labelledby="services-title">
   <div class="wrap">
     <p class="kicker">What We Do</p>
-    <h2 id="services-title">Four ways to work with us, <em>not one fixed project.</em></h2>
-    <p class="lede">Every engagement fits one of these tiers. Most clients move left to right — an audit first, an implementation second, and a retainer for as long as the system keeps running.</p>
+    <h2 id="services-title">Support for every stage <em>of your workflow.</em></h2>
+    <p class="lede">Start with the process you want to improve. We agree the scope, deliverables, and proposal with you before work begins.</p>
 
     <table class="ptable">
       <thead>
-        <tr><th scope="col">Tier</th><th scope="col">Price</th><th scope="col">What it is</th></tr>
+        <tr><th scope="col">Service</th><th scope="col">What it is</th></tr>
       </thead>
       <tbody>
         <tr>
           <td class="tier"><span class="n">01</span>Discovery &amp; Audit</td>
-          <td class="price">$1,500 – $3,000</td>
           <td class="desc">One-time. We map your actual process, find where automation genuinely helps, and hand you a roadmap — before you commit to a build.</td>
         </tr>
         <tr>
           <td class="tier"><span class="n">02</span>Implementation</td>
-          <td class="price">$5,000 – $15,000+</td>
-          <td class="desc">One-time. We design, build, test against your real data, and deploy. You get a working system, not a prototype.</td>
+          <td class="desc">We connect your tools, build the workflow, and test agreed scenarios with your team before rollout. Documentation and a clear handover are part of the work.</td>
         </tr>
         <tr>
           <td class="tier"><span class="n">03</span>Operations Retainer</td>
-          <td class="price">$1,000 – $3,000 / mo</td>
           <td class="desc">Ongoing. Monitoring, tuning, and reporting as your data and rules change. Automations left unmonitored drift — this is what keeps yours accurate.</td>
         </tr>
         <tr>
           <td class="tier"><span class="n">04</span>Hybrid / Licensing</td>
-          <td class="price">$5k–$12k setup + $500–$2k / mo</td>
-          <td class="desc">For repeatable problems across similar businesses — a proven template, customized and licensed to your operation.</td>
+          <td class="desc">For repeatable workflows, we assess whether a reusable solution can fit your operation, with configuration and ongoing support agreed upfront.</td>
         </tr>
       </tbody>
     </table>
-    <p class="ptable-note">Pricing shown reflects our standard ranges — every quote is scoped to your actual process during Discovery, not assumed in advance.</p>
+    <p class="ptable-note">Every project is scoped individually. <a href="#contact">Tell us about your workflow for a tailored proposal →</a></p>
   </div>
 </section>
 
-<!-- ============ CASE STUDY ============ -->
 <section id="case-study" aria-labelledby="case-study-title">
   <div class="wrap">
-    <div class="cs-head">
-      <div>
-        <p class="kicker">Proof Of Work</p>
-        <h2 id="case-study-title">Five scattered inputs, one error-checked payroll file <em>every month.</em></h2>
-      </div>
-      <p class="cs-status">Client details redacted pending sign-off</p>
-    </div>
-    <p class="lede">A multi-branch retail client was reconciling payroll by hand every month from WhatsApp messages, a shared spreadsheet, and a bank statement. We automated the consolidation — and while validating it against their own historical numbers, it caught a real commission-calculation error before it ever reached a payslip.</p>
-
+    <p class="kicker">Workflow Example</p>
+    <h2 id="case-study-title">From scattered updates to <em>one clear view.</em></h2>
+    <p class="lede">An illustrative workflow: bringing incoming job details, a shared tracker, and team updates together. This shows an approach we can discuss for your business, rather than a measured client result.</p>
     <div class="proof">
-      <article class="proof-item">
-        <p class="num" aria-hidden="true">01</p>
-        <div>
-          <h3>The problem</h3>
-          <p>Attendance came in as free-text WhatsApp replies from branch managers, hours lived in a shared spreadsheet, and commission depended on manually reading a bank statement — including subtracting refunds by hand. Small, silent errors were easy to miss until a payslip was already wrong.</p>
-        </div>
-      </article>
-      <article class="proof-item">
-        <p class="num" aria-hidden="true">02</p>
-        <div>
-          <h3>What we built</h3>
-          <p>A structured intake pipeline that files each input the moment it arrives, one tested calculation module per source, and a hard rule: anything the system wasn't 100% certain about got flagged for human review — never silently resolved.</p>
-        </div>
-      </article>
-      <article class="proof-item">
-        <p class="num" aria-hidden="true">03</p>
-        <div>
-          <h3>The result</h3>
-          <p>The automation caught a discrepancy in one branch's revenue figure — worth real money in the monthly commission payout — invisible until checked against independently verified numbers.</p>
-          <p class="caveat">Exact figures and client name withheld until the client signs off — see case-study-payroll-consolidation-DRAFT.md. Do not publish specifics before that happens.</p>
-        </div>
-      </article>
-    </div>
-
-    <div class="cs-stats">
-      <div class="cs-stat"><p class="n">62</p><p class="l">automated tests validating every calculation against real historical data</p></div>
-      <div class="cs-stat"><p class="n">0</p><p class="l">manual WhatsApp/spreadsheet reconciliation required per pay cycle</p></div>
-      <div class="cs-stat"><p class="n">1</p><p class="l">real commission error caught before it reached a payslip</p></div>
+      <article class="proof-item"><p class="num" aria-hidden="true">01</p><div><h3>Capture the details once</h3><p>A new enquiry or job arrives. The workflow collects the required details and uses a consistent reference to keep related information together.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">02</p><div><h3>Check before updating</h3><p>Required fields and duplicate entries are checked. Missing or unclear information is sent to a person for review before the record moves forward.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">03</p><div><h3>Give the team a shared view</h3><p>The agreed tracker is updated and the right person is notified. The team can see the next action without chasing the same update in several places.</p></div></article>
     </div>
   </div>
 </section>
@@ -147,36 +117,17 @@
   <div class="wrap">
     <p class="kicker">Get In Touch</p>
     <h2 id="contact-title">Tell us what's <em>actually</em> eating your team's time.</h2>
-    <p class="lede">A short call is enough to know if there's a real fit — no pitch deck required on your end.</p>
-
+    <p class="lede">Start with a WhatsApp conversation. Tell us which task takes too much time and what tools your team uses.</p>
     <div class="contact-grid">
       <div class="contact-card">
-        <h3>Book a discovery call</h3>
-        <p>15 minutes, no obligation. We'll ask about your process, not sell you a demo.</p>
-        <!-- REPLACE: calendar booking link (e.g. Calendly) -->
-        <a class="btn" href="#" data-placeholder="calendar-link">Book a call →</a>
+        <h3>Let’s look at your workflow</h3>
+        <p>A short description is enough to start. We’ll discuss the process, see whether there’s a fit, and agree the next step with you.</p>
+        <div class="contact-actions"><a class="btn" id="whatsapp-contact" href="https://wa.me/27738516860?text=Hi%20Weave%2C%20I%27d%20like%20to%20discuss%20automating%20a%20workflow." target="_blank" rel="noopener noreferrer">WhatsApp +27 73 851 6860 →</a>
+        <a class="btn secondary" href="https://wa.me/27764009597?text=Hi%20Weave%2C%20I%27d%20like%20to%20discuss%20automating%20a%20workflow." target="_blank" rel="noopener noreferrer">WhatsApp +27 76 400 9597 →</a></div><p class="contact-note">Choose either number to start a conversation. Opens WhatsApp; you choose when to send.</p>
       </div>
       <div class="contact-card">
-        <h3>Message us directly</h3>
-        <p>Prefer to write first? Send us the short version — WhatsApp if you want a fast reply, email if you'd rather attach the details.</p>
-        <div class="contact-actions">
-          <!-- REPLACE_WHATSAPP_NUMBER — international format, digits only, no + or spaces (e.g. 27821234567) -->
-          <a class="btn secondary" href="https://wa.me/REPLACE_WHATSAPP_NUMBER" rel="noopener" target="_blank">WhatsApp us →</a>
-          <!-- REPLACE_EMAIL_ADDRESS — the real inbox this should land in -->
-          <a class="btn secondary" href="mailto:REPLACE_EMAIL_ADDRESS">Email us →</a>
-        </div>
+        <h3>What to include</h3>
+        <ul class="contact-prompts"><li>The repetitive task you want to improve.</li><li>The tools or spreadsheets involved.</li><li>What a better process would look like.</li></ul>
+        <p class="contact-note">Please keep your first message general. Leave out passwords, customer records, and other sensitive details.</p>
       </div>
     </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="site-footer">
-  <div class="wrap">
-    <p>&copy; <span>2026</span> Weave — AI automation, built and monitored.</p>
-  </div>
-</footer>
-
-</body>
-</html>
