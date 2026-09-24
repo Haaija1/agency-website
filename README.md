@@ -9,6 +9,10 @@ The website will be hosted using cPanel. GitHub stores the website source.
 shared brand fonts and colours. It opens directly in a browser without a build.
 Google Fonts requires an internet connection; system fonts provide a fallback.
 
+The Hero's woven-thread background is a decorative inline SVG pattern
+(`aria-hidden`) built from the existing brand tokens. Its load-in motion is
+CSS-only and switches off under `prefers-reduced-motion`.
+
 The About/Story section is deferred until company content is ready. The Hero's
 contact button targets `#contact`; add the Contact section before launch.
 
