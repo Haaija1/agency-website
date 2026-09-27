@@ -4,9 +4,11 @@ Static HTML and CSS; no build step. Based on HJ’s integrated design/dave versi
 
 ## Current page
 
-Hero, About, four services without public pricing, a clearly labelled illustrative workflow, and WhatsApp contacts at +27 73 851 6860 and +27 76 400 9597. The WhatsApp link opens a draft; it does not send a message automatically. No enquiry form, tracking scripts, or calendar booking is configured.
+Hero, About, four services without public pricing, a case study of our real client work, and WhatsApp contacts at +27 73 851 6860 and +27 76 400 9597. The WhatsApp link opens a draft; it does not send a message automatically. No enquiry form, tracking scripts, or calendar booking is configured.
 
-Unapproved payroll client claims and metrics were removed from the public page. The workflow example is illustrative, not a customer testimonial or measured result.
+The case study covers our one delivered project so far, a multi-branch payroll consolidation. It is anonymised: no client name and no money figures until that client approves publication. It only states facts we can back up (62 automated tests, three input sources, one commission error caught). Add future projects as another `<article class="case">` in the same section.
+
+The Hero has a decorative woven-thread SVG and a CSS-only load animation; all motion switches off under `prefers-reduced-motion`.
 
 ## Preview
 

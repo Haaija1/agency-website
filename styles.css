@@ -28,7 +28,9 @@ body{
   background:var(--pbg);
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden; overflow-x:clip; /* lets the hero weave bleed past 1600px */
 }
+::selection{ background:var(--accent); color:var(--pbg); }
 
 a{ color:inherit; }
 img{max-width:100%; display:block;}
@@ -97,31 +99,46 @@ button:focus-visible{
 
 /* ==========================================================================
    Hero — owned by Willie (merged from design/willie via PR #1 / codex/weave-hero)
-   Extracted verbatim from his inline <style> block; only the duplicate
-   :root/base-reset rules were dropped since this stylesheet already defines
-   them. Do not restyle without coordinating with him first.
+   Polished in PR #3 (woven motif, load motion, responsive fixes); the
+   :root/base-reset rules live above. Coordinate with Willie before restyling.
    ========================================================================== */
-.weave-hero { max-width: 1600px; margin-inline: auto; padding: 2.5rem clamp(1.5rem, 5.5vw, 6rem) 3rem; }
-.weave-hero__identity { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); }
+.weave-hero { --gutter: clamp(1.5rem, 5.5vw, 6rem); --bleed: calc(var(--gutter) + max(0px, (100vw - 1600px) / 2)); --ease-out: cubic-bezier(.16, 1, .3, 1); display: flex; flex-direction: column; min-height: calc(100vh - 68px); min-height: calc(100svh - 68px); max-width: 1600px; margin-inline: auto; padding: 2.5rem var(--gutter) 3rem; }
+.weave-hero__identity { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); animation: weave-appear .8s ease backwards; }
 .weave-hero__wordmark { margin: 0; font: 700 2.5rem/1 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
 .weave-hero__wordmark span { color: var(--accent); }
 .weave-hero__descriptor { margin: 0; color: var(--muted); font: 400 .875rem/1.6 'IBM Plex Mono', monospace; }
-.weave-hero__content { padding-block: clamp(4rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem); }
-.weave-hero__eyebrow { display: flex; align-items: center; gap: .875rem; margin: 0 0 2.25rem; color: var(--muted); font: 500 .875rem/1.6 'IBM Plex Mono', monospace; }
-.weave-hero__eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); flex: 0 0 auto; }
+.weave-hero__content { position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(4rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem); }
+.weave-hero__weave { position: absolute; z-index: -1; top: 0; right: calc(-1 * var(--bleed)); width: calc(100% + var(--bleed)); height: 100%; color: var(--line); pointer-events: none; -webkit-mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); animation: weave-appear 1.6s .2s ease backwards; }
+.weave-hero__thread { fill: none; stroke: currentColor; stroke-width: 1; }
+.weave-hero__gap { fill: none; stroke: var(--pbg); stroke-width: 7; }
+.weave-hero__strand { stroke: var(--accent); stroke-width: 2; transform-box: fill-box; transform-origin: right; animation: weave-grow 1.8s .7s var(--ease-out) backwards; }
+.weave-hero__over { color: var(--muted-2); }
+.weave-hero__eyebrow { display: flex; align-items: center; gap: .875rem; margin: 0 0 2.25rem; color: var(--muted); font: 500 .875rem/1.6 'IBM Plex Mono', monospace; animation: weave-fade .8s .15s var(--ease-out) backwards; }
+.weave-hero__eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); flex: 0 0 auto; transform-origin: left; animation: weave-grow .9s .3s var(--ease-out) backwards; }
 .weave-hero__layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); align-items: end; gap: clamp(2rem, 5vw, 5rem); }
 .weave-hero h1 { margin: 0; max-width: 10ch; font: 600 clamp(3.75rem, 7.7vw, 7.75rem)/1.02 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
-.weave-hero h1 span { display: block; color: var(--accent); }
-.weave-hero__intro { padding-bottom: .375rem; }
+.weave-hero__line { display: block; animation: weave-mask 1.2s; }
+.weave-hero__line > span { display: block; animation: weave-rise 1s .2s var(--ease-out) backwards; }
+.weave-hero__line--accent { color: var(--accent); animation-duration: 1.3s; }
+.weave-hero__line--accent > span { animation-delay: .3s; }
+.weave-hero__intro { padding-bottom: .375rem; animation: weave-fade .9s .45s var(--ease-out) backwards; }
 .weave-hero__copy { margin: 0 0 2rem; max-width: 28ch; color: var(--muted); font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.6; }
 .weave-hero__copy strong { color: var(--ink); font-weight: 400; }
-.weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--accent); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--accent); transition: background-color .15s ease, border-color .15s ease; }
+.weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--accent); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--accent); transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
 .weave-hero__cta:hover { background: var(--ink); border-color: var(--ink); }
+.weave-hero__cta:active { transform: translateY(1px); }
 .weave-hero__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
-.weave-hero__cta svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; }
-.weave-hero__closing { margin: 0; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--muted); font: 400 .875rem/1.7 'IBM Plex Mono', monospace; }
-@media (min-width: 1000px) { .weave-hero { min-height: min(900px, 100svh); display: flex; flex-direction: column; } .weave-hero__content { flex: 1; display: flex; flex-direction: column; justify-content: center; } }
-@media (max-width: 760px) { .weave-hero { padding-top: 1.75rem; } .weave-hero__layout { grid-template-columns: 1fr; gap: 2.5rem; } .weave-hero h1 { font-size: clamp(3.25rem, 12vw, 5.75rem); } .weave-hero__copy { max-width: 35ch; } .weave-hero__content { padding-block: 3.75rem; } .weave-hero__eyebrow { margin-bottom: 1.5rem; } }
+.weave-hero__cta svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; transition: transform .2s var(--ease-out); }
+.weave-hero__cta:hover svg { transform: translateX(.25rem); }
+.weave-hero__closing { margin: 0; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--muted); font: 400 .875rem/1.7 'IBM Plex Mono', monospace; animation: weave-appear .8s .7s ease backwards; }
+@keyframes weave-appear { from { opacity: 0; } }
+@keyframes weave-fade { from { opacity: 0; transform: translateY(.75rem); } }
+@keyframes weave-rise { from { transform: translateY(105%); } }
+@keyframes weave-mask { from, to { clip-path: inset(-.25em -.25em 0); } }
+@keyframes weave-grow { from { transform: scaleX(0); } }
+@media (max-width: 999px) { .weave-hero__layout { grid-template-columns: 1fr; gap: 2.5rem; } .weave-hero h1 { font-size: clamp(3.25rem, 12vw, 5.75rem); } .weave-hero__copy { max-width: 35ch; } }
+@media (max-width: 760px) { .weave-hero { padding-top: 1.75rem; } .weave-hero__content { padding-block: 4.5rem 3.75rem; } .weave-hero__eyebrow { margin-bottom: 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { .weave-hero *, .weave-hero *::before { animation: none !important; transition: none !important; } }
 
 /* ---------- Services (structured tier table, not a card grid) ---------- */
 .ptable{ width:100%; border-collapse:collapse; margin-top:56px; }
@@ -156,6 +173,19 @@ button:focus-visible{
 .cs-stats{ display:flex; gap:56px; margin-top:48px; flex-wrap:wrap; }
 .cs-stat .n{ font-family:'Space Grotesk',sans-serif; font-size:2.5rem; font-weight:700; line-height:1.1; }
 .cs-stat .l{ font-size:13px; color:var(--muted); margin-top:6px; max-width:200px; line-height:1.4; }
+
+/* Project card: one per real client project. */
+.case{ margin-top:56px; padding:40px; background:var(--bg-2); border:1px solid var(--line); }
+.case-head{ display:grid; gap:12px; }
+.case-index{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+.case h3{ font-size:clamp(1.5rem, 2.6vw, 2rem); line-height:1.15; }
+.case-tags{ display:flex; flex-wrap:wrap; gap:8px; list-style:none; margin-top:4px; }
+.case-tags li{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:2px; }
+.case-summary{ margin-top:24px; font-size:1.075rem; line-height:1.65; color:var(--muted); max-width:760px; }
+.case .proof{ margin-top:32px; }
+.proof-item h4{ font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; margin-bottom:8px; }
+.case .cs-stats{ list-style:none; margin-top:40px; padding-top:32px; border-top:1px solid var(--line); }
+.case .cs-stat .n{ color:var(--accent); }
 
 /* ---------- Contact (two direct paths, not a form grid) ---------- */
 .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:48px; }
@@ -214,6 +244,7 @@ button:focus-visible{
   .proof-item .num{ font-size:26px; }
   .cs-stats{ gap:32px 40px; }
   .cs-stat .l{ max-width:240px; }
+  .case{ margin-top:40px; padding:28px 24px; }
 
   .contact-grid{ grid-template-columns:1fr; }
   .contact-card{ padding:32px 24px; }
@@ -244,6 +275,7 @@ button:focus-visible{
   .cs-stat{ flex:1 1 100%; }
   .cs-stat .n{ font-size:2rem; }
   .cs-stat .l{ max-width:none; }
+  .case{ padding:24px 18px; }
 
   .contact-card{ padding:28px 20px; }
   .contact-actions{ gap:10px; }

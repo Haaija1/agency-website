@@ -23,7 +23,7 @@
     <nav class="site-nav" aria-label="Primary">
       <ul>
         <li><a href="#services">Services</a></li>
-        <li><a href="#case-study">Workflow example</a></li>
+        <li><a href="#case-study">Case study</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -35,13 +35,31 @@
 <!-- ============ HERO — owned by Willie (merged from design/willie via codex/weave-hero) ============ -->
 <section class="weave-hero" aria-labelledby="weave-headline">
   <div class="weave-hero__identity">
-    <p class="weave-hero__wordmark" aria-label="Weave">weave<span aria-hidden="true">.</span></p>
+    <p class="weave-hero__wordmark">weave<span aria-hidden="true">.</span></p>
     <p class="weave-hero__descriptor">AI automation for growing businesses</p>
   </div>
   <div class="weave-hero__content">
+    <svg class="weave-hero__weave" aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="weave-cloth" width="64" height="64" patternUnits="userSpaceOnUse">
+          <path class="weave-hero__thread" d="M0 16h64M0 48h64"/>
+          <path class="weave-hero__gap" d="M16 0v64M48 0v64"/>
+          <path class="weave-hero__thread" d="M16 0v64M48 0v64"/>
+          <path class="weave-hero__gap" d="M6 16h20M38 48h20"/>
+          <path class="weave-hero__thread" d="M6 16h20M38 48h20"/>
+        </pattern>
+        <pattern id="weave-over" y="40" width="64" height="16" patternUnits="userSpaceOnUse">
+          <path class="weave-hero__gap" d="M16 0v16"/>
+          <path class="weave-hero__thread weave-hero__over" d="M16 0v16"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#weave-cloth)"/>
+      <line class="weave-hero__strand" x1="0" y1="48" x2="100%" y2="48"/>
+      <rect y="40" width="100%" height="16" fill="url(#weave-over)"/>
+    </svg>
     <p class="weave-hero__eyebrow">Less repetition. More possibility.</p>
     <div class="weave-hero__layout">
-      <h1 id="weave-headline">Make room for <span>better work.</span></h1>
+      <h1 id="weave-headline"><span class="weave-hero__line"><span>Make room for</span></span> <span class="weave-hero__line weave-hero__line--accent"><span>better work.</span></span></h1>
       <div class="weave-hero__intro">
         <p class="weave-hero__copy"><strong>Your time is better spent moving your business forward.</strong> Weave helps automate repetitive work, so you can focus on what comes next.</p>
         <!-- Integration target: connect this to the future contact section before launch. -->
@@ -99,16 +117,39 @@
   </div>
 </section>
 
+<!-- ============ CASE STUDY ============
+     Real client work only. Client names and money figures stay out until that
+     client approves publication. Add the next project as another <article class="case">. -->
 <section id="case-study" aria-labelledby="case-study-title">
   <div class="wrap">
-    <p class="kicker">Workflow Example</p>
-    <h2 id="case-study-title">From scattered updates to <em>one clear view.</em></h2>
-    <p class="lede">An illustrative workflow: bringing incoming job details, a shared tracker, and team updates together. This shows an approach we can discuss for your business, rather than a measured client result.</p>
-    <div class="proof">
-      <article class="proof-item"><p class="num" aria-hidden="true">01</p><div><h3>Capture the details once</h3><p>A new enquiry or job arrives. The workflow collects the required details and uses a consistent reference to keep related information together.</p></div></article>
-      <article class="proof-item"><p class="num" aria-hidden="true">02</p><div><h3>Check before updating</h3><p>Required fields and duplicate entries are checked. Missing or unclear information is sent to a person for review before the record moves forward.</p></div></article>
-      <article class="proof-item"><p class="num" aria-hidden="true">03</p><div><h3>Give the team a shared view</h3><p>The agreed tracker is updated and the right person is notified. The team can see the next action without chasing the same update in several places.</p></div></article>
-    </div>
+    <p class="kicker">Case Study</p>
+    <h2 id="case-study-title">Proof from real work, <em>not a mock-up.</em></h2>
+    <p class="lede">Automation we have built for a real business. Client names and financial figures stay private until the client approves publication.</p>
+
+    <article class="case" aria-labelledby="case-payroll-title">
+      <header class="case-head">
+        <p class="case-index">Project 01</p>
+        <h3 id="case-payroll-title">Multi-branch payroll consolidation</h3>
+        <ul class="case-tags" aria-label="Project details">
+          <li>Multi-branch retail</li>
+          <li>Payroll &amp; commission</li>
+          <li>Client name withheld</li>
+        </ul>
+      </header>
+      <p class="case-summary">A multi-branch retail business pulled its payroll together by hand every month from WhatsApp messages, a shared spreadsheet, and bank statements. We built an automation that consolidates all three, and while we tested it against the business’s own historical numbers, it caught a real commission error.</p>
+
+      <div class="proof">
+        <div class="proof-item"><p class="num" aria-hidden="true">01</p><div><h4>The problem</h4><p>Attendance arrived as free-text WhatsApp replies from branch managers, hours lived in a shared spreadsheet, and commission depended on reading a bank statement by hand, including subtracting refunds. Small errors were easy to miss until a payslip was already wrong.</p></div></div>
+        <div class="proof-item"><p class="num" aria-hidden="true">02</p><div><h4>What we built</h4><p>A structured intake that files each input as it arrives, a separately tested calculation step for each source, and one firm rule: anything the system isn’t certain about is flagged for a person to review, never silently guessed. The payroll output is always checked by a person.</p></div></div>
+        <div class="proof-item"><p class="num" aria-hidden="true">03</p><div><h4>The result</h4><p>Checked against the business’s own historical figures, the automation found a commission error in one branch’s numbers that had gone unnoticed, before it could reach a payslip.</p></div></div>
+      </div>
+
+      <ul class="cs-stats" aria-label="Project results">
+        <li class="cs-stat"><p class="n">62</p><p class="l">automated tests checking the calculations against real historical data</p></li>
+        <li class="cs-stat"><p class="n">3</p><p class="l">input sources brought into one consolidated payroll view</p></li>
+        <li class="cs-stat"><p class="n">1</p><p class="l">real commission error caught before it reached a payslip</p></li>
+      </ul>
+    </article>
   </div>
 </section>
 
@@ -131,3 +172,10 @@
         <p class="contact-note">Please keep your first message general. Leave out passwords, customer records, and other sensitive details.</p>
       </div>
     </div>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>
