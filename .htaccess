@@ -1,0 +1,67 @@
+# Weave: Apache settings for cPanel hosting. Upload next to index.html.
+# Blocks that depend on an Apache module are wrapped in <IfModule>, so a module
+# the host lacks is skipped rather than causing a 500 error. This file has not
+# been run on the live host yet: after uploading, load the site and the form. If
+# it shows a 500 error, rename this file to .htaccess.off to rule it out.
+
+# ---- Force HTTPS ------------------------------------------------------------
+# Switch on SSL for the domain in cPanel first (AutoSSL / Let's Encrypt).
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Decide once the final domain is confirmed, then uncomment one:
+  # www -> non-www
+  # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---- HSTS -------------------------------------------------------------------
+# Leave off until HTTPS works on every page and subdomain you use. Start with a
+# short max-age (300), raise it after a week, and only add includeSubDomains or
+# preload if you understand they are hard to undo.
+# <IfModule mod_headers.c>
+#   Header always set Strict-Transport-Security "max-age=300"
+# </IfModule>
+
+# ---- Small safety headers ---------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ---- Compression ------------------------------------------------------------
+# Text only; fonts (woff2) and images are already compressed.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript text/javascript application/json application/ld+json image/svg+xml
+</IfModule>
+
+# ---- Caching ----------------------------------------------------------------
+# Fonts never change under the same file name, so cache them for a year.
+# CSS and JS are not versioned in their file names, so keep them short-lived to
+# avoid visitors seeing an old stylesheet after a redeploy.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType text/javascript "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# ---- Keep private files private ---------------------------------------------
+<FilesMatch "^(contact-config(\.example)?\.php|README\.md)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Do not list folders if there is no index file.
+Options -Indexes
