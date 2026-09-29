@@ -1,0 +1,463 @@
+/* ==========================================================================
+   Weave site: shared stylesheet
+   Brand tokens are the ones agreed in README.md / the pitch deck. Don't add
+   new colors or fonts here; extend the token block below instead if something
+   genuinely new is needed, and write it down in the README.
+   Sections: Hero (Willie), Services / Process / Workflow example / Contact (HJ).
+   ========================================================================== */
+
+/* ---------- Fonts (self-hosted, latin subset; licences in assets/fonts) ---------- */
+@font-face{ font-family:'Space Grotesk'; font-weight:600; font-style:normal; font-display:swap; src:url('assets/fonts/space-grotesk-latin-600-normal.woff2') format('woff2'); }
+@font-face{ font-family:'Space Grotesk'; font-weight:700; font-style:normal; font-display:swap; src:url('assets/fonts/space-grotesk-latin-700-normal.woff2') format('woff2'); }
+@font-face{ font-family:'IBM Plex Sans'; font-weight:400; font-style:normal; font-display:swap; src:url('assets/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); }
+@font-face{ font-family:'IBM Plex Sans'; font-weight:500; font-style:normal; font-display:swap; src:url('assets/fonts/ibm-plex-sans-latin-500-normal.woff2') format('woff2'); }
+@font-face{ font-family:'IBM Plex Mono'; font-weight:400; font-style:normal; font-display:swap; src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face{ font-family:'IBM Plex Mono'; font-weight:500; font-style:normal; font-display:swap; src:url('assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); }
+
+/* ---------- Tokens ---------- */
+:root{
+  color-scheme:dark;
+  --pbg:#0c0d0a;
+  --bg-2:#121309;
+  --ink:#f3f1e8;
+  --muted:#9b9788;        /* body-size secondary text: 6.7:1 on --pbg */
+  --muted-2:#726e5f;      /* NOT for text (3.8:1). Field borders and decoration only. */
+  --accent:#ff6a35;
+  --accent-dim:#7a3018;   /* decoration only (2.1:1) */
+  --line:#2a2820;         /* decorative rules only; too faint for control borders */
+  --line-soft:#1c1c14;
+  --good:#8fb383;
+  --ease-out:cubic-bezier(.16, 1, .3, 1);
+  --header-h:69px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'IBM Plex Sans', system-ui, sans-serif;
+  color:var(--ink);
+  background:var(--pbg);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden; overflow-x:clip; /* the Hero's woven motif bleeds past the right edge */
+}
+::selection{ background:var(--accent); color:var(--pbg); }
+
+a{ color:inherit; }
+img{ max-width:100%; display:block; }
+.wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+.visually-hidden{ position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-.01em; }
+h2{ font-size:clamp(2rem, 4vw, 2.75rem); line-height:1.12; max-width:820px; }
+h2 em{ color:var(--accent); font-style:normal; }
+section{ padding:110px 0; border-top:1px solid var(--line-soft); }
+.lede{ font-size:1.15rem; color:var(--muted); max-width:640px; margin-top:20px; line-height:1.6; }
+
+.kicker{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); font-weight:500; margin-bottom:20px;
+  display:flex; align-items:center; gap:12px;
+}
+.kicker::before{ content:''; width:24px; height:2px; background:var(--accent); display:inline-block; flex:none; }
+
+/* ---------- Focus (shared baseline for every interactive element) ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
+/* Fallback for browsers without :focus-visible: keep focus always visible there. */
+@supports not selector(:focus-visible){
+  a:focus, button:focus, input:focus, textarea:focus{ outline:2px solid var(--accent); outline-offset:3px; }
+}
+
+.skip-link{
+  position:absolute; left:-9999px; top:0; z-index:10;
+  font-family:'IBM Plex Mono', monospace; font-size:14px;
+  background:var(--accent); color:var(--pbg);
+  padding:12px 20px; text-decoration:none;
+}
+.skip-link:focus{ left:16px; top:16px; }
+
+/* ---------- Shared header / nav ---------- */
+.site-header{
+  position:sticky; top:0; z-index:5;
+  background:rgba(12,13,10,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-soft);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:24px; min-height:68px; flex-wrap:wrap;
+}
+.brand{
+  font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:17px;
+  letter-spacing:-.01em; text-decoration:none;
+  display:inline-flex; align-items:center; min-height:44px;
+}
+.brand:hover{ color:var(--accent); }
+.site-nav ul{ display:flex; align-items:center; gap:8px; list-style:none; }
+.site-nav a{
+  display:inline-flex; align-items:center; min-height:44px; padding:0 14px;
+  font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.04em;
+  color:var(--muted); text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.site-nav a:hover{ color:var(--ink); border-bottom-color:var(--accent); }
+/* Persistent contact CTA */
+.site-nav a.nav-cta{ margin-left:8px; padding:0 18px; color:var(--pbg); background:var(--accent); border:1px solid var(--accent); border-radius:2px; font-weight:500; }
+.site-nav a.nav-cta:hover{ color:var(--pbg); background:var(--ink); border-color:var(--ink); }
+
+/* ==========================================================================
+   Hero (owned by Willie). The polished version from main: woven-thread
+   background, load-in motion, responsive fixes. Do not restyle without
+   coordinating with him first.
+   ========================================================================== */
+.weave-hero { --gutter: clamp(1.5rem, 5.5vw, 6rem); --bleed: calc(var(--gutter) + max(0px, (100vw - 1600px) / 2)); display: flex; flex-direction: column; min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); max-width: 1600px; margin-inline: auto; padding: 2.5rem var(--gutter) 3rem; border-top: 0; }
+.weave-hero__identity { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); animation: weave-appear .8s ease backwards; }
+.weave-hero__wordmark { margin: 0; font: 700 2.5rem/1 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
+.weave-hero__wordmark span { color: var(--accent); }
+.weave-hero__descriptor { margin: 0; color: var(--muted); font: 400 .875rem/1.6 'IBM Plex Mono', monospace; }
+.weave-hero__content { position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(4rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem); }
+.weave-hero__weave { position: absolute; z-index: -1; top: 0; right: calc(-1 * var(--bleed)); width: calc(100% + var(--bleed)); height: 100%; color: var(--line); pointer-events: none; -webkit-mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); animation: weave-appear 1.6s .2s ease backwards; }
+.weave-hero__thread { fill: none; stroke: currentColor; stroke-width: 1; }
+.weave-hero__gap { fill: none; stroke: var(--pbg); stroke-width: 7; }
+.weave-hero__strand { stroke: var(--accent); stroke-width: 2; transform-box: fill-box; transform-origin: right; animation: weave-grow 1.8s .7s var(--ease-out) backwards; }
+.weave-hero__over { color: var(--muted-2); }
+.weave-hero__eyebrow { display: flex; align-items: center; gap: .875rem; margin: 0 0 2.25rem; color: var(--muted); font: 500 .875rem/1.6 'IBM Plex Mono', monospace; animation: weave-fade .8s .15s var(--ease-out) backwards; }
+.weave-hero__eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); flex: 0 0 auto; transform-origin: left; animation: weave-grow .9s .3s var(--ease-out) backwards; }
+.weave-hero__layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); align-items: end; gap: clamp(2rem, 5vw, 5rem); }
+.weave-hero h1 { margin: 0; max-width: 10ch; font: 600 clamp(3.75rem, 7.7vw, 7.75rem)/1.02 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
+.weave-hero__line { display: block; animation: weave-mask 1.2s; }
+.weave-hero__line > span { display: block; animation: weave-rise 1s .2s var(--ease-out) backwards; }
+.weave-hero__line--accent { color: var(--accent); animation-duration: 1.3s; }
+.weave-hero__line--accent > span { animation-delay: .3s; }
+.weave-hero__intro { padding-bottom: .375rem; animation: weave-fade .9s .45s var(--ease-out) backwards; }
+.weave-hero__copy { margin: 0 0 2rem; max-width: 28ch; color: var(--muted); font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.6; }
+.weave-hero__copy strong { color: var(--ink); font-weight: 400; }
+.weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--accent); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--accent); transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
+.weave-hero__cta:hover { background: var(--ink); border-color: var(--ink); }
+.weave-hero__cta:active { transform: translateY(1px); }
+.weave-hero__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+.weave-hero__cta svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; transition: transform .2s var(--ease-out); }
+.weave-hero__cta:hover svg { transform: translateX(.25rem); }
+.weave-hero__closing { margin: 0; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--muted); font: 400 .875rem/1.7 'IBM Plex Mono', monospace; animation: weave-appear .8s .7s ease backwards; }
+@keyframes weave-appear { from { opacity: 0; } }
+@keyframes weave-fade { from { opacity: 0; transform: translateY(.75rem); } }
+@keyframes weave-rise { from { transform: translateY(105%); } }
+@keyframes weave-mask { from, to { clip-path: inset(-.25em -.25em 0); } }
+@keyframes weave-grow { from { transform: scaleX(0); } }
+@media (max-width: 999px) { .weave-hero__layout { grid-template-columns: 1fr; gap: 2.5rem; } .weave-hero h1 { font-size: clamp(3.25rem, 12vw, 5.75rem); } .weave-hero__copy { max-width: 35ch; } }
+@media (max-width: 760px) { .weave-hero { padding-top: 1.75rem; } .weave-hero__content { padding-block: 4.5rem 3.75rem; } .weave-hero__eyebrow { margin-bottom: 1.5rem; } }
+@media (max-width: 480px) { .weave-hero__cta { gap: 1rem; padding-inline: 1rem; } }
+@media (prefers-reduced-motion: reduce) { .weave-hero *, .weave-hero *::before { animation: none !important; transition: none !important; } }
+
+/* ==========================================================================
+   The Thread. The brand's W stroke as a line that runs down the page.
+   Each section that joins it carries a `threaded` class and one
+   `.thread-node` link at the top; the line itself is drawn by the section's
+   ::before. Sections own their own segment, so nothing has to line up across
+   sections. The last one adds `threaded--end` so the line stops at its node.
+
+   Motion is progressive: scroll-driven where supported, an IntersectionObserver
+   transition (site.js) elsewhere, and fully drawn with no motion at all when
+   the visitor prefers reduced motion or JavaScript is off.
+   ========================================================================== */
+.threaded{ --thread-x:max(16px, calc((100% - 1180px) / 2 + 32px - 44px)); --thread-node-y:107px; position:relative; }
+.threaded::before{
+  content:''; position:absolute; z-index:0; top:0; bottom:0;
+  left:calc(var(--thread-x) - 1px); width:2px;
+  background:var(--accent); transform-origin:top;
+}
+.threaded--end::before{ bottom:auto; height:calc(var(--thread-node-y) + 14px); }
+.threaded > .wrap{ position:relative; z-index:1; }
+
+.thread-node{
+  position:absolute; z-index:2; top:var(--thread-node-y); left:calc(var(--thread-x) - 14px);
+  display:grid; place-items:center; width:28px; height:28px;
+  border-radius:50%; background:var(--pbg); border:1px solid var(--accent-dim);
+  color:var(--accent); text-decoration:none;
+  transition:border-color .18s ease, background-color .18s ease;
+}
+.thread-node:hover{ border-color:var(--accent); background:var(--bg-2); }
+.thread-node svg{ width:18px; height:14px; overflow:visible; }
+.thread-node path{ fill:none; stroke:currentColor; stroke-width:3; stroke-linecap:square; stroke-linejoin:miter; stroke-dasharray:1; stroke-dashoffset:0; }
+
+@media (prefers-reduced-motion: no-preference){
+  /* Scroll-driven draw: the line's front follows the scroll, staying near
+     the lower third of the viewport. */
+  @supports (animation-timeline: view()){
+    .threaded{ view-timeline:--thread block 0px 30%; }
+    .threaded::before{ animation:thread-draw linear both; animation-timeline:--thread; animation-range:entry 0% entry 100%; }
+    .thread-node path{ animation:thread-stitch linear both; animation-timeline:--thread; animation-range:entry 0% entry 18%; }
+  }
+  /* Fallback (e.g. stable Firefox): site.js adds .thread-io to <html> and
+     .is-drawn to each section as it scrolls into view. */
+  .thread-io .threaded::before{ transform:scaleY(0); transition:transform 1.4s var(--ease-out); }
+  .thread-io .threaded.is-drawn::before{ transform:scaleY(1); }
+  .thread-io .thread-node path{ stroke-dashoffset:1; transition:stroke-dashoffset .9s .35s var(--ease-out); }
+  .thread-io .threaded.is-drawn .thread-node path{ stroke-dashoffset:0; }
+}
+@keyframes thread-draw{ from{ transform:scaleY(0); } to{ transform:scaleY(1); } }
+@keyframes thread-stitch{ from{ stroke-dashoffset:1; } to{ stroke-dashoffset:0; } }
+
+/* ---------- Services (structured tier table, not a card grid) ---------- */
+.ptable{ width:100%; border-collapse:collapse; margin-top:56px; }
+.ptable th{
+  text-align:left; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--muted); font-weight:500; padding:0 24px 16px 0;
+  border-bottom:1px solid var(--line);
+}
+.ptable td{ padding:26px 24px 26px 0; border-bottom:1px solid var(--line-soft); vertical-align:top; }
+.ptable tr:last-child td{ border-bottom:none; }
+.ptable .tier{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:19px; }
+.ptable .tier .n{ color:var(--accent); font-family:'IBM Plex Mono',monospace; font-size:14px; margin-right:10px; }
+.ptable .desc{ color:var(--muted); font-size:15px; line-height:1.6; max-width:440px; }
+.ptable-note{ margin-top:28px; font-size:14px; color:var(--muted); max-width:760px; }
+
+/* ---------- Process: four steps, each with something to show, plus the risk band ---------- */
+.steps{ list-style:none; display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:32px; margin-top:56px; }
+.step{ border-top:1px solid var(--line); padding-top:24px; display:flex; flex-direction:column; }
+.step .step-n{ font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500; color:var(--accent); margin-bottom:14px; }
+.step h3{ font-size:20px; line-height:1.25; margin-bottom:10px; }
+.step p{ font-size:15px; line-height:1.65; color:var(--muted); }
+.step-out{ margin-top:auto; padding-top:18px; }
+.step-out p{ margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); color:var(--ink); font-size:14px; }
+.step-out span{ display:block; margin-bottom:4px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+
+/* Where subgrid is supported, line the "You get" blocks up across columns. */
+@supports (grid-template-rows: subgrid){
+  .steps{ row-gap:0; }
+  .step{ display:grid; grid-row:span 4; grid-template-rows:subgrid; padding-bottom:40px; }
+  .step-out{ margin-top:0; align-self:start; }
+  .steps + .assure{ margin-top:32px; }
+}
+
+.assure{ margin-top:72px; padding:36px 40px; background:var(--bg-2); border:1px solid var(--line); }
+.assure h3{ font-size:22px; }
+.assure-intro{ margin-top:8px; color:var(--muted); font-size:15px; max-width:620px; }
+.assure-list{ list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:28px 48px; margin-top:28px; }
+.assure-list li{ display:grid; grid-template-columns:22px 1fr; gap:14px; align-items:start; }
+.assure-list svg{ width:22px; height:22px; margin-top:2px; color:var(--accent); }
+.assure-list strong{ display:block; font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:600; margin-bottom:4px; }
+.assure-list p{ font-size:15px; line-height:1.6; color:var(--muted); }
+
+/* ---------- Workflow example (editorial proof items + "Show the week") ---------- */
+.proof{ display:flex; flex-direction:column; margin-top:48px; }
+.proof-item{
+  display:grid; grid-template-columns:70px 1fr; gap:28px;
+  padding:28px 0; border-top:1px solid var(--line-soft);
+}
+.proof-item .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:32px; color:var(--accent); opacity:.7; line-height:1.2; } /* --accent-dim was 2.1:1; this is about 3.8:1 */
+.proof-item h3{ font-size:20px; margin-bottom:8px; }
+.proof-item p{ font-size:16px; line-height:1.65; color:var(--muted); max-width:760px; }
+
+/* Reserved for the real case study once the client signs off: a name shown as
+   a redaction bar, e.g. <span class="redacted">Client name withheld</span>. */
+.redacted{ display:inline-block; padding:0 .6em; background:var(--ink); color:var(--pbg); font-family:'IBM Plex Mono',monospace; font-size:.85em; line-height:1.5; }
+
+.week{ margin-top:56px; padding:32px 36px 28px; background:var(--bg-2); border:1px solid var(--line); }
+.week-head{ display:flex; align-items:center; justify-content:space-between; gap:16px 32px; flex-wrap:wrap; }
+.week-head h3{ font-size:22px; }
+.week-sub{ margin-top:6px; font-size:14px; color:var(--muted); max-width:520px; }
+.switch{
+  display:inline-flex; align-items:center; gap:14px; min-height:44px; padding:0 4px;
+  background:none; border:0; color:var(--muted); cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; letter-spacing:.04em;
+}
+.switch[hidden]{ display:none; }
+.switch-track{ position:relative; flex:none; width:52px; height:28px; background:var(--pbg); border:1px solid var(--muted-2); border-radius:14px; }
+.switch-track::after{ content:''; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:var(--muted); }
+.switch[aria-checked="true"] .switch-track::after{ transform:translateX(24px); background:var(--accent); }
+.switch .sw-before, .switch[aria-checked="true"] .sw-after{ color:var(--ink); }
+.switch[aria-checked="true"] .sw-before{ color:var(--muted); }
+.week-table{ width:100%; margin-top:20px; border-collapse:collapse; }
+.week-table th, .week-table td{ padding:16px 0; border-top:1px solid var(--line-soft); vertical-align:top; text-align:left; }
+.week-table thead th{ padding:0 0 12px; border-top:0; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.week-table tbody th{ width:64px; padding-right:16px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; color:var(--muted); }
+.lane + .lane{ margin-top:14px; }
+.js .lane + .lane{ margin-top:0; } /* only one lane is shown at a time */
+.lane-tag{ display:block; margin-bottom:4px; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+.lane-what{ font-size:15px; line-height:1.5; }
+.bar-track{ height:8px; margin-top:10px; background:var(--line); }
+.bar{ display:block; height:100%; background:var(--accent); transform-origin:left; transform:scaleX(var(--w)); }
+.lane[data-lane="after"] .bar{ background:var(--good); }
+.week-note{ margin-top:16px; padding-top:16px; border-top:1px solid var(--line-soft); font-size:13px; color:var(--muted); }
+/* With JavaScript the two lanes become one toggled view; without it both stay readable. */
+.js .week[data-state="before"] .lane[data-lane="after"],
+.js .week[data-state="after"] .lane[data-lane="before"]{ display:none; }
+@media (prefers-reduced-motion: no-preference){
+  .switch-track::after{ transition:transform .25s var(--ease-out), background-color .25s ease; }
+  .js .week .bar{ animation:bar-in .7s var(--ease-out) both; }
+  .js .week tbody tr:nth-child(2) .bar{ animation-delay:.06s; }
+  .js .week tbody tr:nth-child(3) .bar{ animation-delay:.12s; }
+  .js .week tbody tr:nth-child(4) .bar{ animation-delay:.18s; }
+  .js .week tbody tr:nth-child(5) .bar{ animation-delay:.24s; }
+}
+@keyframes bar-in{ from{ transform:scaleX(0); } }
+
+/* ---------- Contact (form first, WhatsApp as the other direct path) ---------- */
+.contact-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:48px; }
+.contact-card{ background:var(--pbg); padding:40px; }
+.contact-card--form{ grid-row:span 2; }
+.contact-card h3{ font-size:18px; margin-bottom:12px; }
+.contact-card p{ font-size:15px; color:var(--muted); margin-bottom:20px; line-height:1.6; }
+.contact-actions{ display:flex; flex-wrap:wrap; gap:12px; }
+.contact-prompts{ padding-left:20px; color:var(--muted); font-size:15px; }
+.contact-prompts li + li{ margin-top:10px; }
+.contact-card .contact-note{ margin-top:24px; margin-bottom:0; font-size:13px; }
+.contact-card .contact-next{ margin-top:24px; margin-bottom:0; padding-top:20px; border-top:1px solid var(--line-soft); }
+.contact-next strong{ color:var(--ink); font-weight:500; }
+
+.field{ display:grid; gap:8px; margin-bottom:22px; }
+.field label{ font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; letter-spacing:.04em; line-height:1.4; }
+.field input, .field textarea{
+  width:100%; min-height:48px; padding:12px 14px;
+  font:400 16px/1.5 'IBM Plex Sans', system-ui, sans-serif; color:var(--ink);
+  background:var(--bg-2); border:1px solid var(--muted-2); border-radius:2px;
+}
+.field textarea{ min-height:150px; resize:vertical; }
+.field input:hover, .field textarea:hover{ border-color:var(--muted); }
+.field input:focus-visible, .field textarea:focus-visible{ outline-offset:2px; border-color:var(--ink); }
+.field [aria-invalid="true"]{ border-color:var(--accent); }
+.field-hint{ font-size:13px; line-height:1.5; color:var(--muted); margin:0; }
+.field-error{ display:flex; gap:8px; margin:0; font-size:14px; line-height:1.5; color:var(--ink); }
+.field-error::before{ content:'!'; flex:none; display:grid; place-items:center; width:18px; height:18px; margin-top:1px; border-radius:50%; background:var(--accent); color:var(--pbg); font:500 12px/1 'IBM Plex Mono',monospace; }
+.field-error[hidden]{ display:none; }
+/* Honeypot: off-screen, out of the tab order and hidden from assistive tech. */
+.hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.form-status{ margin-top:18px; margin-bottom:0; min-height:1.6em; font-size:15px; color:var(--muted); }
+.form-status[data-state="ok"]{ color:var(--good); }
+.form-status[data-state="error"]{ color:var(--ink); padding-left:12px; border-left:2px solid var(--accent); }
+
+.btn{
+  display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace;
+  font-size:14px; letter-spacing:.02em; color:var(--pbg); background:var(--accent);
+  padding:12px 20px; min-height:44px; border-radius:2px; font-weight:500; text-decoration:none;
+  border:1px solid var(--accent); cursor:pointer; appearance:none; -webkit-appearance:none;
+  transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+.btn:hover{ background:var(--ink); border-color:var(--ink); color:var(--pbg); }
+.btn:active{ transform:translateY(1px); }
+.btn[disabled]{ opacity:.6; cursor:progress; }
+.btn.secondary{ background:transparent; color:var(--ink); border:1px solid var(--muted-2); }
+.btn.secondary:hover{ background:transparent; color:var(--accent); border-color:var(--accent); }
+
+/* ---------- Footer ---------- */
+.site-footer{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:8px 28px;
+  padding:48px 24px; text-align:center; border-top:1px solid var(--line-soft);
+  font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted);
+}
+.site-footer a{ text-decoration:none; border-bottom:1px solid var(--muted-2); }
+.site-footer a:hover{ color:var(--accent); border-bottom-color:var(--accent); }
+
+/* Anchor clearance under the sticky header. */
+section[id], main[id]{ scroll-margin-top:90px; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* --- Room for the Thread's gutter once the page is narrower than the wrap + gutter --- */
+@media (max-width: 1240px){
+  .threaded > .wrap{ padding-left:50px; }
+}
+
+/* --- Tablet (~1000px and down) --- */
+@media (max-width: 1000px){
+  .steps{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:40px 32px; }
+}
+
+/* --- Tablet (~768px and down) --- */
+@media (max-width: 768px){
+  .wrap{ padding:0 24px; }
+  .threaded > .wrap{ padding-left:46px; }
+  section{ padding:70px 0; }
+  .threaded{ --thread-node-y:67px; }
+
+  .header-inner{ min-height:60px; }
+  .site-nav a{ padding:0 10px; }
+
+  /* The services table stops being a table and becomes one stacked block per tier. */
+  .ptable, .ptable tbody, .ptable tr, .ptable td{ display:block; }
+  .ptable{ margin-top:36px; border-top:1px solid var(--line); }
+  .ptable thead{ display:none; }
+  .ptable tr{ padding:24px 0; border-bottom:1px solid var(--line-soft); }
+  .ptable tr:last-child{ border-bottom:none; }
+  .ptable td{ padding:0; border:none; }
+  .ptable .tier{ font-size:18px; }
+  .ptable .desc{ margin-top:10px; max-width:none; }
+
+  .assure{ padding:28px 24px; margin-top:56px; }
+  .assure-list{ grid-template-columns:1fr; gap:24px; }
+
+  .proof-item{ grid-template-columns:52px 1fr; gap:18px; }
+  .proof-item .num{ font-size:26px; }
+
+  .week{ padding:24px 20px 20px; margin-top:44px; }
+  .week-table, .week-table tbody, .week-table tr, .week-table th, .week-table td{ display:block; }
+  .week-table thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  .week-table tr{ padding:14px 0; border-top:1px solid var(--line-soft); }
+  .week-table th, .week-table td{ padding:0; border:0; }
+  .week-table tbody th{ width:auto; margin-bottom:6px; }
+
+  .contact-grid{ grid-template-columns:1fr; }
+  .contact-card--form{ grid-row:auto; }
+  .contact-card{ padding:32px 24px; }
+}
+
+/* --- Small screens: keep the header on one row --- */
+@media (max-width: 560px){
+  .site-nav .nav-optional{ display:none; }
+  .site-nav a{ padding:0 8px; font-size:12px; }
+  .site-nav a.nav-cta{ padding:0 14px; margin-left:4px; }
+}
+
+/* --- Mobile (~420px and down) --- */
+@media (max-width: 420px){
+  .wrap{ padding:0 20px; }
+  .threaded > .wrap{ padding-left:42px; }
+  section{ padding:56px 0; }
+  .threaded{ --thread-node-y:53px; }
+
+  .header-inner{ gap:8px; padding-top:4px; padding-bottom:4px; }
+  .brand{ font-size:15px; }
+  .site-nav ul{ gap:0; }
+  .site-nav a{ padding:0 6px; font-size:11px; letter-spacing:0; }
+  .site-nav a.nav-cta{ padding:0 12px; }
+
+  .kicker{ font-size:12px; letter-spacing:.14em; margin-bottom:14px; }
+  .lede{ font-size:1.05rem; }
+
+  .steps{ grid-template-columns:1fr; gap:32px; }
+
+  .ptable tr{ padding:22px 0; }
+  .ptable .desc{ font-size:14px; }
+
+  /* Number and body stack instead of sitting in a narrow 2-column grid. */
+  .proof-item{ grid-template-columns:1fr; gap:6px; padding:24px 0; }
+  .proof-item .num{ font-size:22px; }
+  .proof-item p{ font-size:15px; }
+
+  .switch{ gap:10px; font-size:12px; }
+
+  .contact-card{ padding:28px 20px; }
+  .contact-actions{ gap:10px; }
+  /* Full-width tap targets: easier to hit than side-by-side buttons at this width. */
+  .contact-actions .btn, .contact-card > .btn, .contact-form .btn{ width:100%; justify-content:center; }
+}
+
+/* --- Respect reduced-motion preferences everywhere else --- */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *, *::before, *::after{ animation:none !important; transition:none !important; }
+}

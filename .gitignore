@@ -3,3 +3,6 @@ Thumbs.db
 node_modules/
 .vercel
 *.log
+
+# Holds the real recipient address; created on the server from contact-config.example.php
+contact-config.php
