@@ -1,6 +1,6 @@
 # Weave site research: features worth borrowing
 
-Research only. No site code was changed. First written 2026-09-29 from search summaries; updated the same day after checking the key claims against primary sources, and again with the South African competitor scan (R1) and your Solare reference (R5).
+Research only. No site code was changed. First written 2026-09-29 from search summaries; updated the same day after checking the key claims against primary sources, again with the South African competitor scan (R1) and your Solare reference (R5), and a third time to record your answers, merge the build branch's own status report, and add draft wording (Appendix A).
 
 ## 0. Method and limits (read first)
 
@@ -37,7 +37,7 @@ Research only. No site code was changed. First written 2026-09-29 from search su
 
 ## 1. Where the site is today (observed in `index.html`)
 
-This describes `main`. A build on another branch has since added the rest of the page; see 5.2.
+This describes the hero-only page this branch started from. `main` and a build branch have since added the rest of the page; see 5.2.
 
 - One section: the Hero. Dark palette, Space Grotesk / IBM Plex, orange accent. Already mobile-aware (`clamp()`, `100svh`, a 760px breakpoint) and guards the CTA transition with `prefers-reduced-motion`.
 - No nav, footer or other sections. The CTA points at `#contact`, which doesn't exist yet.
@@ -143,13 +143,19 @@ This describes `main`. A build on another branch has since added the rest of the
 
 **What I could not see:** colours, type styling and motion. Page text doesn't show them.
 
-**What might transfer to Weave** (J, until you tell me what you love about it):
+**What press coverage adds** (not the site itself; [The Brand Identity](https://the-brandidentity.com/typeface/beauty-will-save-us-solare-a-variable-typeface-by-nikolas-type-is-simply-drop-dead-gorgeous)): the site is described as "an entire evocative world" with a luxury, editorial feel, with Helmut Newton photography and Chanel adverts named as inspiration. Hovering over text makes words shapeshift between weights, and an "intensity" meter makes the letters denser and brings in exaggerated serifs. Wrobel's own line: "it gets louder and wilder when you drive it, but looks elegant from the outside." An [Abduzeedo](https://abduzeedo.com/sans-serif-typeface-solare-and-integration-grotesque-form-and-serif-grace) piece describes the typeface's identity as gold and white with glass letter sculptures and "a modular grid" with "ample negative space"; it isn't confirmed to be the website.
 
-- **A weight-shifting headline.** Space Grotesk has a weight axis of 300–700 (verified), so one word, say "weave", could thicken on scroll or hover in CSS. The current build self-hosts static 600 and 700 files, so this needs the variable file, checked against the performance budget.
-- **A hands-on moment instead of a hero video**, like the type tester. The "Show the week" toggle is already this kind of thing.
-- **A personal voice.** Solare's copy is warm and specific; a founder line in an About section could do the same.
+**You said you love everything, so here is what each part could become for Weave (J):**
 
-Question Q2 in 5.3 asks what you love about it.
+| What you like | Source | Weave translation | Effort |
+|---|---|---|---|
+| Words shapeshifting between weights | Press: hover on text passages | The word "weave" in the headline thickens on hover or scroll. Space Grotesk has a weight axis of 300–700 (verified) | S–M (needs the variable font file) |
+| The intensity meter and type tester | Page text and press | A "hand-over dial": a slider from a small first automation to a fuller system that adds threads to a workflow drawing as you move it; ties to the four tiers once they're defined | M |
+| Characters that react on hover | Page text | The W-mark beads on the Thread wiggle or light up on hover | S |
+| The warm, personal voice | Page text | A founder line in About; plainer, warmer copy | S |
+| "An entire world" and the pacing | Press | One idea per screen and generous negative space; the build already follows "one motion idea per section" | S |
+
+I still can't see the colours, type styling or motion. If you share two or three screenshots of the moments you love, I can be more precise.
 
 ## 3. South Africa (and beyond)
 
@@ -195,7 +201,7 @@ You said the market is mainly South Africa, with the door open elsewhere. That c
 | Feature | Seen on | Why it works | Effort | Impact | Section |
 |---|---|---|---|---|---|
 | Low-risk first step (a small paid pilot or free audit) as the front door | AutomateNexus "$500 Pilot" and free audit; CodLinex $299 audit; AY Automate free 30-minute call (all verified) | Lets a cautious SMB start small; every verified competitor does it | S | High | Services (Haaija) |
-| Tier ladder: "from" price or range, what's included, "best for" line | CodLinex, AutomateNexus, AY Automate (verified) | Pre-qualifies leads; every verified competitor shows numbers. Needs your pricing decision (Q1 in 5.3) | S | High | Services (Haaija) |
+| Tier ladder: "from" price or range, what's included, "best for" line | CodLinex, AutomateNexus, AY Automate (verified) | Pre-qualifies leads; every verified competitor shows numbers. You decided: no numbers for now, so this waits for real tiers; use the pricing note in A.3 meanwhile | S | High | Services (Haaija) |
 | Pricing-model explainer without a price list: fixed price per project, a proposal deadline, typical timelines | Ezemind AI (ZAR; verified) | Gives cautious buyers something concrete without publishing numbers; an alternative to a tier ladder | S | Med–High | Services (Haaija) |
 | "How it works" strip: 3–5 steps, each with a deliverable, plus a time-to-live | AutomateNexus "Five phases. Thirty days to live."; AY Automate 4 steps; CodLinex 3 steps (verified) | Makes the unknown concrete | S | High | Services (Haaija) |
 | Risk-reversal band: you own it, a real pilot not a demo, guarantee | AutomateNexus rent-vs-own, AY Automate "not a demo", CodLinex 30-day guarantee (verified) | Addresses the biggest SMB fear. Copy must match Weave's real terms | S | High | Services (Haaija) |
@@ -242,7 +248,7 @@ You said the market is mainly South Africa, with the door open elsewhere. That c
 
 1. **A working contact path.** A WhatsApp button, a 3–4 field form with a spam-safe PHP handler, the POPIA notice and "what happens next" copy, with Calendly opening on click. Every CTA points at `#contact`. Effort S–M.
 2. **"How it works" plus a risk-reversal band plus a low-risk first step.** Copy-heavy, cheap, and the pattern all four verified competitors share. Effort S.
-3. **The tier ladder or an Ezemind-style pricing explainer.** Needs your pricing decision (Q1 in 5.3). Effort S.
+3. **An Ezemind-style "how pricing works" note** (your decision: no numbers for now; draft in A.3). The tier ladder waits for real tiers. Effort S.
 4. **A half-day foundation bundle:** self-hosted fonts, head/social/JSON-LD basics, `.htaccess`, and a written performance budget with a mobile weight cap. Effort S.
 5. **Contrast and motion baseline:** retire `--muted-2` for body text, use 3:1 borders on inputs, and set the reduced-motion rule once for the whole site. Effort S.
 
@@ -260,7 +266,7 @@ You said the market is mainly South Africa, with the door open elsewhere. That c
 - One inline `<svg aria-hidden="true">` path with `pathLength="1"`, `stroke-dasharray: 1`, `stroke-dashoffset: 1`. Drive `stroke-dashoffset` to 0 with `animation-timeline: view()` inside `@supports (animation-timeline: view())`. Reference: [scroll-driven SVG stroke draw](https://codefronts.com/motion/css-scroll-animations/scroll-driven-svg-stroke-draw/).
 - Fallback where the feature is missing (Firefox stable): an IntersectionObserver adds a class and a CSS transition draws the segment on entry (about 20 lines).
 - `@media (prefers-reduced-motion: reduce)`: render the line fully drawn, with no animation.
-- **Single page, shared files in `assets/`** (your decisions): put the thread's CSS and JS in `assets/`, and build it as per-section segments, not one giant path. MindMarket hand-placed its SVGs per breakpoint, and one path that has to line up with every section at every width is where this idea gets expensive. Each section owner adds one `<svg class="thread-seg">` at the top of their section, so the README's ownership split still holds. On mobile, collapse to a straight line in the left gutter.
+- **Single page, CSS and JS in the root** (your decisions; the build already does this): build it as per-section segments, not one giant path. MindMarket hand-placed its SVGs per breakpoint, and one path that has to line up with every section at every width is where this idea gets expensive. Each section owner adds one `.thread-node` at the top of their section, so the README's ownership split still holds. On mobile, collapse to a straight line in the left gutter. (Built this way on the other branch.)
 - Don't add a smooth-scroll library. MindMarket used Locomotive Scroll, but NN/g found scroll-speed manipulation disorienting, worse on mobile.
 - `stroke-dashoffset` repaints each frame, so keep to one or two animated paths at a time.
 - If the nodes act as navigation, make them real `<a href="#services">` links with visible focus styles.
@@ -300,67 +306,99 @@ You said the market is mainly South Africa, with the door open elsewhere. That c
 
 ## 5. Decisions and status
 
-### 5.1 Your answers so far
+### 5.1 Your answers
 
-| Code | Your answer | Status |
+| Item | Your answer | Status |
 |---|---|---|
+| Earlier | One scrolling page; Calendly for booking; exact Eyecatchers figures approved; tiers as placeholders; research only from this pass on | Applied where noted |
 | R1 | Yes: South African competitor scan | Done: section 2.4 |
-| R5 | casadisolare.com, "love it" | Done: section 2.5; see Q2 |
-| D1 | "That's good" (my ★ option: "from" prices for lower tiers, "scoped after the audit" for the top tier, plus a low-priced first step in ZAR) | **Conflicts with the current build** (no public pricing); see Q1 |
-| D2 | OK: client name redacted, approved exact figures shown | Redaction style is built; the figures are still needed from you |
-| D3 | Yes: WhatsApp button, short form, Calendly opening on click | WhatsApp (two numbers) and the form are built; **Calendly is not** |
+| R5 | casadisolare.com, "love it" | Done: section 2.5 |
+| D1 | "That's good" (my option: "from" prices, a low-priced first step) | Superseded by Q1 below |
+| Q1 | My recommendation: no numbers on the page for now, plus a "how pricing works" note | Draft in A.3; **not built** |
+| Q2 | Everything about Solare | Table in 2.5 |
+| Q3 | CSS and JS stay in the root | Matches the build |
+| Q4 | Yes: describe what we do, link a Privacy page, don't claim "POPIA compliant" until reviewed | Draft in A.1 and A.2; **not built** |
+| Q5 | Yes: reconcile the two copies of this file | Done here; see 5.6 |
+| D2 | Client name redacted, approved exact figures shown | The figures are still needed from you; the `.redacted` style exists but is unused |
+| D3 | WhatsApp button, short form, Calendly opening on click | WhatsApp and the form are built; **Calendly is not** (spec in A.4) |
 | D4 | My default: result first, then "send me this plan" | For later; the readiness score isn't built |
 | D5 | My default: ZAR with an optional USD toggle | Matters once prices are shown |
-| D6 | Yes: POPIA notice, Privacy page, unticked newsletter box, "to show we know our stuff" | **Not built yet**; see Q4 for the wording |
+| D6 | POPIA notice, Privacy page, unticked newsletter box | See Q4 |
 | D7 | My default: a 500 KB first-load cap | The build's budget is stricter, so it already fits |
-| D8 | Yes: record the decisions in the README | **Not done here**: the README is on the other branch; the text is in 5.4 |
+| D8 | Record the decisions in the README | Text in 5.4; the README is on the other branch |
 | R2, R3, R4, R6 | Not answered | Still open, in section 6 |
-| Earlier | One scrolling page; Calendly; exact figures approved; shared CSS/JS in `assets/`; tiers as placeholders; research only from this pass on | Applied where noted |
 
-### 5.2 How this compares with the build on the other branch
+### 5.2 What the build branch reports
 
-The session "Site research continuation" (branch `claude/serene-pascal-5d126v`) has built the page. I read what it committed; I did not change anything there.
+The session "Site research continuation" (branch `claude/serene-pascal-5d126v`) built the page. This is its own "Implementation status" section, condensed, plus what I found by reading its files. I did not run or change any of it.
 
-| Item | State on that branch |
+| Item | Reported state |
 |---|---|
-| The Thread, the "Show the week" toggle (made-up proportions, labelled illustrative), the redaction style | Built |
-| Contact: a short form with `contact.php` (honeypot, timing check, same-site check, 5 notes per hour) and WhatsApp with two numbers | Built |
-| Self-hosted fonts (static 600 and 700 Space Grotesk, Plex Sans, Plex Mono), `.htaccess`, `robots.txt`, JSON-LD | Built |
-| Performance budget: 40 KB gzipped HTML+CSS+JS, 120 KB fonts, 0 third-party requests, 15 requests (measured 16 KB, 102 KB, 0 and 9) | Written; **stricter than the 500 KB cap**, and it says booking widgets load only after a click |
-| Pricing | "Four services, no public pricing" |
-| POPIA notice, Privacy page, unticked newsletter box | **Not found** |
-| Calendly opening on click | **Not found** |
-| README decisions block | **Not there**; the README still says nothing may state a client result or price until sign-off |
-| Shared CSS/JS in `assets/` (your choice 10B) | `styles.css` and `site.js` are in the root; only the fonts are in `assets/` |
-| `docs/site-research.md` | It holds an earlier copy of this file plus a short "Implementation status" section. **Both branches edit this file, so merging both will conflict** |
+| Foundation bundle | Fonts self-hosted (6 faces, 102 KB) and the Google CDN removed; Open Graph/Twitter tags, JSON-LD and font preloads added; `.htaccess` for HTTPS, compression, caching and safety headers (HSTS written but switched off, and not tested on a real Apache yet); `robots.txt`; `docs/performance-budget.md` |
+| Contrast and motion | `--muted-2` no longer carries text; form borders at 3:1 or better; reduced motion handled once for the whole site. It reports all 142 text elements at 390 and 1440 px meeting WCAG AA and no axe-core violations (its measurements, not re-run by me) |
+| How it works and the "You stay in control" band | Copy restates only what the Services copy already promises; ownership, pilot-first, pause/rollback, guarantee, timelines and client hours sit in an HTML comment until confirmed |
+| The Thread | Per-section segments; scroll-driven in Chromium; the fallback was tested by simulation; fully drawn under reduced motion or without JavaScript |
+| Contact | Three fields (name, email, note) with `contact.php`: honeypot, timing check, same-site check and a per-IP limit; PHP `mail()`, not PHPMailer; WhatsApp with two numbers as the second path; "What happens next" copy |
+| Show the week | Illustrative before/after week with a "not measured" label and no numbers; the `.redacted` style exists but is unused, because the current example is hypothetical |
+| Settled on that branch | No prices; single page; **no booking tool** (form and WhatsApp only) |
+| Not built | Readiness score, ROI calculator, use-case tabs, proof strip, custom 404, booking facade, on-page motion toggle |
+| Tested only in | Chromium 141; the Thread's scroll-driven mode and the subgrid alignment haven't been seen in Firefox or Safari |
+| Budget | 40 KB gzipped HTML+CSS+JS, 120 KB fonts, 0 third-party requests, 15 requests (measured 16 KB, 102 KB, 0 and 9); stricter than your 500 KB cap; booking widgets must load only after a click |
 
-### 5.3 Questions for you
+**Where the build differs from your answers**
 
-- **Q1. Pricing conflict.** You said D1 is good, but the built page shows no prices. The local agencies I could read don't put a price list on their homepage either: DDM has a Pricing page with ZAR tiers, and Ezemind publishes timelines and a proposal deadline instead. What should the site do?
-  - a) ★ Keep the page without numbers for now and add an Ezemind-style "how pricing works" line (fixed price per project in ZAR excluding VAT, a written proposal within a stated number of working days, typical timelines) until the tiers are real.
-  - b) Show "from" prices as in the option you approved, once you have the tiers.
-  - c) Leave it exactly as built.
-- **Q2. What do you love about Solare?** a) The shapeshifting weights and the type tester. b) The characters that react on hover, and the "world" feeling. c) The warm, poetic voice. d) The layout and pacing. ★ My guess is a) and c), which suit a weight-shift headline and a warmer About line, but I can't see the visuals.
-- **Q3. Where the shared CSS and JS live.** You chose `assets/`, but the build keeps `styles.css` and `site.js` in the root. a) ★ Keep them in the root: one stylesheet and one script, and no merge conflicts now that one session owns them. b) Move them into `assets/`.
-- **Q4. POPIA wording.** You want to show the site is legit. ★ Describe what we actually do ("we use your details only to reply; nothing is stored"), link a Privacy page, and don't write "POPIA compliant" until a South African privacy professional has reviewed it. OK?
-- **Q5. The two copies of this file.** ★ I reconcile them into one on my branch when you're ready to merge.
+| Your answer | Build today | What's needed |
+|---|---|---|
+| Pricing note, no numbers (Q1) | Only "Every project is scoped individually" beside the services | Add the note in A.3; needs your proposal deadline and terms |
+| Calendly on click (D3) | No booking button | Add per A.4; needs your Calendly link |
+| POPIA notice and Privacy page (Q4) | None; the footer has only "Back to top" | Add per A.1 and A.2; needs the company's legal details |
+| Exact figures approved (D2) | Illustrative example only | Real case study once you supply the figures, using `.redacted` for the name |
+| README decisions (D8) | Not there; the README still says no client result or price until sign-off | Paste 5.4 |
 
-Still owed by you: the exact Eyecatchers figures, and the booking details when Calendly is added.
+**One detail that affects the privacy wording.** `contact.php` writes a small file named after a hash of the visitor's IP address into the server's temp folder to limit spam. Entries older than an hour are ignored, but the file itself isn't actively deleted. So the notice should say "a scrambled version of your IP address in a temporary file, used only to limit spam", not "up to an hour", unless a cleanup is added. Your host will also keep its usual server logs.
 
-### 5.4 README decisions block (D8), ready to paste
+### 5.3 What still needs you
 
-The README lives on the other branch, so I haven't touched it. This text records what you decided:
+- The exact Eyecatchers figures, and whether the client name stays withheld.
+- The company's legal details for the Privacy page (legal name, registration number, physical address, an Information Officer and contact email) and how long enquiries are kept.
+- Your Calendly link.
+- Your proposal deadline (how many working days) and any typical timelines you're willing to state, for the pricing note.
+- A South African privacy professional's review before anything says "POPIA compliant".
+
+### 5.4 README decisions block (for the other branch)
 
 ```
 ## Decisions (2026-09-29)
 - Market: South Africa first, open to elsewhere. Any prices shown are in ZAR excluding VAT, with an optional USD toggle.
-- One scrolling page.
+- One scrolling page. CSS and JS stay in the root (styles.css, site.js); assets/ holds the fonts.
+- Pricing: no numbers on the page for now. A short "how pricing works" note explains fixed prices in rand excluding VAT and the proposal deadline (wording in docs/site-research.md, Appendix A.3).
 - Contact: WhatsApp and a short form; Calendly (when added) opens only on click.
 - Case study: the client name stays withheld (.redacted). The client has approved exact figures: add them when supplied and update "Copy guidance" above.
-- Privacy: a POPIA notice beside the form and a Privacy page; any newsletter box unticked and optional. Describe what we do; don't claim compliance until reviewed.
+- Privacy: a POPIA notice beside the form and a Privacy page (Appendix A.1, A.2); any newsletter box unticked and optional. Describe what we do; don't claim compliance until a South African privacy professional has reviewed it.
 - Performance: docs/performance-budget.md applies; first load stays under 500 KB even when images are added.
-- Pricing: to be decided (see docs/site-research.md, Q1).
 ```
+
+### 5.5 Hand-off for the build session
+
+The build session is idle, waiting on you about a pull request. This message can be pasted into it:
+
+```
+Hand-off from the research session (branch claude/award-winning-website-research-1mg92j).
+Read docs/site-research.md from that branch: git fetch origin claude/award-winning-website-research-1mg92j
+then git show origin/claude/award-winning-website-research-1mg92j:docs/site-research.md
+(sections 5.1 to 5.4 and Appendix A). The user's decisions:
+1. No prices on the page for now. Add the "how pricing works" note (A.3) beside the existing "Every project is scoped individually" line, with placeholders where Weave's terms are unknown.
+2. Add a Calendly button that loads Calendly only after a click (A.4), once the user supplies the link.
+3. Add the POPIA notice beside the form and a Privacy page (A.1, A.2), with placeholders for the legal details. Do not write "POPIA compliant". Note contact.php's throttle file is not deleted, so the wording must not promise "up to an hour" unless you add cleanup.
+4. Keep styles.css and site.js in the root.
+5. Paste the README decisions block from 5.4.
+6. Leave docs/site-research.md alone on your branch: the research branch now holds the merged version, including your Implementation status content.
+7. Do not open a pull request until the user says so.
+```
+
+### 5.6 Merging the two copies of this file
+
+Both branches changed `docs/site-research.md`: the build branch appended an "Implementation status" section to the first version, and this branch rewrote the file. This version now contains the build branch's status (5.2), so **when both are merged, take this branch's version of that one file**.
 
 ## 6. Still open (research)
 
@@ -381,6 +419,7 @@ Reply with the codes. My recommendation is marked ★.
 - Awwwards jury scores are not accessibility audits.
 - Conversion figures (form fields, quizzes), WhatsApp reach and South African data costs come from vendor or roundup pages: directional only.
 - Not researched: South African hosting options, local payment methods, local-language content, and whether POPIA affects analytics or cookies.
+- The wording in Appendix A is a draft, not legal advice. It hasn't been checked by a South African privacy professional.
 
 ## 8. Sources
 
@@ -398,6 +437,40 @@ Reply with the codes. My recommendation is marked ★.
 - Award context: [Codrops on Cerebrium](https://tympanus.net/codrops/2026/07/23/building-cerebrium-making-serverless-infrastructure-tangible/), [Utsubo Three.js roundup](https://www.utsubo.com/blog/best-threejs-websites-2026), [Lusion behind-the-scenes](https://blog.lusion.co/oryzo-bts-part-1-7-concept-and-creative-direction), [Cyera AI Guardian on FWA](https://thefwa.com/cases/cyera-ai-guardian)
 - Competitors not read: [LOW/CODE](https://www.lowcode.agency/case-studies), [LOW/CODE calculator](https://www.lowcode.agency/smart-cost-calculator), [DestiLabs](https://www.destilabs.com/), [Rex Automaton](https://rexautomaton.com/), [LuMay](https://www.lumay.ai/)
 - South African agencies not readable: [The Digital Lab](https://thedigitallab.co.za/services/whatsapp-automation.html), [WRIGHTSAI](https://www.wrightsai.com/)
-- Solare background: [Behance](https://www.behance.net/gallery/189625739/Solare-Typeface), [The Brand Identity](https://the-brandidentity.com/typeface/beauty-will-save-us-solare-a-variable-typeface-by-nikolas-type-is-simply-drop-dead-gorgeous), [Nikolas Type](https://www.nikolastype.com/fonts/solare/)
+- Solare background: [The Brand Identity](https://the-brandidentity.com/typeface/beauty-will-save-us-solare-a-variable-typeface-by-nikolas-type-is-simply-drop-dead-gorgeous) (read), [Abduzeedo](https://abduzeedo.com/sans-serif-typeface-solare-and-integration-grotesque-form-and-serif-grace) (read; describes the typeface, not confirmed to be the site), [Behance](https://www.behance.net/gallery/189625739/Solare-Typeface) (search result only; the page returned 403), [Nikolas Type](https://www.nikolastype.com/fonts/solare/)
 - WhatsApp and data: [Yazi WhatsApp penetration](https://www.askyazi.com/articles/whatsapp-penetration-across-africa-statistics-by-country), [MyBroadband data prices](https://mybroadband.co.za/news/cellular/657852-cheapest-and-most-expensive-mobile-data-in-south-africa.html)
 - Techniques and conversion: [scroll-driven SVG draw](https://codefronts.com/motion/css-scroll-animations/scroll-driven-svg-stroke-draw/), [Calendly performance article](https://www.corewebvitals.io/pagespeed/speed-up-calendly-integration), [static forms and spam](https://www.staticforms.dev/blog/spam-email-bot), [anonymous case studies](https://proofmap.com/insights/how-to-write-anonymous-case-studies), [pricing transparency](https://www.glencoyne.com/guides/pricing-transparency-services), [form-field benchmarks](https://fluentforms.com/online-form-statistics-facts/), [quiz conversion](https://getaiform.com/blog/quiz-funnels-vs-static-lead-magnets-interactive-content-conversion-2026), [B2B navigation](https://www.blendb2b.com/websites-decoded/b2b-website-navigation-best-practices), [self-hosting fonts](https://www.corewebvitals.io/pagespeed/self-host-google-fonts), [cPanel `.htaccess`](https://stackharbor.com/en/knowledge-base/cpperf-browser-cache-headers-vhost-htaccess/)
+
+## Appendix A. Draft wording for the build
+
+Drafts to be adjusted. **Placeholders are in [square brackets]**: I don't have Weave's real terms, and I haven't invented any. The privacy wording is not legal advice and should be reviewed by a South African privacy professional before it goes live. It follows the items POPIA section 18 lists (see section 3) and describes only what `contact.php` does today.
+
+### A.1 Notice beside the form
+
+Placed under the "Send note" button:
+
+> We use your name, email and note only to reply to you. [How we handle your information →](privacy.html)
+
+### A.2 Privacy page outline
+
+1. **Who we are.** [Company legal name], [registration number], [physical address]. Contact for privacy questions: [privacy email]. Information Officer: [name and email]. (Ask the reviewer whether the Information Officer must be registered with the Information Regulator.)
+2. **What we collect through this site.** The name, email address and note you type into the form, and the time you sent it. To limit spam we also keep a scrambled (hashed) version of your IP address in a temporary file, and our hosting provider keeps its usual server logs. We ask you to leave out passwords and customer records.
+3. **Why.** To reply to your note and talk about a possible project. We don't use your details for marketing unless you tell us we may. [If a newsletter is added: a separate, optional, unticked box.]
+4. **Is it voluntary?** Yes. But we can't reply without an email address.
+5. **Who else handles it.** Your note reaches our email inbox at [email provider, and where its servers are]. If you message us on WhatsApp, WhatsApp's own terms and privacy notice apply, and we see your number and message. [If Calendly is added: Calendly processes the name, email and time you enter, and may store it outside South Africa.]
+6. **How long we keep it.** [Retention period, for example "until we've finished replying, then for X months, or until you ask us to delete it"].
+7. **Your rights.** To ask what we hold about you, to correct it, and to ask us to delete it or stop using it. Contact [privacy email]. You can also complain to the Information Regulator: [check the current contact details on inforegulator.org.za].
+8. **Changes.** [Date of this version].
+
+### A.3 "How pricing works" note
+
+Placed beside the existing "Every project is scoped individually" line:
+
+> **How pricing works.** Every project is a fixed price in rand, excluding VAT. Tell us what's taking your team's time and we'll send a written proposal within [N] working days, with the price, what's included and how long it should take. Nothing is agreed until you've seen it. [Optional, only if true: a first small automation usually takes [X–Y] weeks.]
+
+### A.4 Calendly opening on click
+
+- A "Book a call" button beside the WhatsApp buttons. It is a normal link to [your Calendly URL], so it works without JavaScript (open in a new tab with `rel="noopener"`).
+- With JavaScript, Calendly's script and stylesheet load only when the button is clicked, then the popup opens. Nothing from Calendly loads on first view, so the performance budget's "0 third-party requests on first load" still holds.
+- Add Calendly to the Privacy page (A.2, item 5).
+- Measured today: Calendly's loader script is about 4 KB gzipped and its stylesheet about 0.8 KB; the scheduling page it opens is heavier and wasn't measured, which is another reason to load it only on click.
