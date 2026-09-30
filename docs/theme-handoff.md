@@ -6,7 +6,9 @@ Branch: `claude/zealous-planck-icfsm7` (built on `claude/serene-pascal-5d126v`).
 
 ## Restore points
 - Orange hero only: `backup/v1-hero-2026-09-30/index.html`
-- Full orange site: branch `claude/serene-pascal-5d126v`
+- Full orange site (fallback copy, opens standalone): `backup/v2-orange-full-site-2026-09-30/`
+- Full orange site on its own branch: `claude/serene-pascal-5d126v`
+- Willie has approved the spiderweb look for the demo build (2026-09-30).
 
 ## What changed (pass 1)
 | Area | Change |
