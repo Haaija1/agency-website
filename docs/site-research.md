@@ -362,7 +362,7 @@ The session "Site research continuation" (branch `claude/serene-pascal-5d126v`) 
 - The exact Eyecatchers figures, and whether the client name stays withheld.
 - The company's legal details for the Privacy page (legal name, registration number, physical address, an Information Officer and contact email) and how long enquiries are kept.
 - ~~Your Calendly link~~ (received: https://calendly.com/hjdiegrote/discovery-meeting).
-- Your proposal deadline: how many working days you can reliably promise to send a written proposal (price, scope, timeline) after someone contacts you. Typical timelines are optional.
+- ~~Your proposal deadline~~ (decided: a discovery meeting first, then a written proposal within 5 working days of the meeting). Typical timelines are optional.
 - A South African privacy professional's review before anything says "POPIA compliant".
 
 ### 5.4 README decisions block (for the other branch)
@@ -466,7 +466,7 @@ Placed under the "Send note" button:
 
 Placed beside the existing "Every project is scoped individually" line:
 
-> **How pricing works.** Every project is a fixed price in rand, excluding VAT. Tell us what's taking your team's time and we'll send a written proposal within [N] working days, with the price, what's included and how long it should take. Nothing is agreed until you've seen it. [Optional, only if true: a first small automation usually takes [X–Y] weeks.]
+> **How pricing works.** Every project is a fixed price in rand, excluding VAT. Tell us what's taking your team's time and we'll meet to understand how you work today. Within 5 working days of that meeting we'll send a written proposal with the price, what's included and how long it should take. Nothing is agreed until you've seen it. [Optional, only if true: a first small automation usually takes [X–Y] weeks.]
 
 ### A.4 Calendly opening on click
 
