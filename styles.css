@@ -17,16 +17,21 @@
 /* ---------- Tokens ---------- */
 :root{
   color-scheme:dark;
-  --pbg:#0c0d0a;
-  --bg-2:#121309;
-  --ink:#f3f1e8;
-  --muted:#9b9788;        /* body-size secondary text: 6.7:1 on --pbg */
-  --muted-2:#726e5f;      /* NOT for text (3.8:1). Field borders and decoration only. */
-  --accent:#ff6a35;
-  --accent-dim:#7a3018;   /* decoration only (2.1:1) */
-  --line:#2a2820;         /* decorative rules only; too faint for control borders */
-  --line-soft:#1c1c14;
-  --good:#8fb383;
+  /* Spiderweb theme: white on dark blue-grey. PROVISIONAL until these are reconciled
+     with the Weave app's own tokens (apps/web/src); change values here only. */
+  --pbg:#0d1320;
+  --bg-2:#131b2b;
+  --ink:#f3f6fb;
+  --muted:#9ca9bd;        /* body-size secondary text */
+  --muted-2:#66738c;      /* NOT for text. Field borders and decoration only. */
+  --accent:#8fb2ff;       /* ice blue: emphasis, numbers, links, focus */
+  --accent-dim:#2c3f66;   /* decoration only */
+  --action:#f3f6fb;       /* primary buttons: white */
+  --line:#26324a;         /* decorative rules only; too faint for control borders */
+  --line-soft:#1a2438;
+  --web:rgba(200,216,245,.30); /* spiderweb strands */
+  --good:#7fd1ae;
+  --r:8px;                /* corner radius for cards, inputs and buttons */
   --ease-out:cubic-bezier(.16, 1, .3, 1);
   --header-h:69px;
 }
@@ -37,7 +42,10 @@ html{ scroll-behavior:smooth; }
 body{
   font-family:'IBM Plex Sans', system-ui, sans-serif;
   color:var(--ink);
-  background:var(--pbg);
+  background-color:var(--pbg);
+  /* n8n-style canvas: a faint dot grid behind everything */
+  background-image:radial-gradient(circle at 1px 1px, rgba(156,169,189,.16) 1px, transparent 1.5px);
+  background-size:26px 26px;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
@@ -71,7 +79,7 @@ input:focus-visible,
 textarea:focus-visible{
   outline:2px solid var(--accent);
   outline-offset:3px;
-  border-radius:2px;
+  border-radius:4px;
 }
 /* Fallback for browsers without :focus-visible: keep focus always visible there. */
 @supports not selector(:focus-visible){
@@ -81,7 +89,7 @@ textarea:focus-visible{
 .skip-link{
   position:absolute; left:-9999px; top:0; z-index:10;
   font-family:'IBM Plex Mono', monospace; font-size:14px;
-  background:var(--accent); color:var(--pbg);
+  background:var(--action); color:var(--pbg);
   padding:12px 20px; text-decoration:none;
 }
 .skip-link:focus{ left:16px; top:16px; }
@@ -89,7 +97,7 @@ textarea:focus-visible{
 /* ---------- Shared header / nav ---------- */
 .site-header{
   position:sticky; top:0; z-index:5;
-  background:rgba(12,13,10,.92);
+  background:rgba(13,19,32,.88);
   backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line-soft);
 }
@@ -113,8 +121,8 @@ textarea:focus-visible{
 }
 .site-nav a:hover{ color:var(--ink); border-bottom-color:var(--accent); }
 /* Persistent contact CTA */
-.site-nav a.nav-cta{ margin-left:8px; padding:0 18px; color:var(--pbg); background:var(--accent); border:1px solid var(--accent); border-radius:2px; font-weight:500; }
-.site-nav a.nav-cta:hover{ color:var(--pbg); background:var(--ink); border-color:var(--ink); }
+.site-nav a.nav-cta{ margin-left:8px; padding:0 18px; color:var(--pbg); background:var(--action); border:1px solid var(--action); border-radius:var(--r); font-weight:500; }
+.site-nav a.nav-cta:hover{ color:var(--pbg); background:var(--action); border-color:var(--accent); }
 
 /* ==========================================================================
    Hero (owned by Willie). The polished version from main: woven-thread
@@ -127,11 +135,14 @@ textarea:focus-visible{
 .weave-hero__wordmark span { color: var(--accent); }
 .weave-hero__descriptor { margin: 0; color: var(--muted); font: 400 .875rem/1.6 'IBM Plex Mono', monospace; }
 .weave-hero__content { position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(4rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem); }
-.weave-hero__weave { position: absolute; z-index: -1; top: 0; right: calc(-1 * var(--bleed)); width: calc(100% + var(--bleed)); height: 100%; color: var(--line); pointer-events: none; -webkit-mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); animation: weave-appear 1.6s .2s ease backwards; }
-.weave-hero__thread { fill: none; stroke: currentColor; stroke-width: 1; }
-.weave-hero__gap { fill: none; stroke: var(--pbg); stroke-width: 7; }
-.weave-hero__strand { stroke: var(--accent); stroke-width: 2; transform-box: fill-box; transform-origin: right; animation: weave-grow 1.8s .7s var(--ease-out) backwards; }
-.weave-hero__over { color: var(--muted-2); }
+.weave-hero__web { position: absolute; z-index: -1; top: 0; right: calc(-1 * var(--bleed)); width: calc(100% + var(--bleed)); height: 100%; color: var(--web); pointer-events: none; -webkit-mask-image: radial-gradient(85% 90% at 100% 0, #000 35%, transparent); mask-image: radial-gradient(85% 90% at 100% 0, #000 35%, transparent); }
+.weave-hero__web path { fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.weave-hero__web .web-r { stroke-width: .9; opacity: .8; }
+.weave-hero__web .web-d { fill: var(--ink); opacity: .85; animation: weave-appear 1.2s 2.2s ease backwards; }
+/* Spokes are spun first, then the rings, each a little after the last. */
+.weave-hero__web .web-s { animation: web-spin 1.6s calc(.25s + var(--i) * .05s) var(--ease-out) backwards; }
+.weave-hero__web .web-r { animation: web-spin 1.8s calc(.9s + var(--i) * .09s) var(--ease-out) backwards; }
+@keyframes web-spin { from { stroke-dashoffset: 1; } }
 .weave-hero__eyebrow { display: flex; align-items: center; gap: .875rem; margin: 0 0 2.25rem; color: var(--muted); font: 500 .875rem/1.6 'IBM Plex Mono', monospace; animation: weave-fade .8s .15s var(--ease-out) backwards; }
 .weave-hero__eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); flex: 0 0 auto; transform-origin: left; animation: weave-grow .9s .3s var(--ease-out) backwards; }
 .weave-hero__layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); align-items: end; gap: clamp(2rem, 5vw, 5rem); }
@@ -143,8 +154,8 @@ textarea:focus-visible{
 .weave-hero__intro { padding-bottom: .375rem; animation: weave-fade .9s .45s var(--ease-out) backwards; }
 .weave-hero__copy { margin: 0 0 2rem; max-width: 28ch; color: var(--muted); font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.6; }
 .weave-hero__copy strong { color: var(--ink); font-weight: 400; }
-.weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--accent); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--accent); transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
-.weave-hero__cta:hover { background: var(--ink); border-color: var(--ink); }
+.weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--action); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--action); border-radius: var(--r); transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
+.weave-hero__cta:hover { background: var(--accent); border-color: var(--accent); }
 .weave-hero__cta:active { transform: translateY(1px); }
 .weave-hero__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 .weave-hero__cta svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; transition: transform .2s var(--ease-out); }
@@ -183,7 +194,7 @@ textarea:focus-visible{
 .thread-node{
   position:absolute; z-index:2; top:var(--thread-node-y); left:calc(var(--thread-x) - 14px);
   display:grid; place-items:center; width:28px; height:28px;
-  border-radius:50%; background:var(--pbg); border:1px solid var(--accent-dim);
+  border-radius:50%; background:var(--pbg); border:1px solid var(--muted-2);
   color:var(--accent); text-decoration:none;
   transition:border-color .18s ease, background-color .18s ease;
 }
@@ -225,23 +236,32 @@ textarea:focus-visible{
 
 /* ---------- Process: four steps, each with something to show, plus the risk band ---------- */
 .steps{ list-style:none; display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:32px; margin-top:56px; }
-.step{ border-top:1px solid var(--line); padding-top:24px; display:flex; flex-direction:column; }
+.step{ position:relative; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:24px 22px 0; display:flex; flex-direction:column; }
+/* n8n-style: an input port on every node but the first, and a wire with an output port to the next */
+.step::before{ content:''; position:absolute; left:-6px; top:34px; width:10px; height:10px; border-radius:50%; background:var(--pbg); border:2px solid var(--accent); z-index:1; }
+.step:first-child::before{ display:none; }
+.step:not(:last-child)::after{
+  content:''; position:absolute; left:calc(100% - 5px); top:34px; width:calc(32px + 2px); height:10px;
+  background:
+    radial-gradient(circle at 5px 50%, var(--pbg) 0 2.5px, var(--accent) 3px 5px, transparent 5.5px),
+    linear-gradient(var(--muted-2), var(--muted-2)) 5px 50% / calc(100% - 5px) 2px no-repeat;
+}
 .step .step-n{ font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500; color:var(--accent); margin-bottom:14px; }
 .step h3{ font-size:20px; line-height:1.25; margin-bottom:10px; }
 .step p{ font-size:15px; line-height:1.65; color:var(--muted); }
 .step-out{ margin-top:auto; padding-top:18px; }
-.step-out p{ margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); color:var(--ink); font-size:14px; }
+.step-out p{ margin-top:16px; padding:14px 0 22px; border-top:1px dashed var(--line); color:var(--ink); font-size:14px; }
 .step-out span{ display:block; margin-bottom:4px; font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
 
 /* Where subgrid is supported, line the "You get" blocks up across columns. */
 @supports (grid-template-rows: subgrid){
   .steps{ row-gap:0; }
-  .step{ display:grid; grid-row:span 4; grid-template-rows:subgrid; padding-bottom:40px; }
+  .step{ display:grid; grid-row:span 4; grid-template-rows:subgrid; row-gap:0; padding-bottom:0; } /* own gap: don't inherit the list's card-to-card gap */
   .step-out{ margin-top:0; align-self:start; }
   .steps + .assure{ margin-top:32px; }
 }
 
-.assure{ margin-top:72px; padding:36px 40px; background:var(--bg-2); border:1px solid var(--line); }
+.assure{ margin-top:72px; padding:36px 40px; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; }
 .assure h3{ font-size:22px; }
 .assure-intro{ margin-top:8px; color:var(--muted); font-size:15px; max-width:620px; }
 .assure-list{ list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:28px 48px; margin-top:28px; }
@@ -256,7 +276,7 @@ textarea:focus-visible{
   display:grid; grid-template-columns:70px 1fr; gap:28px;
   padding:28px 0; border-top:1px solid var(--line-soft);
 }
-.proof-item .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:32px; color:var(--accent); opacity:.7; line-height:1.2; } /* --accent-dim was 2.1:1; this is about 3.8:1 */
+.proof-item .num{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:32px; color:var(--accent); opacity:.75; line-height:1.2; }
 .proof-item h3{ font-size:20px; margin-bottom:8px; }
 .proof-item p{ font-size:16px; line-height:1.65; color:var(--muted); max-width:760px; }
 
@@ -264,7 +284,7 @@ textarea:focus-visible{
    a redaction bar, e.g. <span class="redacted">Client name withheld</span>. */
 .redacted{ display:inline-block; padding:0 .6em; background:var(--ink); color:var(--pbg); font-family:'IBM Plex Mono',monospace; font-size:.85em; line-height:1.5; }
 
-.week{ margin-top:56px; padding:32px 36px 28px; background:var(--bg-2); border:1px solid var(--line); }
+.week{ margin-top:56px; padding:32px 36px 28px; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; }
 .week-head{ display:flex; align-items:center; justify-content:space-between; gap:16px 32px; flex-wrap:wrap; }
 .week-head h3{ font-size:22px; }
 .week-sub{ margin-top:6px; font-size:14px; color:var(--muted); max-width:520px; }
@@ -305,8 +325,8 @@ textarea:focus-visible{
 @keyframes bar-in{ from{ transform:scaleX(0); } }
 
 /* ---------- Contact (form first, WhatsApp as the other direct path) ---------- */
-.contact-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:48px; }
-.contact-card{ background:var(--pbg); padding:40px; }
+.contact-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-top:48px; }
+.contact-card{ background:var(--bg-2); padding:40px; }
 .contact-card--form{ grid-row:span 2; }
 .contact-card h3{ font-size:18px; margin-bottom:12px; }
 .contact-card p{ font-size:15px; color:var(--muted); margin-bottom:20px; line-height:1.6; }
@@ -322,7 +342,7 @@ textarea:focus-visible{
 .field input, .field textarea{
   width:100%; min-height:48px; padding:12px 14px;
   font:400 16px/1.5 'IBM Plex Sans', system-ui, sans-serif; color:var(--ink);
-  background:var(--bg-2); border:1px solid var(--muted-2); border-radius:2px;
+  background:var(--pbg); border:1px solid var(--muted-2); border-radius:var(--r);
 }
 .field textarea{ min-height:150px; resize:vertical; }
 .field input:hover, .field textarea:hover{ border-color:var(--muted); }
@@ -340,12 +360,12 @@ textarea:focus-visible{
 
 .btn{
   display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace;
-  font-size:14px; letter-spacing:.02em; color:var(--pbg); background:var(--accent);
-  padding:12px 20px; min-height:44px; border-radius:2px; font-weight:500; text-decoration:none;
-  border:1px solid var(--accent); cursor:pointer; appearance:none; -webkit-appearance:none;
+  font-size:14px; letter-spacing:.02em; color:var(--pbg); background:var(--action);
+  padding:12px 20px; min-height:44px; border-radius:var(--r); font-weight:500; text-decoration:none;
+  border:1px solid var(--action); cursor:pointer; appearance:none; -webkit-appearance:none;
   transition:background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
 }
-.btn:hover{ background:var(--ink); border-color:var(--ink); color:var(--pbg); }
+.btn:hover{ background:var(--accent); border-color:var(--accent); color:var(--pbg); }
 .btn:active{ transform:translateY(1px); }
 .btn[disabled]{ opacity:.6; cursor:progress; }
 .btn.secondary{ background:transparent; color:var(--ink); border:1px solid var(--muted-2); }
@@ -375,6 +395,7 @@ section[id], main[id]{ scroll-margin-top:90px; }
 /* --- Tablet (~1000px and down) --- */
 @media (max-width: 1000px){
   .steps{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:40px 32px; }
+  .step::before, .step::after{ display:none !important; }
 }
 
 /* --- Tablet (~768px and down) --- */

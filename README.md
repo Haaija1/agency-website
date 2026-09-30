@@ -67,13 +67,18 @@ A push to GitHub does not deploy to cPanel, and this repository does not do it f
 - Check the two WhatsApp links open the right numbers, and that the live stylesheet, script and fonts load.
 - Confirm compression is on (see `docs/performance-budget.md`) and record real LCP, INP and CLS there.
 
-## Brand tokens (shared: don't invent new ones)
+## Brand tokens (shared — don't invent new ones per branch)
 
-Source: the cofounder pitch deck. Defined once in `:root` in `styles.css`.
+**Spiderweb theme (provisional, 2026-09-30).** White on dark blue-grey, with a faint dot-grid
+"canvas" and a spiderweb motif, to match the Weave app. All values live in the `:root` block of
+`styles.css`; change them there only. See `docs/theme-handoff.md` for the token table and what is
+still to be reconciled with the app's own tokens (`apps/web/src` in the Weave app repo).
 
-- Fonts: **Space Grotesk** (headings), **IBM Plex Sans** (body), **IBM Plex Mono** (accents). Self-hosted; add a weight only if a rule really uses it.
-- Palette (dark): `--pbg #0c0d0a`, `--bg-2 #121309`, `--ink #f3f1e8`, `--muted #9b9788`, `--muted-2 #726e5f`, `--accent #ff6a35`, `--accent-dim #7a3018`, `--line #2a2820`, `--line-soft #1c1c14`, `--good #8fb383`.
-- Contrast rules (measured against `--pbg`): `--ink`, `--muted` and `--accent` are fine for text. **`--muted-2` (3.8:1) is not for text**; use it for control borders, which need 3:1. **`--accent-dim` (2.1:1) and `--line` (1.3:1) are decoration only.**
+- Fonts (unchanged): **Space Grotesk** (headings), **IBM Plex Sans** (body), **IBM Plex Mono** (accents)
+- Palette (dark): `--pbg:#0d1320`, `--bg-2:#131b2b`, `--ink:#f3f6fb`, `--muted:#9ca9bd`,
+  `--accent:#8fb2ff` (ice blue), `--action:#f3f6fb` (white buttons)
+- The previous dark + orange palette is kept in `backup/` (hero only) and on branch
+  `claude/serene-pascal-5d126v` (full site).
 
 ## Copy guidance
 
