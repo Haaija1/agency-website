@@ -361,8 +361,8 @@ The session "Site research continuation" (branch `claude/serene-pascal-5d126v`) 
 
 - The exact Eyecatchers figures, and whether the client name stays withheld.
 - The company's legal details for the Privacy page (legal name, registration number, physical address, an Information Officer and contact email) and how long enquiries are kept.
-- Your Calendly link.
-- Your proposal deadline (how many working days) and any typical timelines you're willing to state, for the pricing note.
+- ~~Your Calendly link~~ (received: https://calendly.com/hjdiegrote/discovery-meeting).
+- Your proposal deadline: how many working days you can reliably promise to send a written proposal (price, scope, timeline) after someone contacts you. Typical timelines are optional.
 - A South African privacy professional's review before anything says "POPIA compliant".
 
 ### 5.4 README decisions block (for the other branch)
@@ -453,7 +453,7 @@ Placed under the "Send note" button:
 
 ### A.2 Privacy page outline
 
-1. **Who we are.** [Company legal name], [registration number], [physical address]. Contact for privacy questions: [privacy email]. Information Officer: [name and email]. (Ask the reviewer whether the Information Officer must be registered with the Information Regulator.)
+1. **Who we are.** [Company legal name], [registration number], [physical address]. Contact for privacy questions: [privacy email]. Information Officer: [name and email]; you plan to register them with the Information Regulator after the build, so the page can name them once that's done. (Ask the reviewer whether registration must come before launch.)
 2. **What we collect through this site.** The name, email address and note you type into the form, and the time you sent it. To limit spam we also keep a scrambled (hashed) version of your IP address in a temporary file, and our hosting provider keeps its usual server logs. We ask you to leave out passwords and customer records.
 3. **Why.** To reply to your note and talk about a possible project. We don't use your details for marketing unless you tell us we may. [If a newsletter is added: a separate, optional, unticked box.]
 4. **Is it voluntary?** Yes. But we can't reply without an email address.
@@ -470,7 +470,7 @@ Placed beside the existing "Every project is scoped individually" line:
 
 ### A.4 Calendly opening on click
 
-- A "Book a call" button beside the WhatsApp buttons. It is a normal link to [your Calendly URL], so it works without JavaScript (open in a new tab with `rel="noopener"`).
+- A "Book a call" button beside the WhatsApp buttons. It is a normal link to https://calendly.com/hjdiegrote/discovery-meeting, so it works without JavaScript (open in a new tab with `rel="noopener"`).
 - With JavaScript, Calendly's script and stylesheet load only when the button is clicked, then the popup opens. Nothing from Calendly loads on first view, so the performance budget's "0 third-party requests on first load" still holds.
 - Add Calendly to the Privacy page (A.2, item 5).
 - Measured today: Calendly's loader script is about 4 KB gzipped and its stylesheet about 0.8 KB; the scheduling page it opens is heavier and wasn't measured, which is another reason to load it only on click.
