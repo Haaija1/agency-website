@@ -17,6 +17,7 @@ This repo holds the marketing site for **Business Process Redesign** (bpsra.co.z
 ## How to check your work (all run from the repo root)
 - Unit tests: `node tests/examples.test.js` and `node tests/grow.test.js`. A runner that prints nothing is NOT a pass: require the explicit "all passed" line. Baseline for grow: 238 branches, 190 knots, 10,342 samples, closest 12.0 px.
 - Minified build: `npm install --no-save esbuild` then `node tools/build_dist.js .` (writes `./dist`). Budget: gzipped total of `dist/` <= 40,960 bytes, measured with `node tools/gzip_size.js dist`.
+- XML well-formedness: `python tools/check_xml.py` (every `.svg` and `.xml` in the tree). Require the explicit "xml: all well-formed" line. A browser parses an SVG used as an icon or an og:image with the strict XML parser, so a comment containing the two-hyphen sequence of a CSS custom property name breaks the file silently.
 - Structure / contrast: `python tools/check_structure.py`, `python tools/contrast.py` (read the file header for usage). Browser-based sweeps (`tools/sweep_widths.py`) need a real browser; if the sandbox cannot run one, say so plainly and mark those items UNVERIFIED. Never claim a check you did not run.
 - Use `git grep` to prove a rename is complete; do not rely on memory.
 

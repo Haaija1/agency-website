@@ -9,10 +9,13 @@
     Colours are the site's B3 slate-and-one-blue palette as literal hex, because an SVG used as
     an og:image is a standalone document and never sees styles.css or its custom properties:
       page       #ffffff
-      frame      #e3e7ed   (--line)
-      name       #2f3b52   (--ink)       11.24:1 on white
-      accent     #1f5bc0   (--link)       6.33:1 on white
+      frame      #e3e7ed   (the line token)
+      name       #2f3b52   (the ink token)      11.24:1 on white
+      accent     #1f5bc0   (the link token)      6.33:1 on white
       mark       the favicon's own colours, unchanged
+    The tokens are named in words, not written out as custom properties: an XML comment may
+    not contain the two-hyphen sequence a custom property name starts with, and a browser
+    parses an og:image SVG as XML.
     Measured with python tools/contrast.py.
 
     'Inter' leads the font stack here, rather than sitting mid-stack as it does in styles.css,

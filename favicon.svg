@@ -7,8 +7,10 @@
 
     The mark does not spell a letter, which is why it survived the rename from the old name.
 
-    Colours are literal hex, not var(--token): an SVG loaded through <link rel="icon"> is a
-    separate document and never sees the page's custom properties.
+    Colours are literal hex, never a CSS custom property reference: an SVG loaded through
+    <link rel="icon"> is a separate document and never sees the page's custom properties.
+    (Written out in words on purpose: an XML comment may not contain the two-hyphen
+    sequence a custom property name starts with, and a browser parses this file as XML.)
       square  #1a1a1a  (as in the inline favicon)
       spokes  #8a8a86  5.02:1 on the square
       nodes   #ffffff  17.40:1 on the square
