@@ -40,7 +40,7 @@ that is deliberate and approved.
 | `grow.js` | The web that grows down the page: router, pin, card frames. |
 | `tests/` | Node unit tests. |
 | `tools/` | Measurement and build scripts. |
-| `dist/` | Minified output, committed. This is what gets deployed. |
+| `dist/` | Minified output, committed. Most of what gets deployed — see [Deploy](#deploy) for the icons, `robots.txt` and `sitemap.xml` that go up from the repo root. |
 
 ## Checks
 
@@ -56,6 +56,7 @@ Baseline for `grow.test.js`: 238 branches, 190 knots, 10,342 samples, closest 12
 line. (A silent runner once exited 0 with no tests run.)
 
 ```
+python tools/check_xml.py                     # every .svg and .xml parses as XML
 python tools/check_structure.py index.html    # tag balance, duplicate ids, refs resolve
 python tools/contrast.py                      # WCAG contrast ratios
 python tools/site_contrast.py <stylesheet>    # contrast table for a token set
@@ -77,16 +78,53 @@ node tools/gzip_size.js dist    # budget: gzipped total <= 40,960 bytes
 
 ## Deploy
 
-Deploy the contents of `dist/`, and only these seven files:
+**`docs/DEPLOY-ALLOWLIST.md` is the source of truth** for what production serves, and
+for the response headers and cache policy that go with it. If anything below disagrees
+with that file, the allow-list wins. The short version:
+
+From `dist/` — the seven home-page files, which are the set the gzip budget is measured
+over:
 
 ```
 index.html  styles.css  site.js  motion.js  examples.js  explorer.js  grow.js
 ```
 
-Nothing else is served — not `tests/`, not `tools/`, not `docs/`. A `contact.php`
-endpoint is not deployed, so the contact form falls back to WhatsApp.
+Also from `dist/`, the standalone 404 page, which the home page does not load:
 
-Pushing to GitHub does not publish anything by itself.
+```
+404.html  404.css
+```
+
+Deploying `404.html` is not enough on its own: the host has to be pointed at it as its
+error document, and the response must carry a real `404` status rather than a `200`.
+
+From the repo root — files the build does not touch, so they are copied up as they are:
+
+```
+robots.txt  sitemap.xml  favicon.svg  favicon-32.png  apple-touch-icon.png  og-image.png
+```
+
+`og-image.svg` is the source the PNG is baked from; serving it is optional.
+
+**Not deployed yet:**
+
+- `privacy.html` and `privacy.css` — the build produces them, but the privacy notice is
+  a draft that has not been reviewed by a lawyer and still carries `TODO(Haaija)`
+  placeholders. Only the deploy step keeps it off the live site. See §2 of the
+  allow-list for the four gates it has to clear first.
+- `prototypes/` — exploratory work, not part of the site. The build does not recurse
+  into subfolders, so it cannot reach `dist/`; it would only arrive via a
+  "copy the whole repo" deploy, which is what the allow-list says not to do.
+
+Nothing else is served — not `tests/`, not `tools/`, not `docs/`, not the un-minified
+root `.html`/`.css`/`.js`.
+
+`contact.php`, which `index.html` posts the contact form to, is **not in this repository**
+and is not produced by the build (allow-list §1c, `TODO(Haaija)`). Until it exists on the
+host, a submit returns 404 and the page shows an error pointing the visitor at WhatsApp.
+
+**Deploy by copying the allow-list, not by excluding a denylist.** Pushing to GitHub does
+not publish anything by itself.
 
 ## Rules for this repo
 
