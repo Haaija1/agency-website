@@ -394,6 +394,7 @@
   /* ---------- scroll scrub: on only when the whole drawing fits the screen ---------- */
   function layoutScrub() {
     var h = stage.getBoundingClientRect().height;
+    var was = scrubOn;
     scrubOn = !locked && !reduced() && h > 0 && (h + TOP + 24) <= win.innerHeight;
     if (scrubOn) {
       span = Math.round(Math.min(760, win.innerHeight * 0.9));
@@ -405,6 +406,18 @@
       sticky.style.position = '';
       sticky.style.top = '';
       scrub.style.height = '';
+      /* The scrub was the only thing driving prog, and it has just been switched off -
+         by a resize, a rotation, or prefers-reduced-motion being turned on. onScroll()
+         returns early from here on, so without this the drawing would stay frozen
+         wherever the morph happened to be, with BOTH sets of box labels at opacity 0
+         (the two label phases deliberately do not overlap - see draw()). Snap to the
+         nearer of the two rest states instead, and announce it. The test hook sets its
+         own value straight after calling this, so leave it alone. */
+      if (was && !locked) {
+        if (anim) { win.cancelAnimationFrame(anim); anim = 0; }
+        setProg(prog >= 0.5 ? 1 : 0);
+        settle(true);
+      }
     }
     if (hint) hint.hidden = !scrubOn;
   }
