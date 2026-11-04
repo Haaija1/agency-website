@@ -995,3 +995,97 @@ knots, 10,342 samples, closest 12.0 px.
    `docs/V5-SPEC-AND-HANDOFF.md` (a repo-wide rule in `CLAUDE.md` versus the brief's "keep
    that file as history"). Repeated here rather than quietly dropped, for the third session
    running.
+
+---
+
+# S7 (brand assets)
+
+Session S7, 4 Nov 2026. Branch base: `claude/bpsra-rebrand-s6-fixes-33s1ab`, the verified
+state after S6's eight fixes. New files only, all under `brand/`; no existing file was
+edited except this changelog (append-only).
+
+New: `brand/mark.svg`, `brand/mark-reversed.svg`, `brand/whatsapp-profile.svg` +
+`.png` (640x640), `brand/linkedin-banner.svg` + `.png` (1584x396),
+`brand/email-signature.html`, `brand/README.md`.
+
+The mark is the same hub-and-spokes geometry as `favicon.svg` (one centre, four nodes,
+four paths), recoloured to the live B3 slate/blue palette instead of the favicon's
+pre-B3 near-black, on a transparent background. `mark-reversed.svg` is the same geometry
+in white/light-slate-blue for dark surfaces. The WhatsApp profile scales that mark so its
+farthest point sits 210px from the 640x640 canvas's centre, inside the 256px safe radius
+of WhatsApp's circular crop. The LinkedIn banner keeps the mark and all text clear of the
+left ~330px LinkedIn reserves for the profile-photo overlay, carries only the display name
+and the one approved slogan, and no numbers or client names. The email signature is
+table-based HTML with inline styles only, no images, no external requests, and
+`TODO(Haaija)` placeholders for phone and email rather than invented values.
+
+PNGs were rendered with the sandbox's pre-installed Playwright/Chromium (no sharp, resvg
+or cairosvg available) at the exact target viewport, screenshotting the `<svg>` element
+directly so the raster matches the vector pixel-for-pixel.
+
+```
+python3 -c "from PIL import Image; ..."     brand/whatsapp-profile.png (640, 640) RGB
+                                             brand/linkedin-banner.png (1584, 396) RGB
+```
+
+One finding of its own: the first draft of `brand/mark.svg`'s comment wrote out
+`--ink-muted` and `--ink` literally, the same two-hyphen XML-comment bug S6's finding 1
+fixed in `favicon.svg` and `og-image.svg` - `tools/check_xml.py` caught it immediately.
+Reworded to name the tokens in words, same as the other files already do.
+
+```
+before:  FAIL  brand/mark.svg: not well-formed (invalid token): line 11, column 31
+         xml: 1 of 7 file(s) are NOT well-formed                          (exit 1)
+after:   ok    brand/mark.svg
+         xml: all well-formed (7 files)                                   (exit 0)
+```
+
+## VERIFIED
+
+```
+python3 tools/check_xml.py            xml: all well-formed (7 files)
+git grep -iIl --untracked weave       CLAUDE.md, docs/COPY-PROPOSALS.md,
+                                       docs/DEPLOY-ALLOWLIST.md, docs/REBRAND-BRIEF.md,
+                                       docs/REBRAND-CHANGELOG.md,
+                                       docs/V5-SPEC-AND-HANDOFF.md
+                                       (brand/ is untracked, so a plain `git grep` without
+                                       --untracked silently skips it - checked explicitly)
+grep -rEo 'https?://...' brand/       only www.w3.org (the xmlns namespace) and
+  | grep -v w3.org | grep -v bpsra    bpsra.co.za; nothing else
+python3 -c "PIL Image.open(...).size" brand/whatsapp-profile.png = (640, 640)
+                                       brand/linkedin-banner.png = (1584, 396)
+python3 tools/contrast.py "<fg>" "<bg>"  all five pairs in brand/README.md recomputed and
+                                          matched what the SVG comments claim
+git status --short                    only brand/ (untracked) before this edit; no existing
+                                       file touched
+```
+
+## UNVERIFIED
+
+- No browser-based visual QA beyond a Playwright screenshot of each SVG at its target
+  pixel size (used to check the LinkedIn banner's layout and the WhatsApp mark's safe-zone
+  margin by eye). Nothing was checked against WhatsApp's or LinkedIn's actual production
+  cropping/rendering - both are described in public help pages, not reproduced here.
+- `node tests/examples.test.js`, `node tests/grow.test.js`, the minified-build budget, and
+  `python tools/check_structure.py` / `contrast.py`'s own built-in pairs were not re-run:
+  this session touched no file any of them covers (only new files under `brand/`, plus an
+  append to this changelog).
+
+## Decisions this session made that the task did not cover
+
+1. **`brand/README.md`'s required line about replacing the old emblem does not name it.**
+   The task asked for "a line saying these replace the old Weave emblem"; `CLAUDE.md`
+   requires `git grep -iIl weave` to show nothing new outside `docs/` and `CLAUDE.md`, and
+   `brand/` is new and outside `docs/`. Same conflict S6 hit on a test comment (its decision
+   2) and resolved the same way: the line stays, but says "the company's previous emblem,
+   from before the rename" instead of the old name. The grep is back to the same six files
+   it was before this session.
+2. **No images in the email signature.** The task said images were not required, not that
+   they were forbidden. Skipped anyway: inline SVG support in Outlook's Word-based rendering
+   engine is unreliable, and a text-only signature with a coloured left rule reads cleanly
+   and survives copy-paste into both Gmail's and Outlook's signature editors without an
+   asset to host.
+3. **Slate background chosen for both image assets is `#2f3b52`**, the site's own `--ink`
+   / `--primary` token from the B3 palette (`styles.css`), not a new colour. The mark's
+   reversed colours (`#ffffff` hub/nodes, `#b8c3d9` spokes) were picked to clear 6:1+
+   against that background - see `brand/README.md` for the measured ratios.

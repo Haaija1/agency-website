@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" role="img" aria-label="Business Process Redesign">
+  <title>Business Process Redesign</title>
+  <!--
+    WhatsApp Business profile photo. WhatsApp crops profile photos to a circle; the visible
+    disc is roughly the central 80% of the square (diameter 512 of 640, radius 256 from
+    centre 320,320). The mark's farthest visible point from its own centre (the node at
+    6,8 plus its radius) is 15.0 of its 32 units; scaled by 14 that is 210px from centre
+    (320,320) - safely inside the 256px safe radius, with margin for the exact mask any
+    given client uses.
+
+    No text, per the brief (profile photos are small and get cropped unpredictably).
+    Colours are the mark-reversed.svg pair: literal hex, not a custom property.
+      background #2f3b52  (the slate)
+      spokes     #b8c3d9  6.34:1 on the slate
+      hub+nodes  #ffffff  11.24:1 on the slate
+  -->
+  <rect width="640" height="640" fill="#2f3b52"/>
+  <g transform="translate(320,320) scale(14) translate(-16,-16)">
+    <path d="M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24" stroke="#b8c3d9" stroke-width="1.2" fill="none"/>
+    <circle cx="16" cy="16" r="3.6" fill="#ffffff"/>
+    <circle cx="6" cy="8" r="2.2" fill="#ffffff"/>
+    <circle cx="26" cy="9" r="2.2" fill="#ffffff"/>
+    <circle cx="9" cy="26" r="2.2" fill="#ffffff"/>
+    <circle cx="25" cy="24" r="2.2" fill="#ffffff"/>
+  </g>
+</svg>
