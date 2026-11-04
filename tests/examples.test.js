@@ -1,6 +1,10 @@
 const assert = require('assert'), fs = require('fs'), path = require('path');
 const { EXAMPLES, KINDS, compute, fmt, assumption, savedLine, flowStats, shape, order } = require('../examples.js');
-const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+// Line endings are normalised to LF on read. A Windows checkout with core.autocrlf=true hands us
+// CRLF, and the slices below search for literal '\n' (e.g. '</ul>\n'), which then never matches and
+// the static-list assertions fail on a tree that is in fact correct. Normalising here keeps every
+// assertion matching exactly the same markup it did before, on either checkout.
+const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8').replace(/\r\n/g, '\n');
 
 // ---- time-saved maths: expected values typed independently of the code under test: [by hand, with it, saved, hours/month]
 const EXPECT = {
