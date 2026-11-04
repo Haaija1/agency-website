@@ -699,3 +699,282 @@ This section.
    The brief's §3d gate names three of the six; the other three are history and audit trail
    (S4 raised the same point as its decision 6). S5's own additions to the allowlist and this
    changelog mention the old name only in sentences explaining that it is gone.
+
+---
+
+# S6 (fixes from the cloud ultrareview)
+
+Session S6, 4 Nov 2026. Branch base: `claude/bpsra-rebrand-s5-final-ffarrp`, the verified
+final candidate, reset onto before any work started. Eight findings from an independent
+review of S5, one commit each, nothing else touched.
+
+**`index.html` is byte-identical to S5.** `git diff --stat
+origin/claude/bpsra-rebrand-s5-final-ffarrp -- index.html` is empty, and so is the same diff
+over `dist/index.html`, `dist/styles.css`, `dist/site.js`, `dist/motion.js`,
+`dist/examples.js`, `dist/explorer.js` and `dist/grow.js`. No logic, colour, layout,
+breakpoint or router change anywhere; `styles.css`, `grow.js`, `explorer.js`, `motion.js`,
+`examples.js` and `site.js` do not appear in this session's diff at all. The only copy
+change is finding 4, which the review asked for.
+
+## 1. (HIGH) `favicon.svg` and `og-image.svg` were not well-formed XML
+
+Both files had an XML comment containing a CSS custom property name. The two hyphens that
+open such a name are the one sequence an XML comment may not contain, and a browser parses
+an SVG used as an icon or an `og:image` with the strict XML parser, not the forgiving HTML
+one. The comments now name the tokens in words. Nothing about the drawn geometry or the
+colours changed, so the three baked PNGs still match their sources.
+
+New file `tools/check_xml.py`: walks the tree, parses every `.svg` and `.xml` with
+`xml.etree.ElementTree`, prints one line per file plus an explicit `xml: all well-formed`
+line, exits non-zero on any failure, skips `node_modules/`, `dist/` and
+`prototypes/**/shots/`. Added to the checks list in `CLAUDE.md` and in `README.md`.
+
+```
+before:  FAIL  favicon.svg: not well-formed (invalid token): line 10, column 39
+         FAIL  og-image.svg: not well-formed (invalid token): line 12, column 30
+         ok    sitemap.xml
+         xml: 2 of 3 file(s) are NOT well-formed                        (exit 1)
+after:   ok    favicon.svg
+         ok    og-image.svg
+         ok    sitemap.xml
+         xml: all well-formed (3 files)                                (exit 0)
+```
+
+This was not a theoretical parse complaint. In headless Chromium, as an `<img>` in a page
+sitting beside the files, and then by navigating straight at each file:
+
+```
+  favicon-old.svg    naturalWidth x naturalHeight 0x0        document root <html>  parser error: true
+  favicon.svg        naturalWidth x naturalHeight 32x32      document root <svg>   parser error: false
+  og-image-old.svg   naturalWidth x naturalHeight 0x0        document root <html>  parser error: true
+  og-image.svg       naturalWidth x naturalHeight 1200x630   document root <svg>   parser error: false
+```
+
+The old files never decoded at all, and the browser served an error document in place of
+the drawing. `index.html`, `privacy.html` and `404.html` all link `favicon.svg`, and
+`index.html` points `og:image` at the PNG but the SVG is the committed source - so the icon
+was broken on every page for every visitor whose browser prefers the SVG.
+
+## 2. (HIGH) `README.md` told the reader to deploy seven files
+
+The Deploy section said "the contents of `dist/`, and only these seven files". The real set
+in `docs/DEPLOY-ALLOWLIST.md` is wider, and following the README would have shipped a site
+with no icons, no share image, no `robots.txt`, no sitemap and no 404 page. The section now
+names the allow-list as the source of truth and lists what it lists: the seven home-page
+files and `404.html` + `404.css` from `dist/`, and `robots.txt`, `sitemap.xml`,
+`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` and `og-image.png` from the repo
+root, with `og-image.svg` optional. It states that `privacy.html`/`privacy.css` and
+`prototypes/` are **not** deployed yet, and why.
+
+Nothing was invented. Where the two documents disagreed, the README was corrected to the
+allow-list: its old claim that the contact form "falls back to WhatsApp" is replaced by what
+the allow-list and `site.js` actually say - `contact.php` is not in this repository, a
+submit returns 404 until it exists, and the page then shows an error pointing the visitor at
+WhatsApp.
+
+## 3. (MED) The before/after morph could freeze with every label invisible
+
+`prototypes/before-after/before-after.js`. `layoutScrub()` turns the scroll scrub off on a
+resize, a rotation or a `prefers-reduced-motion` change, and `onScroll()` then returns early
+- but nothing reset `prog`. The drawing stayed wherever the morph happened to be, and
+because the two label phases deliberately do not overlap, a value in the middle leaves
+**both** panels at opacity 0: threads on screen and no labels at all. It now snaps to the
+nearer rest state, cancels any running tween and settles immediately, so `aria-pressed` and
+the live region match what is drawn. The `window.BA.set` test hook, which sets `locked` and
+then its own value, is left alone.
+
+Proved in headless Chromium at 1440x1000: scrub on, scrolled to mid-morph, then switched off
+two ways. Same tree, same probe, only `before-after.js` differing:
+
+```
+old   reduced motion on mid-morph   prog 0.431 -> 0.445   panel0 0.000  panel1 0.000  FAIL
+      resized short mid-morph       prog 0.413 -> 0.277   panel0 0.000  panel1 0.000  FAIL
+new   reduced motion on mid-morph   prog 0.413 -> 0.000   panel0 1.000  panel1 0.000  ok
+      resized short mid-morph       prog 0.413 -> 0.000   panel0 1.000  panel1 0.000  ok
+```
+
+`prototypes/before-after/check.js` still reports `all checks passed` at 1440 and 390 px - 0
+hits at all eleven stops, negative control fires at 88 hits - and regenerates the ten
+committed screenshots byte-identically.
+
+## 4. (MED) `404.html` carried an unapproved tagline
+
+"Process first, automation second" is a **proposal** in `docs/COPY-PROPOSALS.md`, not
+approved copy, and `404.html` had it in the two places a visitor and a search engine see.
+
+| Line | Was | Now |
+|---|---|---|
+| 8, `meta description` | `That page is not here. Business Process Redesign — process first, automation second.` | `That page is not here. Business Process Redesign.` |
+| 53, footer `<span>` | `Process first, automation second` | `Spare some time, so we can save yours.` |
+
+The footer line is byte-identical to `index.html:591` and to the JSON-LD `slogan` at
+`index.html:40`. `dist` rebuilt; `git status --short` after the rebuild listed only
+`404.html` and `dist/404.html`, so no other built file moved.
+
+`git grep -iIl "automation second"` now returns `docs/COPY-PROPOSALS.md` and
+`docs/REBRAND-BRIEF.md` and nothing on the site. The brief is left alone deliberately: it is
+the document that commissioned those proposals, and editing it would be rewriting the job
+rather than the page.
+
+## 5. (LOW) `privacy.html` header wrapped to two rows on a phone
+
+The page carried the brand name as one plain `<span>`, so `header-inner` wrapped at narrow
+widths. It now uses exactly the markup `index.html` uses - a `.brand-name` pair with
+`aria-label` on the link and both spans `aria-hidden` - so the existing `styles.css` rules
+apply with no CSS change and the accessible name stays the full name at every width.
+
+Measured in headless Chromium, same probe before and after:
+
+```
+before   320 px header 77 px TWO ROWS   360 px and 390 px header 85 px TWO ROWS
+after    320 / 360 / 390 / 480 / 768 px header 53 px, one row, brand "BPR"
+         1440 px header 53 px, one row, brand "Business Process Redesign"
+         scrollWidth == clientWidth at every width
+```
+
+**No `scroll-margin-top` was needed, and none was added.** The table-of-contents targets are
+`<section id="...">` elements, so `styles.css` already gives them
+`scroll-margin-top: calc(var(--header-h) + var(--space-5))`, which computes to 76 px against
+a 53 px header. Clicking the first TOC link lands the heading 112.5 px clear of the header
+bottom at 320 px and 53.5 px clear at 768 px - measured, not assumed. Adding a rule "to be
+safe" would have been an unmeasured layout change.
+
+The DRAFT banner, the `noindex` meta and all fourteen `TODO(Haaija)` placeholders are
+untouched. `python tools/check_structure.py privacy.html`: 0 unbalanced tags, no duplicate
+ids, no unresolved refs.
+
+## 6. (MED) The size check measured a set the budget was never written for
+
+Since the 404 and privacy pages started landing in `dist/`, `node tools/gzip_size.js dist`
+has been summing eleven files - 48,335 B - against a 40,960 B budget written for what a
+visitor downloads to see the **home** page. It reported a failure that was not one, and it
+would have hidden a real home-page regression behind a number nobody could act on.
+
+`tools/gzip_size.js` now takes `--site`, which sums exactly `index.html`, `styles.css`,
+`site.js`, `motion.js`, `examples.js`, `explorer.js` and `grow.js`, prints each file, prints
+the total with the headroom, prints PASS or FAIL and exits non-zero when over. It errors out
+if any of the seven is missing, so a half-built `dist/` cannot pass by default. The
+whole-folder total is still printed, now labelled informational, with a line naming the form
+that carries the budget.
+
+```
+node tools/gzip_size.js dist --site
+  index.html               32052 B raw    8140 B gzip
+  styles.css               41691 B raw    8925 B gzip
+  site.js                   3053 B raw    1389 B gzip
+  motion.js                 3340 B raw    1504 B gzip
+  examples.js               6403 B raw    2515 B gzip
+  explorer.js              16255 B raw    6256 B gzip
+  grow.js                  24689 B raw   10599 B gzip
+  TOTAL (7 home-page files)   39328 B gzip | budget 40960 | headroom 1632
+  site budget: PASS                                                   (exit 0)
+```
+
+The 40,960 B figure is untouched; only the measured set changed, which is what S4 and S5
+both recommended and neither did unilaterally. `CLAUDE.md`, `README.md` and allow-list §5
+all name the `--site` form, §5 is marked settled, its per-file figures are re-measured after
+this session's two page edits, and the §7 checklist item is ticked.
+
+## 7. (LOW) `check.js` built `file://` URLs by concatenation
+
+`prototypes/before-after/check.js` joined `'file://'` to a filesystem path in two places:
+the page URL and the two prefixes its "no third-party requests" check matches against. On
+Windows the page would not load at all; on any path containing a space the request check
+silently inverts, because Chromium reports percent-encoded URLs and a hand-built prefix is
+not encoded. Both now go through `url.pathToFileURL`, and both prefixes end in `path.sep`
+first, so a sibling directory whose name merely starts the same way cannot match.
+
+Proved by copying the prototype into a directory whose name contains a space and running
+both versions from there, same page, same browser:
+
+```
+old   requests made: 4 , all local: false
+      FAIL requests left the repo: .../space%20test/prototypes/before-after/index.html,
+        .../space%20test/styles.css, .../space%20test/.../before-after.css,
+        .../space%20test/.../before-after.js
+      before-after prototype: 1 FAILED                                (exit 1)
+new   requests made: 4 , all local: true
+      before-after prototype: all checks passed                       (exit 0)
+```
+
+## 8. (LOW) A negative assertion that could not fail
+
+`tests/examples.test.js` guarded against `/<script[^>]*hero-cards/`. Nothing has ever been
+called `hero-cards`: the script it was written to catch was the v2 hero card script, whose
+filename carried the company's previous name and which was removed in v4. The pattern could
+not fail whatever `index.html` contained. It is now `/<script[^>]*cards/`, which catches any
+script with "cards" in its name - the hero web draws the cards itself - and the message is
+unchanged.
+
+Proved the assertion can now fail. A copy of `index.html` with
+`<script src="x-cards.js" defer></script>` inserted before `</body>`, everything else
+identical:
+
+```
+old pattern, planted file   examples.test.js: all passed                      (exit 0)
+new pattern, planted file   AssertionError [ERR_ASSERTION]: v4 does not load
+                            the hero card script: the hero web stays as in v2 (exit 1)
+new pattern, real file      examples.test.js: all passed                      (exit 0)
+```
+
+## Checks run at the end of the session
+
+```
+node tools/build_dist.js .            built 404.css, 404.html, examples.js, explorer.js,
+                                      grow.js, index.html, motion.js, privacy.css,
+                                      privacy.html, site.js, styles.css
+git status --short dist               empty - dist/ matches a fresh rebuild
+node tests/examples.test.js           examples.test.js: all passed
+node tests/grow.test.js               grow.test.js: all passed | 238 branches, 190 knots,
+                                      10342 samples, closest 12.0px, 135ms
+  same two on a CRLF copy             all passed; identical grow figures (140ms)
+python tools/check_xml.py             xml: all well-formed (3 files)
+node tools/gzip_size.js dist --site   39328 B gzip, headroom 1632, site budget: PASS
+git grep -iIl weave                   CLAUDE.md, docs/COPY-PROPOSALS.md,
+                                      docs/DEPLOY-ALLOWLIST.md, docs/REBRAND-BRIEF.md,
+                                      docs/REBRAND-CHANGELOG.md,
+                                      docs/V5-SPEC-AND-HANDOFF.md
+git diff --stat <S5> -- index.html    empty
+node prototypes/before-after/check.js all checks passed, both widths
+python tools/check_structure.py       index.html and privacy.html: 0 unbalanced tags,
+                                      no duplicate ids, no unresolved refs
+```
+
+The `grow.test.js` figures match the baseline in `CLAUDE.md` exactly: 238 branches, 190
+knots, 10,342 samples, closest 12.0 px.
+
+## Decisions this session made that the task did not cover
+
+1. **`docs/REBRAND-BRIEF.md` still contains "automation second", and was left alone.**
+   Finding 4 asked that `git grep -i "automation second"` return nothing outside
+   `docs/COPY-PROPOSALS.md`. It also appears in §53 of the brief, in the sentence that asked
+   for those proposals in the first place. Editing the brief would rewrite the job rather
+   than the page, so it stays. Nothing on the site carries the tagline, which is the point of
+   the finding.
+2. **The old company name was kept out of the new test comment.** The first draft of
+   finding 8's comment named the removed script file, which put the old name back into
+   `tests/examples.test.js` and broke the `git grep -iIl weave` invariant - the grep is
+   there precisely to catch that. The comment now says "the company's previous name" instead.
+   `git grep -iIl weave` is back to the six docs files, with no source, test or tool file in
+   the list.
+3. **No `scroll-margin-top` rule was added for finding 5.** The finding allowed one "if
+   needed". It was not needed - the global `section[id]` rule already clears the header by a
+   measured 53.5 to 112.5 px - and adding it would have been an unmeasured CSS change the
+   brief forbids. Measured rather than assumed, and reported either way.
+4. **`tools/gzip_size.js` gained the option rather than a new script.** Finding 6 allowed
+   either. One tool with one budget constant is harder to let drift than two scripts that
+   each know the number, and the whole-folder mode is kept so the four undeployed files stay
+   visible instead of disappearing from view.
+5. **The three probe scripts are not committed.** The headless-Chromium probes for findings
+   3, 5 and 1 live in this session's scratchpad, not in `tools/`. They are one-off proofs of
+   specific regressions, the repo already has `check.js` and `check-text-clear.js` for the
+   prototype, and the task asked for proof, not for new permanent tooling. Their output is
+   quoted above and in the commit messages. If any of the three is worth keeping, finding 1's
+   SVG-decode probe is the one: it is the only check that would catch the icon breaking
+   again from the browser's side rather than the parser's.
+6. **Points 5, 7 and 8 of S5's decision list are still open and are not this session's to
+   close.** The "only the two of us" sentence and the security-measures list in the privacy
+   draft (copy decisions for Haaija and the attorney), and the hostnames and server paths in
+   `docs/V5-SPEC-AND-HANDOFF.md` (a repo-wide rule in `CLAUDE.md` versus the brief's "keep
+   that file as history"). Repeated here rather than quietly dropped, for the third session
+   running.
