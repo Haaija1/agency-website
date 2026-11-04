@@ -22,6 +22,13 @@ had mentioned and without which the 404 page is never served; §2 lists the two 
 `TODO(Haaija)` periods S5 added to `privacy.html`; and §5 is re-measured after S5's two edits.
 `privacy.html` and `privacy.css` are still **not** deployed, and neither is `prototypes/`.
 
+Updated 4 Nov 2026 by session S6 (fixes from the review of S5). What changed in here: §5 is no
+longer an open question - the budget is now measured over the seven home-page files by
+`node tools/gzip_size.js dist --site`, which S6 added, and the figures for the four
+standalone-page files are re-measured after S6's two page edits. The allow-list of files in §1 and
+§3 is unchanged. `README.md` now points at this file as the source of truth for what production
+serves, because it had been telling the reader to deploy seven files and nothing else.
+
 ---
 
 ## 1. What production serves
@@ -287,10 +294,30 @@ Also worth having on, if the host offers it: gzip or brotli for `.html`, `.css`,
 
 ---
 
-## 5. The gzip budget needs a decision
+## 5. The gzip budget
 
-`CLAUDE.md` sets a budget: the gzipped total of `dist/` must be at most 40,960 bytes, measured
-with `node tools/gzip_size.js dist`. Re-measured 4 Nov 2026 by session S4, on the integrated tree
+**Settled by session S6, the way S4 and S5 both recommended.** The budget is 40,960 gzipped bytes
+over the **seven home-page files**, and the tool now measures exactly those:
+
+```
+node tools/gzip_size.js dist --site
+```
+
+`--site` sums `index.html`, `styles.css`, `site.js`, `motion.js`, `examples.js`, `explorer.js` and
+`grow.js`, prints each one, prints the total against 40,960, and exits non-zero when it is over.
+Measured 4 Nov 2026 by S6 on a fresh build with esbuild 0.28.2: **39,328 B, 1,632 B of headroom,
+PASS**. Run without `--site` the tool still totals every `.html`/`.css`/`.js` in `dist/` - eleven
+files, 48,335 B - and now says in its own output that this figure is informational and not the
+budget. `CLAUDE.md` and `README.md` both name the `--site` form.
+
+Nothing about the site's weight changed; what changed is that the check now measures the set the
+budget was written for. The reasoning behind that, from the two sessions that measured it first,
+is kept below.
+
+### How it was measured before the option existed
+
+`CLAUDE.md` used to set the budget as the gzipped total of `dist/`, measured with
+`node tools/gzip_size.js dist`. Re-measured 4 Nov 2026 by session S4, on the integrated tree
 (S1 + S2 + S4's head change), from a real `node tools/build_dist.js .` with esbuild 0.28.2:
 
 Re-measured again 4 Nov 2026 by session S5 after its two edits, same esbuild 0.28.2, same command:
@@ -311,14 +338,15 @@ JSON-LD `slogan` line, less the footer text they replaced. `privacy.html` grew *
 So merging S2's pages makes the budget check fail as it is currently written, with no change to
 the home page at all. The four standalone-page files are:
 
-| File | raw | gzip |
-|---|---|---|
-| `privacy.html` | 18,864 B | 6,613 B |
-| `privacy.css` | 3,634 B | 970 B |
-| `404.html` | 2,581 B | 949 B |
-| `404.css` | 1,016 B | 438 B |
+| File | raw | gzip | S6 re-measure, raw | S6 re-measure, gzip |
+|---|---|---|---|---|
+| `privacy.html` | 18,864 B | 6,613 B | 19,021 B | 6,651 B |
+| `privacy.css` | 3,634 B | 970 B | 3,634 B | 970 B |
+| `404.html` | 2,581 B | 949 B | 2,550 B | 948 B |
+| `404.css` | 1,016 B | 438 B | 1,016 B | 438 B |
 
-8,970 B gzipped between them, which is the whole of the overshoot.
+8,970 B gzipped between them as S5 measured it, 9,007 B as of S6 - which was the whole of the
+overshoot while the check was measured over all eleven files.
 
 ### What S4's head change cost
 
@@ -349,8 +377,8 @@ each page actually costs, first visit, nothing cached:
 | Page | gzipped bytes over the wire |
 |---|---|
 | Home | 39,328 (index + styles + the 5 scripts) |
-| Privacy | 16,508 (privacy.html + styles.css + privacy.css) - not deployed |
-| 404 | 10,312 (404.html + styles.css + 404.css) |
+| Privacy | 16,508 (privacy.html + styles.css + privacy.css) - not deployed; 16,546 as of S6 |
+| 404 | 10,312 (404.html + styles.css + 404.css); 10,311 as of S6 |
 
 **Recommendation for Dave:** keep 40,960 as a *home-page* budget, measured over the seven
 home-page files, and track the standalone pages separately against their own figures. That keeps
@@ -360,10 +388,17 @@ S5 agrees with S4 and did not change the tool or the budget either. Note that th
 1,632 B and has shrunk in both of the last two sessions. It is enough, but it is not a lot: the
 next person to add markup to the home page should re-measure rather than assume.
 
-Neither S2 nor S4 has changed `tools/gzip_size.js`, `CLAUDE.md` or anything else that would move
-the goalposts unilaterally - the numbers are here so the call can be made deliberately. Until Dave
-makes it, read a failing `node tools/gzip_size.js dist` against the 7-file figure above, not the
-11-file one.
+Neither S2 nor S4 changed `tools/gzip_size.js`, `CLAUDE.md` or anything else that would move the
+goalposts unilaterally - the numbers were left here so the call could be made deliberately.
+**Session S6 made it**, in the direction both earlier sessions recommended: it added the `--site`
+option rather than changing the 40,960 figure or the budget's meaning, so the number in
+`CLAUDE.md` is the same number it always was and only the measured set is now the right one. The
+whole-folder total is still printed, so nobody loses sight of what the other four files cost.
+
+The privacy-page figure in the table above is now 16,546 B rather than 16,508 B: S6's header
+change added 38 gzipped bytes to `privacy.html` (6,613 -> 6,651). The 404 figure is 10,311 B, one
+byte under S5's, from the slogan replacing the longer unapproved tagline. Neither page is counted
+against the budget, and the seven home-page files are byte-identical to S5's.
 
 ---
 
@@ -403,4 +438,6 @@ this round of work. If the icons need regenerating often, it belongs in `tools/`
 - [ ] CSP run in report-only mode once, console clean on all three pages
 - [ ] `/.git/config`, `/docs/...`, `/tools/...`, `/package.json` all return 404
 - [ ] HSTS left off until HTTPS is confirmed on every subdomain (§4b)
-- [ ] the gzip budget question in §5 answered one way or the other
+- [x] the gzip budget question in §5 answered one way or the other - done by S6:
+      `node tools/gzip_size.js dist --site` measures the seven home-page files against 40,960 B
+      and currently prints 39,328 B, PASS

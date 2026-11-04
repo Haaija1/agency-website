@@ -72,9 +72,15 @@ meaningless: require thousands of samples and a negative control that gets caugh
 
 ```
 npm install --no-save esbuild
-node tools/build_dist.js .      # writes ./dist
-node tools/gzip_size.js dist    # budget: gzipped total <= 40,960 bytes
+node tools/build_dist.js .           # writes ./dist
+node tools/gzip_size.js dist --site  # budget: the 7 home-page files, gzipped, <= 40,960 B
 ```
+
+`--site` is the check that matters. The budget is what a visitor downloads to see the
+home page — `index.html`, `styles.css` and the five scripts — and it prints the seven
+names, the total and PASS/FAIL, exiting non-zero when it is over. Without `--site` the
+tool totals every `.html`/`.css`/`.js` in `dist/`, which since the 404 and privacy pages
+landed there is eleven files and about 48 KB: informational, not the budget.
 
 ## Deploy
 
