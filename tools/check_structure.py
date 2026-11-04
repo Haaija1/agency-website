@@ -89,7 +89,7 @@ for e in p.errors[:10]:
     print("     ", e)
 print(f"  duplicate ids       : {dup or 'none'}")
 print(f"  unresolved refs     : {bad or 'none'}")
-keys = [("threaded", "sections that join the Thread"), ("thread-node", "W beads"), ("lane", "before/after lanes"), ("hp", "honeypot wrapper"),
+keys = [("threaded", "sections that join the Thread"), ("thread-node", "merge beads"), ("lane", "before/after lanes"), ("hp", "honeypot wrapper"),
         ("field", "form fields"), ("switch", "Before/After switch"), ("proof-item", "numbered rows"), ("step", "process steps"), ("tier", "service rows")]
 old = None
 if len(sys.argv) > 2:

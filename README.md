@@ -1,61 +1,105 @@
-# Weave Agency Website
+# Business Process Redesign — website
 
-Static marketing/portfolio site. Plain HTML/CSS/JS, no framework, no build step.
-The website will be hosted using cPanel. GitHub stores the website source.
+Marketing site for **Business Process Redesign** (short name **BPR**), at
+**bpsra.co.za**. One page, plain HTML/CSS/JS, no framework and no build step to view
+it: open `index.html` in a browser. There is a minify step for what gets deployed
+(see [Build](#build)).
 
-## Current draft
+The site was built as "v5" under the company's previous name. The name changed; the
+site did not. `docs/REBRAND-BRIEF.md` is the job, `docs/REBRAND-CHANGELOG.md` lists
+every string and identifier that moved, and `docs/V5-SPEC-AND-HANDOFF.md` is the
+history of how the page works (written under the old name).
 
-`index.html` contains Weave's responsive Hero section, with embedded CSS and the
-shared brand fonts and colours. It opens directly in a browser without a build.
-Google Fonts requires an internet connection; system fonts provide a fallback.
+## What the page is
 
-The Hero's woven-thread background is a decorative inline SVG pattern
-(`aria-hidden`) built from the existing brand tokens. Its load-in motion is
-CSS-only and switches off under `prefers-reduced-motion`.
+A single scrolling page: hero, why we do this, services, process, example workflows,
+a workflow example, contact. Behind the content a web of threads grows down the page
+as you scroll, draws the card borders, and joins the big interactive tool web in
+"Example workflows". All of it is progressive enhancement:
 
-The About/Story section is deferred until company content is ready. The Hero's
-contact button targets `#contact`; add the Contact section before launch.
+- **No JavaScript** — the page is complete: normal CSS borders, no pin, and the
+  example workflows read as a plain list.
+- **`prefers-reduced-motion: reduce`** — everything holds still.
+- **Keyboard** — every pointer interaction has a keyboard equivalent.
 
-## Branches & ownership split
+The hero is Willie's: his words and structure (identity row, eyebrow, two-line
+headline, intro, call to action, closing line). **Do not change how it pins or
+behaves.** It holds still for a few scrolls while the first branch grows out of it;
+that is deliberate and approved.
 
-Working in parallel without merge conflicts: each branch owns different sections of
-`index.html`. Don't edit outside your own sections — reconcile at merge time via PR.
+## Files
 
-| Branch | Owner | Owns |
-|---|---|---|
-| `design/dave` | Haaija (design by Dave/Claude, build via Claude Code on Opus) | Services section, Case Study section, Contact section |
-| `design/willie` | Willie | Hero section, About/Story section |
+| File | What it does |
+|---|---|
+| `index.html` | The page. All content lives here. |
+| `styles.css` | The whole stylesheet (slate + blue tokens, layout, motion rules). |
+| `site.js` | Progressive enhancement: form validation, the week switch, reveals. |
+| `motion.js` | Motion layer: hero web drift, pointer silk, signals. |
+| `examples.js` | The workflow data for the example explorer (pure, unit-tested). |
+| `explorer.js` | Builds the interactive tool web and its popup. |
+| `grow.js` | The web that grows down the page: router, pin, card frames. |
+| `tests/` | Node unit tests. |
+| `tools/` | Measurement and build scripts. |
+| `dist/` | Minified output, committed. This is what gets deployed. |
 
-Adjust the split in this table if you agree on something different — just keep it written
-down here so both of you know the boundary.
+## Checks
 
-## Brand tokens (shared — don't invent new ones per branch)
-
-Source: `_MY-BUSINESS/cofounder-pitch-deck.html` (the deck that pitched Willie as cofounder).
-
-- Fonts: **Space Grotesk** (headings), **IBM Plex Sans** (body), **IBM Plex Mono** (accents)
-- Palette (dark): `--pbg:#0c0d0a`, `--bg-2:#121309`, `--ink:#f3f1e8`, `--muted:#9b9788`
-  (exact accent/border colors TBD — check the full file for the rest before inventing new ones)
-
-## Copy guidance
-
-Niche validation (20–50 real client interviews) is not done yet — see
-`AI-Agency-Kits/_MY-BUSINESS/niche-validation-tracker.md`. Keep hero/services copy
-niche-agnostic for now; don't hard-commit headline copy to one vertical (e.g. "AI Ops for
-Property Managers"). Lead with proof-of-work (Eyecatchers case study, redacted — no real
-client name/numbers without sign-off) and the 4-tier service model instead.
-
-## Local dev
-
-No build step. Open `index.html` directly in a browser, or run any static server:
+All from the repo root.
 
 ```
-npx serve .
+node tests/examples.test.js      # must print "examples.test.js: all passed"
+node tests/grow.test.js          # must print "grow.test.js: all passed | ..."
+```
+
+Baseline for `grow.test.js`: 238 branches, 190 knots, 10,342 samples, closest 12.0 px.
+**A runner that prints nothing is not a pass** — require the explicit "all passed"
+line. (A silent runner once exited 0 with no tests run.)
+
+```
+python tools/check_structure.py index.html    # tag balance, duplicate ids, refs resolve
+python tools/contrast.py                      # WCAG contrast ratios
+python tools/site_contrast.py <stylesheet>    # contrast table for a token set
+```
+
+`tools/sweep_widths.py` checks the web against the page text at 8 widths (0 collisions,
+0 boxHits, on a web that is actually alive, plus a negative control). It needs a real
+browser and the `cdp` / `js` / `goto_url` / `wait_for_load` helpers of a CDP harness —
+it does not run on its own. A "0 collisions" result on a web that did not draw is
+meaningless: require thousands of samples and a negative control that gets caught.
+
+## Build
+
+```
+npm install --no-save esbuild
+node tools/build_dist.js .      # writes ./dist
+node tools/gzip_size.js dist    # budget: gzipped total <= 40,960 bytes
 ```
 
 ## Deploy
 
-Publish the approved `index.html` to the website's document root using cPanel.
-GitHub changes do not by themselves confirm a cPanel deployment; any automatic
-deployment integration must be configured separately. This repository update
-does not publish the draft to the live website.
+Deploy the contents of `dist/`, and only these seven files:
+
+```
+index.html  styles.css  site.js  motion.js  examples.js  explorer.js  grow.js
+```
+
+Nothing else is served — not `tests/`, not `tools/`, not `docs/`. A `contact.php`
+endpoint is not deployed, so the contact form falls back to WhatsApp.
+
+Pushing to GitHub does not publish anything by itself.
+
+## Rules for this repo
+
+- **This repo is public.** No secrets, tokens, passwords, IP addresses, server names
+  or private paths in any file or in any commit message.
+- **No client name, client result or real price appears on the site.** The
+  time-saving figures are illustrative placeholders and are always labelled
+  "Illustrative, not a client result".
+- **No third-party requests**: no analytics, no CDN fonts, no external images. Every
+  request the page makes is to a file in the list above.
+- Any legal text (privacy notice, terms) is a **DRAFT** until a lawyer has read it,
+  and says so at the top of its own file.
+- Copy changes are Haaija's call. Ideas go in `docs/COPY-PROPOSALS.md`, not into the
+  page.
+
+See `CLAUDE.md` for the rules that apply to automated sessions on this repo.

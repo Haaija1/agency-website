@@ -194,6 +194,16 @@ textarea:focus-visible{
   font-weight:600; letter-spacing:-.01em; text-decoration:none;
 }
 .brand .mark{ width:22px; height:22px; flex:none; }
+/* The name in full while the row has room for it, the short name where it would crowd the nav.
+   Measured in a real browser: the full name renders 242.6px wide and the row runs out of space
+   between 700px and 640px, so the swap sits on the existing 768px breakpoint (105px of slack there).
+   The <a> carries aria-label="Business Process Redesign", so the accessible name is the full one at
+   every width and these two spans are hidden from assistive tech. */
+.brand-name__short{ display:none; }
+@media (max-width:768px){
+  .brand-name__full{ display:none; }
+  .brand-name__short{ display:inline; }
+}
 .site-nav ul{ display:flex; flex-wrap:wrap; justify-content:flex-end; align-items:center; gap:var(--space-1); list-style:none; } /* wraps only when the reader's text size makes the links wider than the row */
 .site-nav a{
   display:inline-flex; align-items:center; min-height:32px; padding:0 12px;

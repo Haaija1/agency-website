@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>/* the hero holds still for a few scrolls only on a big screen and for visitors who accept motion; weave-grow.js confirms it once the page is measured */
 if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-motion:no-preference)').matches) { var d = document.documentElement; d.className += ' pin-on'; d.style.setProperty('--pin', Math.round(Math.max(320, Math.min(440, innerHeight * 0.46))) + 'px'); }</script>
-  <title>Weave — AI automation for growing businesses</title>
-  <meta name="description" content="Weave — AI automation for growing businesses. Less repetitive work. More time for the work that matters.">
+  <title>Business Process Redesign — AI automation for growing businesses</title>
+  <meta name="description" content="Business Process Redesign — AI automation for growing businesses. Less repetitive work. More time for the work that matters.">
   <meta name="theme-color" content="#ffffff">
-  <!-- Social sharing. Add og:url, og:image and <link rel="canonical"> once the final domain is confirmed (they need absolute URLs). -->
+  <link rel="canonical" href="https://bpsra.co.za/">
+  <!-- Social sharing. og:image is NOT set yet: it needs an absolute URL to a real image file, which session S2 adds. -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Weave">
-  <meta property="og:title" content="Weave — AI automation for growing businesses">
+  <meta property="og:site_name" content="Business Process Redesign">
+  <meta property="og:title" content="Business Process Redesign — AI automation for growing businesses">
   <meta property="og:description" content="Less repetitive work. More time for the work that matters.">
+  <meta property="og:url" content="https://bpsra.co.za/">
   <meta name="twitter:card" content="summary">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1a1a'/%3E%3Cpath d='M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24' stroke='%238a8a86' stroke-width='1.2' fill='none'/%3E%3Ccircle cx='16' cy='16' r='3.6' fill='%23fff'/%3E%3Ccircle cx='6' cy='8' r='2.2' fill='%23fff'/%3E%3Ccircle cx='26' cy='9' r='2.2' fill='%23fff'/%3E%3Ccircle cx='9' cy='26' r='2.2' fill='%23fff'/%3E%3Ccircle cx='25' cy='24' r='2.2' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
@@ -21,13 +23,15 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
   <script src="weave-examples.js" defer></script>
   <script src="weave-explorer.js" defer></script>
   <script src="weave-grow.js" defer></script>
-  <!-- Structured data. Add "url" once the final domain is confirmed. -->
+  <!-- Structured data. "alternateName" records what BPSRA stands for; the display name stays the short form. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Weave",
-    "description": "AI automation for growing businesses. Weave helps automate repetitive work so teams can focus on what comes next.",
+    "name": "Business Process Redesign",
+    "alternateName": "Business Process Redesign South Africa",
+    "url": "https://bpsra.co.za/",
+    "description": "AI automation for growing businesses. Business Process Redesign helps automate repetitive work so teams can focus on what comes next.",
     "telephone": ["+27 73 851 6860", "+27 76 400 9597"]
   }
   </script>
@@ -39,7 +43,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 <!-- ============ SHARED HEADER / NAV ============ -->
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="#top"><svg class="mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24" stroke="var(--ink-4)" stroke-width="1.2" fill="none"/><circle cx="16" cy="16" r="3.6" fill="var(--ink)"/><circle cx="6" cy="8" r="2.2" fill="var(--ink)"/><circle cx="26" cy="9" r="2.2" fill="var(--ink)"/><circle cx="9" cy="26" r="2.2" fill="var(--ink)"/><circle cx="25" cy="24" r="2.2" fill="var(--ink)"/></svg><span>Weave</span></a>
+    <a class="brand" href="#top" aria-label="Business Process Redesign"><svg class="mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24" stroke="var(--ink-4)" stroke-width="1.2" fill="none"/><circle cx="16" cy="16" r="3.6" fill="var(--ink)"/><circle cx="6" cy="8" r="2.2" fill="var(--ink)"/><circle cx="26" cy="9" r="2.2" fill="var(--ink)"/><circle cx="9" cy="26" r="2.2" fill="var(--ink)"/><circle cx="25" cy="24" r="2.2" fill="var(--ink)"/></svg><span class="brand-name" aria-hidden="true"><span class="brand-name__full">Business Process Redesign</span><span class="brand-name__short">BPR</span></span></a>
     <nav class="site-nav" aria-label="Primary">
       <ul>
         <li><a href="#services">Services</a></li>
@@ -57,7 +61,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 <div class="hero-pin" id="hero-pin">
 <section class="weave-hero" aria-labelledby="weave-headline">
   <div class="weave-hero__identity">
-    <p class="weave-hero__wordmark">weave<span aria-hidden="true">.</span></p>
+    <p class="weave-hero__wordmark">bpr<span aria-hidden="true">.</span></p>
     <p class="weave-hero__descriptor">AI automation for growing businesses</p>
   </div>
   <div class="weave-hero__content">
@@ -66,7 +70,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
       <div class="weave-hero__layout">
         <h1 id="weave-headline"><span class="weave-hero__line"><span>Make room for</span></span> <span class="weave-hero__line weave-hero__line--accent"><span>better work.</span></span></h1>
         <div class="weave-hero__intro">
-          <p class="weave-hero__copy"><strong>Your time is better spent moving your business forward.</strong> Weave helps automate repetitive work, so you can focus on what comes next.</p>
+          <p class="weave-hero__copy"><strong>Your time is better spent moving your business forward.</strong> We help automate repetitive work, so you can focus on what comes next.</p>
           <a class="weave-hero__cta" href="#contact">Let’s talk automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
@@ -172,11 +176,11 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
 <!-- ============ ABOUT ============ -->
 <section id="about" class="threaded" aria-labelledby="about-title">
-  <a class="thread-node" href="#about" aria-label="Why Weave section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9l5 15 6-12 6 12 5-15"/></svg></a>
+  <a class="thread-node" href="#about" aria-label="Why we do this section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">
-    <p class="kicker">Why Weave</p>
+    <p class="kicker">Why we do this</p>
     <h2 id="about-title">Your tools should work <em>together.</em></h2>
-    <p class="lede">When a business grows, the work between its systems grows too: copying information, chasing updates, and checking the same details twice. Weave connects those steps so your team can spend more time on work that needs their judgement.</p>
+    <p class="lede">When a business grows, the work between its systems grows too: copying information, chasing updates, and checking the same details twice. We connect those steps so your team can spend more time on work that needs their judgement.</p>
     <div class="proof">
       <article class="proof-item"><p class="num" aria-hidden="true">01</p><div><h3>Start with the work</h3><p>We look at how your team works today, where information gets stuck, and which tasks are worth automating.</p></div></article>
       <article class="proof-item"><p class="num" aria-hidden="true">02</p><div><h3>Build around your business</h3><p>We connect the tools you already use where practical. AI is an option when it helps; clear rules and simple integrations often do the job.</p></div></article>
@@ -187,7 +191,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
 <!-- ============ SERVICES ============ -->
 <section id="services" class="threaded" aria-labelledby="services-title">
-  <a class="thread-node" href="#services" aria-label="Services section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9l5 15 6-12 6 12 5-15"/></svg></a>
+  <a class="thread-node" href="#services" aria-label="Services section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">
     <p class="kicker">What We Do</p>
     <h2 id="services-title">Support for every stage <em>of your workflow.</em></h2>
@@ -222,7 +226,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
 <!-- ============ PROCESS: how it works + risk band ============ -->
 <section id="process" class="threaded" aria-labelledby="process-title">
-  <a class="thread-node" href="#process" aria-label="Process section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9l5 15 6-12 6 12 5-15"/></svg></a>
+  <a class="thread-node" href="#process" aria-label="Process section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">
     <p class="kicker">How It Works</p>
     <h2 id="process-title">Four steps, each with <em>something to show for it.</em></h2>
@@ -294,7 +298,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
      weave-explorer.js builds the interactive version into #wfx. Without it, the list below is the content (it is generated from
      weave-examples.js by tests/wf_list.js, and examples.test.js fails if the two ever differ). -->
 <section id="workflows" class="threaded" aria-labelledby="workflows-title">
-  <a class="thread-node" href="#workflows" aria-label="Example workflows section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9l5 15 6-12 6 12 5-15"/></svg></a>
+  <a class="thread-node" href="#workflows" aria-label="Example workflows section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">
     <p class="kicker">Example Workflows</p>
     <h2 id="workflows-title">Pick a tool to see <em>how it would run.</em></h2>
@@ -405,7 +409,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
 <!-- ============ WORKFLOW EXAMPLE ============ -->
 <section id="case-study" class="threaded" aria-labelledby="case-study-title">
-  <a class="thread-node" href="#case-study" aria-label="Workflow example section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9l5 15 6-12 6 12 5-15"/></svg></a>
+  <a class="thread-node" href="#case-study" aria-label="Workflow example section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">
     <p class="kicker">Workflow Example</p>
     <h2 id="case-study-title">From scattered updates to <em>one clear view.</em></h2>
@@ -515,7 +519,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="threaded threaded--end" aria-labelledby="contact-title">
-  <a class="thread-node" href="#contact" aria-label="Contact section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9l5 15 6-12 6 12 5-15"/></svg></a>
+  <a class="thread-node" href="#contact" aria-label="Contact section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">
     <p class="kicker">Get In Touch</p>
     <h2 id="contact-title">Tell us what's <em>actually</em> eating your team's time.</h2>
@@ -551,8 +555,8 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
       <div class="contact-card">
         <h3>Prefer WhatsApp?</h3>
         <p>Message either number to start a conversation.</p>
-        <div class="contact-actions"><a class="btn secondary" id="whatsapp-contact" href="https://wa.me/27738516860?text=Hi%20Weave%2C%20I%27d%20like%20to%20discuss%20automating%20a%20workflow." target="_blank" rel="noopener noreferrer">WhatsApp +27 73 851 6860 →</a>
-        <a class="btn secondary" href="https://wa.me/27764009597?text=Hi%20Weave%2C%20I%27d%20like%20to%20discuss%20automating%20a%20workflow." target="_blank" rel="noopener noreferrer">WhatsApp +27 76 400 9597 →</a></div>
+        <div class="contact-actions"><a class="btn secondary" id="whatsapp-contact" href="https://wa.me/27738516860?text=Hi%2C%20I%27d%20like%20to%20discuss%20automating%20some%20of%20our%20admin%20work." target="_blank" rel="noopener noreferrer">WhatsApp +27 73 851 6860 →</a>
+        <a class="btn secondary" href="https://wa.me/27764009597?text=Hi%2C%20I%27d%20like%20to%20discuss%20automating%20some%20of%20our%20admin%20work." target="_blank" rel="noopener noreferrer">WhatsApp +27 76 400 9597 →</a></div>
         <p class="contact-note">Opens WhatsApp; you choose when to send.</p>
       </div>
       <!-- TODO(Haaija): fill the three REPLACE_ values, then delete the `hidden` attribute on this card. Until then it does not show,
@@ -576,7 +580,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 </main>
 
 <footer class="site-footer">
-  <span>© 2026 Weave</span>
+  <span>© 2026 Business Process Redesign</span>
   <span>AI automation for growing businesses</span>
   <a href="#top">Back to top</a>
 </footer>
