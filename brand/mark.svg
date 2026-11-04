@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Business Process Redesign">
+  <title>Business Process Redesign</title>
+  <!--
+    The hub-and-spokes mark, same geometry as favicon.svg (one centre, four nodes, four
+    paths), on a transparent background for use anywhere the page is not slate: white
+    cards, light backgrounds, print.
+
+    Colours are literal hex, never a CSS custom property reference: this file is loaded
+    standalone (img src, favicon-style link, pasted into other tools) and never sees the
+    host page's custom properties.
+      spokes  #5c677b  (the site's ink-muted token)  5.70:1 on white  - measured with tools/contrast.py
+      hub+nodes #2f3b52  (the site's ink and primary token, "the slate")  11.24:1 on white
+
+    For dark backgrounds use mark-reversed.svg instead of recolouring this file.
+  -->
+  <path d="M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24" stroke="#5c677b" stroke-width="1.2" fill="none"/>
+  <circle cx="16" cy="16" r="3.6" fill="#2f3b52"/>
+  <circle cx="6" cy="8" r="2.2" fill="#2f3b52"/>
+  <circle cx="26" cy="9" r="2.2" fill="#2f3b52"/>
+  <circle cx="9" cy="26" r="2.2" fill="#2f3b52"/>
+  <circle cx="25" cy="24" r="2.2" fill="#2f3b52"/>
+</svg>
