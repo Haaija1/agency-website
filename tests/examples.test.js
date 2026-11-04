@@ -120,7 +120,12 @@ for (const id of IDS) {
   });
 }
 assert(html.includes('id="workflows"') && html.includes('aria-labelledby="workflows-title"'), 'section is labelled');
-assert(!/<script[^>]*hero-cards/.test(html), 'v4 does not load the hero card script: the hero web stays as in v2');
+/* The script this guards against was the v2 hero card script, whose filename carried the
+   company's previous name and which was removed in v4. The pattern used to name a
+   "hero-cards" script, which never existed under any name, so the assertion could not fail
+   and guarded nothing. Any script with "cards" in its name is the real thing to catch: the
+   hero web draws the cards itself. */
+assert(!/<script[^>]*cards/.test(html), 'v4 does not load the hero card script: the hero web stays as in v2');
 
 // ---- popup placement (v5): the workflow opens right beside the tool you point at
 const { place } = require('../examples.js');
