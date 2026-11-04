@@ -1089,3 +1089,6 @@ git status --short                    only brand/ (untracked) before this edit; 
    / `--primary` token from the B3 palette (`styles.css`), not a new colour. The mark's
    reversed colours (`#ffffff` hub/nodes, `#b8c3d9` spokes) were picked to clear 6:1+
    against that background - see `brand/README.md` for the measured ratios.
+
+## Connection lead fix (S8 replay of a locally verified change)
+`grow.js`: `ST.L72` is now `vh * 1.2` (was `vh * 0.72`), and the card frames keep the old line via `pageR(s, vh * 0.72)`. Effect, measured by Dave in a real browser with wheel scrolling: the web's connection (dock dot) now lights 160 to 280 scroll px BEFORE the top three cards start drawing at 1440x900, 1920x1080 and 1366x768 (it used to light 120 to 360 px after). Cards start drawing at the same scroll positions as before.

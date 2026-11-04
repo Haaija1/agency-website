@@ -445,11 +445,11 @@
     web.dots.forEach(function (k) { var on = r >= k.thr; if (on !== k.on) { k.on = on; k.el.classList.toggle('on', on); } });
   }
   /* where the page web has grown to, in main's coordinates. At the moment the pin lets go, the growth line sits on the hero's bottom edge (so the
-     first branch carries straight on); it then rises to a little below mid-screen over the next 320px of scroll. */
-  function pageR(s) {
+     first branch carries straight on); it then moves down to a fifth of a screen below the bottom of the screen (1.2 x viewport height) over the next 320px, so the web is drawn ahead of what is visible and leads the cards (they draw at 92%). */
+  function pageR(s, l72) {
     if (reduce) return 1e9;
     var L = ST.L0, e = s - ST.P;
-    if (e > 0) { var u = Math.min(1, e / 320); u = u * u * (3 - 2 * u); L = ST.L0 + (ST.L72 - ST.L0) * u; }
+    if (e > 0) { var u = Math.min(1, e / 320); u = u * u * (3 - 2 * u); L = ST.L0 + ((l72 === undefined ? ST.L72 : l72) - ST.L0) * u; }
     return s + L - ST.mainTop;
   }
   function update() {
@@ -458,7 +458,7 @@
     if (introWeb && introWeb.ready) reveal(introWeb, reduce ? 1e9 : s);
     if (pageWeb.ready) reveal(pageWeb, r);
     if (ST.routeY) { var fe = doc.querySelector('.wx-field'); if (fe) fe.classList.toggle('routed', r >= ST.routeY); }
-    var rf = reduce ? 1e9 : Math.max(r, s + root.innerHeight * 0.92 - ST.mainTop);   /* the cards draw as they come up the screen (the last one must finish before the page ends) */
+    var rf = reduce ? 1e9 : Math.max(pageR(s, root.innerHeight * 0.72), s + root.innerHeight * 0.92 - ST.mainTop);   /* cards keep the old 0.72 line so they form where they always did; the web (r) leads them. They draw as they come up the screen (the last one must finish before the page ends) */
     frames.forEach(function (fr) {
       var p = Math.max(0, Math.min(1, (rf - fr.y + 10) / (fr.span * 0.45)));
       var k = Math.round(p * 300); if (k === fr.last) return; fr.last = k;
@@ -518,7 +518,7 @@
     ST.mainTop = mr.top + root.pageYOffset;
     ST.P = P;
     var pr = (pinEl || hero || main).getBoundingClientRect(), ySeam = Math.round(pr.bottom - mr.top), heroH = hero ? Math.round(hero.offsetHeight) : ySeam;
-    ST.Pe = pin ? ST.P : Math.round(vh * 0.6); ST.L0 = Math.min(ST.mainTop + heroH, vh * 0.95); ST.L72 = vh * 0.72;
+    ST.Pe = pin ? ST.P : Math.round(vh * 0.6); ST.L0 = Math.min(ST.mainTop + heroH, vh * 0.95); ST.L72 = vh * 1.2;
     var bead0 = main.querySelector('.thread-node'), rb = bead0 && bead0.getBoundingClientRect();
     var railX = rb ? rb.left + rb.width / 2 - mr.left : 40, seamX = Math.max(12, Math.round(railX - 34));
     html.setAttribute('data-pin', ST.P);
