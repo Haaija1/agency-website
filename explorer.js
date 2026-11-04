@@ -1,11 +1,11 @@
-/* Weave site: "Example workflows". The hero web, bigger and alive: it drifts, leans toward the pointer and sends small signals along its threads.
+/* BPR site: "Example workflows". The hero web, bigger and alive: it drifts, leans toward the pointer and sends small signals along its threads.
    Point at a tool and its workflow opens in a popup right beside it, as an n8n-style canvas that is wider than the popup. The wheel over the popup
    (or a drag, a swipe, the arrow keys) moves the canvas sideways. Two blue stems leave the web at its foot: that is where the page web joins it.
-   Progressive enhancement: without this file the page shows the same workflows as a list. Numbers come from weave-examples.js and are illustrative
+   Progressive enhancement: without this file the page shows the same workflows as a list. Numbers come from examples.js and are illustrative
    placeholders. Node positions and links are read from the hero web, so the two can never drift apart. */
 (function () {
   'use strict';
-  var X = window.WEAVE_EXAMPLES, host = document.getElementById('wfx');
+  var X = window.SITE_EXAMPLES, host = document.getElementById('wfx');
   if (!X || !host) return;
   var NS = 'http://www.w3.org/2000/svg', E = X.EXAMPLES, slice = Array.prototype.slice, mm = window.matchMedia;
   var reduce = mm && mm('(prefers-reduced-motion: reduce)').matches, desk = mm('(min-width:960px)'), fine = mm('(hover:hover) and (pointer:fine)').matches;
@@ -320,5 +320,5 @@
     new IntersectionObserver(function (es) { var on = es[es.length - 1].isIntersecting; if (on === visible) return; visible = on; if (on) run(gen); else clearRun(); }, { threshold: 0.2 }).observe(stage);
   } else { visible = true; fieldOn = true; web.classList.add('in'); wake(); }
   layout(); mode();
-  window.WEAVE_EXPLORER = { field: field, web: web, stage: stage, vp: vp, show: show, hide: hide, layout: layout, state: function () { return { open: open, pinned: pinned, cur: cur }; } };   /* for tools/v5_checks */
+  window.SITE_EXPLORER = { field: field, web: web, stage: stage, vp: vp, show: show, hide: hide, layout: layout, state: function () { return { open: open, pinned: pinned, cur: cur }; } };   /* for tools/v5_checks */
 })();

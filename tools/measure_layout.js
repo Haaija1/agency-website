@@ -23,7 +23,7 @@
     const s = parseFloat(cs.fontSize);
     if (s < minFont) { minFont = s; minEl = el.tagName.toLowerCase() + '.' + (el.className || '').toString().split(' ')[0]; }
   }
-  const cols = getComputedStyle(document.querySelector('.weave-hero__content')).gridTemplateColumns.split(' ').length;
+  const cols = getComputedStyle(document.querySelector('.hero__content')).gridTemplateColumns.split(' ').length;
   return {
     vw: de.clientWidth, pageOverflowX: de.scrollWidth > de.clientWidth, scrollW: de.scrollWidth,
     heroCols: cols, webW: wr ? Math.round(wr.width) : null, labelPx,

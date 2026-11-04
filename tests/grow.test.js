@@ -1,7 +1,7 @@
-// Tests for the web that grows down the page (the pure core of weave-grow.js; the DOM part is checked in a real browser).
+// Tests for the web that grows down the page (the pure core of grow.js; the DOM part is checked in a real browser).
 // Scene = a page-shaped set of text/card boxes in a 1440 x 6600 page. The web must live in the free space around them.
 const assert = require('assert');
-const G = require('../weave-grow.js');
+const G = require('../grow.js');
 
 function scene(W, H) {
   const blocks = [], col = [162, W - 162];

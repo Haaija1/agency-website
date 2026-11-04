@@ -91,5 +91,5 @@
   function order(e) { return e.flow.nodes.slice().sort(function (a, b) { return a.c - b.c || a.r - b.r; }); }
   var api = { EXAMPLES: EXAMPLES, KINDS: KINDS, compute: compute, fmt: fmt, WEEKS_PER_MONTH: WEEKS_PER_MONTH,
               assumption: assumption, savedLine: savedLine, flowStats: flowStats, shape: shape, order: order, place: place };
-  if (typeof module === 'object' && module.exports) module.exports = api; else root.WEAVE_EXAMPLES = api;
+  if (typeof module === 'object' && module.exports) module.exports = api; else root.SITE_EXAMPLES = api;
 })(typeof window !== 'undefined' ? window : this);

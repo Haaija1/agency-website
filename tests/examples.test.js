@@ -1,5 +1,5 @@
 const assert = require('assert'), fs = require('fs'), path = require('path');
-const { EXAMPLES, KINDS, compute, fmt, assumption, savedLine, flowStats, shape, order } = require('../weave-examples.js');
+const { EXAMPLES, KINDS, compute, fmt, assumption, savedLine, flowStats, shape, order } = require('../examples.js');
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 
 // ---- time-saved maths: expected values typed independently of the code under test: [by hand, with it, saved, hours/month]
@@ -116,10 +116,10 @@ for (const id of IDS) {
   });
 }
 assert(html.includes('id="workflows"') && html.includes('aria-labelledby="workflows-title"'), 'section is labelled');
-assert(!/<script[^>]*weave-cards/.test(html), 'v4 does not load the hero card script: the hero web stays as in v2');
+assert(!/<script[^>]*hero-cards/.test(html), 'v4 does not load the hero card script: the hero web stays as in v2');
 
 // ---- popup placement (v5): the workflow opens right beside the tool you point at
-const { place } = require('../weave-examples.js');
+const { place } = require('../examples.js');
 assert.strictEqual(typeof place, 'function', 'place() is exported');
 {
   const hero = html.slice(html.indexOf('<svg class="web"'), html.indexOf('</svg>', html.indexOf('<svg class="web"')));

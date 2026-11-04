@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Freeze the Weave app's network view into a static inline SVG, plus its CSS-only hover rules.
+"""Freeze the product app's network view into a static inline SVG, plus its CSS-only hover rules.
 
-Geometry is copied from apps/web/src/components/NetworkView.tsx in the Weave app repo
-(GitHub/weave), read in full on 2026-09-30:
+Geometry is copied from that app's network-view component, read in full on 2026-09-30:
   radius = min(width, height) * 0.34
   guide rings at radius * [0.5, 1, 1.3]; 12 spokes of length radius * 1.3, the first at 12 o'clock
   the owner sits at the centre (dot r 7); everyone else is a dot of r 5
@@ -12,8 +11,7 @@ Geometry is copied from apps/web/src/components/NetworkView.tsx in the Weave app
   hover: other nodes fade to 0.3, other threads to 0.35, the hovered node's threads turn ink-3,
   its halo (r + 7, accent colour) appears
 The app runs a live d3-force simulation. Here the layout is frozen at the positions the simulation
-settled on in the app's own screenshot (GitHub/weave/.shots/network3.png), so the public site needs
-no JavaScript for it.
+settled on in the app's own screenshot, so the public site needs no JavaScript for it.
 
 usage: python gen_web_svg.py           print the <svg> markup
        python gen_web_svg.py --css     print the hover rules (paste inside the site stylesheet)

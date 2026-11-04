@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>/* the hero holds still for a few scrolls only on a big screen and for visitors who accept motion; weave-grow.js confirms it once the page is measured */
+  <script>/* the hero holds still for a few scrolls only on a big screen and for visitors who accept motion; grow.js confirms it once the page is measured */
 if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-motion:no-preference)').matches) { var d = document.documentElement; d.className += ' pin-on'; d.style.setProperty('--pin', Math.round(Math.max(320, Math.min(440, innerHeight * 0.46))) + 'px'); }</script>
   <title>Business Process Redesign — AI automation for growing businesses</title>
   <meta name="description" content="Business Process Redesign — AI automation for growing businesses. Less repetitive work. More time for the work that matters.">
@@ -19,10 +19,10 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1a1a'/%3E%3Cpath d='M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24' stroke='%238a8a86' stroke-width='1.2' fill='none'/%3E%3Ccircle cx='16' cy='16' r='3.6' fill='%23fff'/%3E%3Ccircle cx='6' cy='8' r='2.2' fill='%23fff'/%3E%3Ccircle cx='26' cy='9' r='2.2' fill='%23fff'/%3E%3Ccircle cx='9' cy='26' r='2.2' fill='%23fff'/%3E%3Ccircle cx='25' cy='24' r='2.2' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
   <script src="site.js" defer></script>
-  <script src="weave-motion.js" defer></script>
-  <script src="weave-examples.js" defer></script>
-  <script src="weave-explorer.js" defer></script>
-  <script src="weave-grow.js" defer></script>
+  <script src="motion.js" defer></script>
+  <script src="examples.js" defer></script>
+  <script src="explorer.js" defer></script>
+  <script src="grow.js" defer></script>
   <!-- Structured data. "alternateName" records what BPSRA stands for; the display name stays the short form. -->
   <script type="application/ld+json">
   {
@@ -59,19 +59,19 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
 <!-- ============ HERO (owned by Willie) ============ -->
 <div class="hero-pin" id="hero-pin">
-<section class="weave-hero" aria-labelledby="weave-headline">
-  <div class="weave-hero__identity">
-    <p class="weave-hero__wordmark">bpr<span aria-hidden="true">.</span></p>
-    <p class="weave-hero__descriptor">AI automation for growing businesses</p>
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="hero__identity">
+    <p class="hero__wordmark">bpr<span aria-hidden="true">.</span></p>
+    <p class="hero__descriptor">AI automation for growing businesses</p>
   </div>
-  <div class="weave-hero__content">
-    <div class="weave-hero__text">
-      <p class="weave-hero__eyebrow">Less repetition. More possibility.</p>
-      <div class="weave-hero__layout">
-        <h1 id="weave-headline"><span class="weave-hero__line"><span>Make room for</span></span> <span class="weave-hero__line weave-hero__line--accent"><span>better work.</span></span></h1>
-        <div class="weave-hero__intro">
-          <p class="weave-hero__copy"><strong>Your time is better spent moving your business forward.</strong> We help automate repetitive work, so you can focus on what comes next.</p>
-          <a class="weave-hero__cta" href="#contact">Let’s talk automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+  <div class="hero__content">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Less repetition. More possibility.</p>
+      <div class="hero__layout">
+        <h1 id="hero-headline"><span class="hero__line"><span>Make room for</span></span> <span class="hero__line hero__line--accent"><span>better work.</span></span></h1>
+        <div class="hero__intro">
+          <p class="hero__copy"><strong>Your time is better spent moving your business forward.</strong> We help automate repetitive work, so you can focus on what comes next.</p>
+          <a class="hero__cta" href="#contact">Let’s talk automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
     </div>
@@ -170,7 +170,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
       </svg>
     </div>
   </div>
-  <p class="weave-hero__closing">More time for the work that matters.</p>
+  <p class="hero__closing">More time for the work that matters.</p>
 </section>
 </div>
 
@@ -262,7 +262,7 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 
     <!--
       Risk band. Every line below restates copy already on this page, so it makes no new promise.
-      Add any of these only once they are confirmed as Weave's real terms:
+      Add any of these only once they are confirmed as the business's real terms:
         - the client owns what is built / no lock-in
         - pilot first, then scale up
         - a pause switch and a rollback plan
@@ -295,8 +295,8 @@ if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-mo
 </section>
 
 <!-- ============ EXAMPLE WORKFLOWS: the hero web, bigger. Hover or tap a tool to open its workflow. ============
-     weave-explorer.js builds the interactive version into #wfx. Without it, the list below is the content (it is generated from
-     weave-examples.js by tests/wf_list.js, and examples.test.js fails if the two ever differ). -->
+     explorer.js builds the interactive version into #wfx. Without it, the list below is the content (it is generated from
+     examples.js by tests/wf_list.js, and examples.test.js fails if the two ever differ). -->
 <section id="workflows" class="threaded" aria-labelledby="workflows-title">
   <a class="thread-node" href="#workflows" aria-label="Example workflows section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
   <div class="wrap">

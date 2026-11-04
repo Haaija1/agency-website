@@ -1,4 +1,4 @@
-/* Weave site: progressive enhancement only.
+/* BPR site: progressive enhancement only.
    The page reads and works without this file: the Thread is fully drawn, the
    contact form posts to contact.php, and "Show the week" shows both lanes.
    No libraries, no third-party requests. */

@@ -1,7 +1,7 @@
 // Builds the no-JavaScript list for the "Example workflows" section from the same data the explorer uses,
 // so the page text and the interactive version can never disagree. examples.test.js requires this exact string in index.html.
 // Print it with:  node tests/wf_list.js
-const { EXAMPLES, order, savedLine } = require('../weave-examples.js');
+const { EXAMPLES, order, savedLine } = require('../examples.js');
 const IDS = ['w-enquiries', 'w-invoices', 'w-chat', 'w-calendar', 'w-tracker', 'w-email', 'w-sheets', 'w-team'];
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 function listHtml() {

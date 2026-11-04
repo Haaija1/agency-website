@@ -1,6 +1,6 @@
-/* Weave site: motion layer (progressive enhancement; the page is complete without it).
+/* BPR site: motion layer (progressive enhancement; the page is complete without it).
    - Hero web: nodes drift gently and lean toward the mouse; the threads follow.
-   - The page web that grows down the page lives in weave-grow.js (it replaced the v2 strands).
+   - The page web that grows down the page lives in grow.js (it replaced the v2 strands).
    - Workflow example: a blue pulse runs card to card.
    - Cards and rows ease in once.
    Off entirely when the visitor asks for reduced motion. No libraries, no network requests. */

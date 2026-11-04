@@ -1,7 +1,7 @@
-"""Width sweep for the Weave page web. Run INSIDE browser_exec (it uses the harness helpers cdp, js, goto_url, wait_for_load):
+"""Width sweep for the page web. Run INSIDE browser_exec (it uses the harness helpers cdp, js, goto_url, wait_for_load):
 
     exec(open(r"C:\\...\\docs\\teardown\\tools\\sweep_widths.py").read())
-    sweep("file:///C:/.../weave-look/v4/index.html")
+    sweep("file:///path/to/index.html")
 
 For each width it loads the page fresh at that width and gates on ALL of:
   - web_collision.js reports 0 collisions and 0 boxHits, on a web that is alive: enough samples, a main route, and a knot at Contact.

@@ -1,4 +1,4 @@
-/* Weave site: the page web. The hero holds still for a few scrolls while the first branch grows out of its web; then the page scrolls and the
+/* BPR site: the page web. The hero holds still for a few scrolls while the first branch grows out of its web; then the page scrolls and the
    web carries on around the text and cards, never through them, docking at headings and cards, and ends at Contact. It stays alive: a slow
    drift and silk that leans toward the pointer, limited by the free space around each thread. Progressive enhancement. A pure core (grow, curvePoints, pathD, frac; tests/grow.test.js) plus a small DOM layer at the
    bottom. How it works: HOW-IT-WORKS.md. */
@@ -267,7 +267,7 @@
       }
     }
 
-    /* the weave: join twig tips back to far-away parts of the web (real loops) */
+    /* the cross-links: join twig tips back to far-away parts of the web (real loops) */
     var ld = new Float64Array(N), lp = new Int32Array(N), ls = new Int32Array(N), stamp = 0;
     function bridge(L, skip) {
       var near = new Set([L]), q = [L], dep = new Map([[L, 0]]);
@@ -362,19 +362,19 @@
 
   var api = { grow: grow, curvePoints: curvePoints, pathD: pathD, frac: frac, length: length, slacks: slacks };
   if (typeof module === 'object' && module.exports) { module.exports = api; return; }
-  root.WEAVE_GROW = api;
+  root.SITE_GROW = api;
 
   /* ===== the page: the hero holds still, the first branch grows out of its web, then the page web takes over; both stay alive ===== */
   var doc = root.document, main = doc && doc.getElementById('main');
   if (!main || !root.requestAnimationFrame || !root.matchMedia) return;
   var NS = 'http://www.w3.org/2000/svg', html = doc.documentElement, slice = Array.prototype.slice;
   var reduce = root.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var pinEl = doc.getElementById('hero-pin'), hero = pinEl && pinEl.querySelector('.weave-hero'), header = doc.querySelector('.site-header');
+  var pinEl = doc.getElementById('hero-pin'), hero = pinEl && pinEl.querySelector('.hero'), header = doc.querySelector('.site-header');
   var IDS = ['w-tracker', 'w-calendar', 'w-email'], TR = /translate\(\s*([-\d.]+)[ ,]+([-\d.]+)/;
   function mk(tag, attrs) { var e = doc.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
   function Web(cls, parent) { this.svg = mk('svg', { 'class': cls, 'aria-hidden': 'true', focusable: 'false' }); parent.appendChild(this.svg); this.items = []; this.dots = []; this.sl = null; this.ready = false; this.heroDots = []; }
   var pageWeb = new Web('grow-web', main), introWeb = hero ? new Web('grow-web intro-web', hero) : null;
-  var BOX = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.weave-hero__cta,.thread-node,button,.pill,.field,input,textarea';
+  var BOX = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.hero__cta,.thread-node,button,.pill,.field,input,textarea';
   var BLOCK = 'p,h1,h2,h3,h4,h5,li,td,th,dt,dd,label,legend,figcaption,button,a,div,section';
   var FRAME = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card', frameSvg = mk('svg', { 'class': 'frame-web', 'aria-hidden': 'true', focusable: 'false' }), frames = [], stubs = [];
   main.appendChild(frameSvg);
@@ -682,7 +682,7 @@
     root.addEventListener('resize', rebuildSoon);
     if ('ResizeObserver' in root) { ro = new ResizeObserver(rebuildSoon); ro.observe(main); }
     if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(rebuildSoon);
-    root.WEAVE_PAGE = { state: ST, intro: introWeb, page: pageWeb, rebuild: build };      /* for the checks in tools/v5_checks.py */
+    root.SITE_PAGE = { state: ST, intro: introWeb, page: pageWeb, rebuild: build };      /* for the checks in tools/v5_checks.py */
   }
   if (doc.readyState === 'complete') setTimeout(start, 0); else root.addEventListener('load', function () { setTimeout(start, 0); });
 })(typeof window !== 'undefined' ? window : this);

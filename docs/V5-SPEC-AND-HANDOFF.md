@@ -1,3 +1,5 @@
+HISTORY: written under the old name Weave. Current names are in docs/REBRAND-CHANGELOG.md.
+
 # Weave site v5: pinned intro, branch that weaves through the page, popup beside the cursor, living webs
 
 Written 2026-10-05 by Dave (Hermes) from Haaija's feedback on v4 (he likes v4's design and how it branches out). **v4 stays untouched. v5 = copy of v4 + the changes below.** Open `docs/teardown/weave-look/v5/index.html` (source) or `v5/dist/index.html` (minified, what the budget is measured on).

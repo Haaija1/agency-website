@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""WCAG 2.x contrast table for a Weave-style token set.
+"""WCAG 2.x contrast table for this site's token set.
 
-usage: python weave_contrast.py [path/to/tokens-or-stylesheet.css]
-       (default: ../weave-look/weave-look.css, next to this tools folder)
+usage: python site_contrast.py [path/to/tokens-or-stylesheet.css]
+       (default: ../styles.css, the site's own stylesheet next to this tools folder)
 
 Reads literal hex custom properties (--ink: #1a1a1a;) and one level of var() aliases
 (--control-border: var(--ink-3);). Exit code 1 if a required pair is below its threshold, so it
@@ -12,7 +12,7 @@ import os
 import re
 import sys
 
-path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "weave-look", "weave-look.css")
+path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "styles.css")
 src = open(path, encoding="utf-8").read()
 raw = dict(re.findall(r"--([a-z0-9-]+):\s*([^;]+);", src))
 tok = {}
