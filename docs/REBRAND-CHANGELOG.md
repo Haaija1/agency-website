@@ -755,6 +755,23 @@ the drawing. `index.html`, `privacy.html` and `404.html` all link `favicon.svg`,
 `index.html` points `og:image` at the PNG but the SVG is the committed source - so the icon
 was broken on every page for every visitor whose browser prefers the SVG.
 
+The two baked PNGs were **not** regenerated, and did not need to be. Re-rasterised from the
+edited sources with the method allow-list §6 records - headless Chromium, Playwright,
+`deviceScaleFactor: 1`, `favicon.svg` at 32x32 and `og-image.svg` at 1200x630 - both come
+back byte-identical to the committed files:
+
+```
+favicon-32.png   committed md5 9876f7077da2ea05735227e8d92ecf63   re-baked 9876f7077da2ea05735227e8d92ecf63
+og-image.png     committed md5 13afeb2d63bb8e743c5c3f49389a7565   re-baked 13afeb2d63bb8e743c5c3f49389a7565
+```
+
+So the reworded comments changed the files' text and nothing a reader sees. Worth recording
+for whoever next regenerates the icons: `favicon-32.png` is baked **without**
+`omitBackground`, so the rounded corners outside the `rx="7"` square are white, not
+transparent. Baking it with `omitBackground: true` produces a different, 981-byte file.
+`apple-touch-icon.png` was not re-baked: §6 says it is made from a modified copy of
+`favicon.svg` with `rx="0"`, which is not a file in the repo.
+
 ## 2. (HIGH) `README.md` told the reader to deploy seven files
 
 The Deploy section said "the contents of `dist/`, and only these seven files". The real set
