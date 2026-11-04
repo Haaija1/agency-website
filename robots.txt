@@ -1,0 +1,14 @@
+# robots.txt for bpsra.co.za
+#
+# Allow everything. The site is one public marketing page with nothing to hide from a crawler.
+# The pages that must stay out of an index say so themselves, with <meta name="robots"
+# content="noindex">, which is the only instruction a crawler is obliged to honour:
+#   /privacy.html  while it is a DRAFT
+#   /404.html      an error page should never be indexed
+# Disallow would be the wrong tool for those: a disallowed URL cannot be crawled, so the
+# noindex on it is never read, and the URL can still end up listed without its content.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://bpsra.co.za/sitemap.xml
