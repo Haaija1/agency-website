@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Before / After prototype - Business Process Redesign</title>
+<meta name="description" content="Standalone prototype: one plain process drawn twice, as a tangled web and as one merged flow.">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="before-after.css">
+</head>
+<body>
+<main id="main">
+
+<section class="ba" aria-labelledby="ba-title">
+  <div class="wrap">
+
+    <p class="kicker">Map it, redesign it, then automate it</p>
+    <h2 id="ba-title">The same job, before and after a redesign</h2>
+    <p class="lede">One supplier invoice, from the inbox to a payment. In the <em>before</em> drawing the threads cross
+      and double back: the same figures are typed in twice, people chase each other, and the invoice waits. In the
+      <em>after</em> drawing those threads merge into one flow, with a person still approving the payment.</p>
+
+    <p class="ba-illus">Illustrative example, not a client result</p>
+
+    <div class="ba-ctl">
+      <div class="ba-btns" role="group" aria-label="Choose a drawing">
+        <button type="button" class="ba-btn" data-ba="0" aria-pressed="true">Before</button>
+        <button type="button" class="ba-btn" data-ba="1" aria-pressed="false">After</button>
+      </div>
+      <p class="ba-hint" data-ba-hint hidden>Scrolling through this section also plays the merge.</p>
+    </div>
+
+    <p class="ba-live" aria-live="polite" data-ba-live></p>
+
+    <div class="ba-scrub" data-ba-scrub>
+      <div class="ba-sticky" data-ba-sticky>
+        <div class="ba-stage" data-ba-stage>
+
+          <figure class="ba-panel" data-ba-panel="0">
+            <figcaption class="ba-cap"><b>Before</b> <span class="ba-count">12 steps drawn</span></figcaption>
+            <ol class="ba-steps">
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Shared inbox</span><span class="ba-t">Invoice arrives as an email attachment</span></li>
+              <li class="ba-box" data-k="thing"><span class="ba-tag">Paper</span><span class="ba-t">Printed and put in a tray</span></li>
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Spreadsheet</span><span class="ba-t">Figures typed into a spreadsheet</span></li>
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Email</span><span class="ba-t">Forwarded to the manager to look at</span></li>
+              <li class="ba-box" data-k="person"><span class="ba-tag">Person</span><span class="ba-t">Manager asks which order it belongs to</span></li>
+              <li class="ba-box" data-k="person"><span class="ba-tag">Person</span><span class="ba-t">Admin chases the supplier for the answer</span></li>
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Accounting system</span><span class="ba-t">Same figures typed in a second time</span></li>
+              <li class="ba-box" data-k="wait"><span class="ba-tag">Waiting</span><span class="ba-t">Sits until the next payment run</span></li>
+              <li class="ba-box" data-k="approve"><span class="ba-tag">Person approves</span><span class="ba-t">Manager approves in a reply</span></li>
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Bank</span><span class="ba-t">Payment keyed in by hand</span></li>
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Email</span><span class="ba-t">Supplier emails to ask if it is paid</span></li>
+              <li class="ba-box" data-k="wait"><span class="ba-tag">Searching</span><span class="ba-t">Someone looks in three places to answer</span></li>
+            </ol>
+          </figure>
+
+          <figure class="ba-panel" data-ba-panel="1">
+            <figcaption class="ba-cap"><b>After</b> <span class="ba-count">7 steps drawn</span></figcaption>
+            <ol class="ba-steps">
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Shared inbox</span><span class="ba-t">Invoice arrives as an email attachment</span></li>
+              <li class="ba-box" data-k="step"><span class="ba-tag">Captured once</span><span class="ba-t">Read into one record, entered once</span></li>
+              <li class="ba-box" data-k="step"><span class="ba-tag">Checked</span><span class="ba-t">Matched to the order it belongs to</span></li>
+              <li class="ba-box" data-k="person"><span class="ba-tag">Person</span><span class="ba-t">Only what does not match goes to a review queue</span></li>
+              <li class="ba-box" data-k="approve"><span class="ba-tag">Person approves</span><span class="ba-t">A person approves the payment</span></li>
+              <li class="ba-box" data-k="tool"><span class="ba-tag">Bank</span><span class="ba-t">Approved payment released to the bank</span></li>
+              <li class="ba-box" data-k="step"><span class="ba-tag">Visible</span><span class="ba-t">Status the team and the supplier can see</span></li>
+            </ol>
+          </figure>
+
+        </div>
+      </div>
+    </div>
+
+    <p class="ba-note"><b>A person approves every payment.</b> Nothing in the <em>after</em> drawing approves or pays on
+      its own: the redesign removes the re-typing, the chasing and the waiting, and leaves the decision where it belongs.
+      The two numbers above are a count of the boxes drawn here and nothing else.</p>
+
+    <p class="ba-proto">Prototype, not wired into the site. See <code>prototypes/before-after/README.md</code>.</p>
+
+  </div>
+</section>
+
+</main>
+<script src="before-after.js" defer></script>
+</body>
+</html>
