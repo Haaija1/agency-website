@@ -7,6 +7,13 @@ to it: this repository is public.
 
 Written 4 Nov 2026 by session S2 of the rebrand. Companion to `docs/REBRAND-BRIEF.md`.
 
+Updated 4 Nov 2026 by session S4 (integration), which checked every file name and every number in
+here against a real build of the integrated tree. What changed: the four `weave-*.js` placeholders
+in §1a are gone (S1's rename landed), §1a is split into the seven home-page files and the four
+standalone-page files and checked against what `build_dist.js` actually writes, the CSP `img-src`
+no longer needs `data:` and the inline-script hash is recomputed (§4a), the gzip figures in §5 are
+re-measured, and the `og:image` item in §7 is ticked off.
+
 ---
 
 ## 1. What production serves
@@ -22,20 +29,42 @@ Two groups, because they come from two places.
 
 | Served path | From | Notes |
 |---|---|---|
+The seven **home-page** files, which is the set the gzip budget in §5 is measured over:
+
+| Served path | From | Notes |
+|---|---|---|
 | `/index.html` | `dist/index.html` | the home page |
 | `/styles.css` | `dist/styles.css` | every page uses it |
 | `/site.js` | `dist/site.js` | |
-| `/motion.js` | `dist/motion.js` | `weave-motion.js` until S1's rename lands |
-| `/examples.js` | `dist/examples.js` | `weave-examples.js` until S1's rename lands |
-| `/explorer.js` | `dist/explorer.js` | `weave-explorer.js` until S1's rename lands |
-| `/grow.js` | `dist/grow.js` | `weave-grow.js` until S1's rename lands |
-| `/privacy.html` | `dist/privacy.html` | **not yet** - see §2 |
-| `/privacy.css` | `dist/privacy.css` | **not yet** - see §2 |
+| `/motion.js` | `dist/motion.js` | |
+| `/examples.js` | `dist/examples.js` | |
+| `/explorer.js` | `dist/explorer.js` | |
+| `/grow.js` | `dist/grow.js` | |
+
+Plus the two standalone pages, which the home page does not load:
+
+| Served path | From | Notes |
+|---|---|---|
 | `/404.html` | `dist/404.html` | served as the 404 body, not linked from anywhere |
 | `/404.css` | `dist/404.css` | |
+| `/privacy.html` | `dist/privacy.html` | **do not serve yet** - see §2 |
+| `/privacy.css` | `dist/privacy.css` | **do not serve yet** - see §2 |
+
+These are the current, final file names: S1's rename has landed, and the four `weave-*.js` files
+no longer exist anywhere in the repo or in `dist/`.
 
 `build_dist.js` walks the repo root and minifies every `.html`, `.css` and `.js` it finds, so the
-four new page files above are picked up with no change to the build. Confirmed by running it.
+four standalone-page files above are picked up with no change to the build.
+
+Checked against a real build on 4 Nov 2026 (session S4): `node tools/build_dist.js .` printed
+
+```
+built 404.css, 404.html, examples.js, explorer.js, grow.js, index.html, motion.js, privacy.css, privacy.html, site.js, styles.css
+```
+
+- eleven files, which is exactly the eleven rows in the two tables above - no more, no fewer;
+- `privacy.html` and `privacy.css` are built, which is why §2 matters: the build produces them, so
+  only the deploy step keeps them off the live site.
 
 ### 1b. From the repo root - files the build does not touch
 
@@ -46,10 +75,10 @@ must be deployed from the repo root.
 |---|---|
 | `/robots.txt` | allows everything; points at the sitemap |
 | `/sitemap.xml` | home page only |
-| `/favicon.svg` | the hub-and-spokes mark |
-| `/favicon-32.png` | 32x32 fallback for browsers that will not take an SVG icon |
-| `/apple-touch-icon.png` | 180x180, full-bleed; iOS applies its own corner mask |
-| `/og-image.png` | 1200x630 share image - this is the one `og:image` must point at |
+| `/favicon.svg` | the hub-and-spokes mark; `index.html`, `privacy.html` and `404.html` all link it |
+| `/favicon-32.png` | 32x32 fallback for browsers that will not take an SVG icon; linked from `index.html` |
+| `/apple-touch-icon.png` | 180x180, full-bleed; iOS applies its own corner mask; linked from `index.html` |
+| `/og-image.png` | 1200x630 share image - `index.html` now points `og:image` at `https://bpsra.co.za/og-image.png`, so if this file is not deployed every shared link shows a broken card |
 | `/og-image.svg` | the source the PNG is baked from; serving it is optional |
 
 ### 1c. Not in this repository, but the site needs it
@@ -83,6 +112,11 @@ Do not link it from `index.html` and do not announce it, until:
 
 Serving it early is the worse of the two mistakes available here: a published privacy notice is a
 representation to the public about how personal information is handled.
+
+Session S4 integrated S2's files into `index.html` and deliberately did **not** add a link to
+`privacy.html` anywhere - not in the footer, not in the nav. Verified: `grep -c privacy index.html`
+returns 0. The only thing holding the page off the live site now is the deploy step, because
+`build_dist.js` does build it (§1a).
 
 ---
 
@@ -127,7 +161,7 @@ Content-Security-Policy:
   style-src-elem 'self';
   style-src-attr 'unsafe-inline';
   style-src 'self' 'unsafe-inline';
-  img-src 'self' data:;
+  img-src 'self';
   font-src 'self';
   connect-src 'self';
   form-action 'self';
@@ -149,12 +183,21 @@ Four things in that policy are not obvious, and each was checked against the act
   python3 -c "import re,hashlib,base64;s=open('index.html',encoding='utf-8').read();b=re.search(r'<script>([\s\S]*?)</script>',s).group(1).encode();print('sha256-'+base64.b64encode(hashlib.sha256(b).digest()).decode())"
   ```
 
-  At the time of writing that prints `sha256-Els9xpZJTEDf10XgWonHd3AbiQzQYFL0IAvnI1GRDrM=`, and
-  the same value comes out of `dist/index.html`, because the build stashes script blocks and
-  copies them through byte-for-byte. **That value is already stale**: S1 is editing `index.html`,
-  and any change inside that block - one character of the comment included - changes the hash.
-  Recompute it from the deployed `dist/index.html` as the last step before go-live, and re-check
-  it whenever `index.html` changes. A wrong hash silently breaks the hero.
+  As of 4 Nov 2026, after S1's rename and S4's head changes, that prints
+
+  ```
+  sha256-np25Q1eWGmUS+L5Zz9S154rVzvgKhhF14gdBLwpTP/c=
+  ```
+
+  and the identical value comes out of `dist/index.html`, because the build stashes script blocks
+  and copies them through byte-for-byte (S4 ran it on both files and compared). It replaces the
+  `sha256-Els9xpZJTEDf10XgWonHd3AbiQzQYFL0IAvnI1GRDrM=` written here before S1's rename, which
+  was computed from a block whose comment still said `weave-grow.js`.
+
+  **Treat any value written in this file as provisional.** Any change inside that block - one
+  character of the comment included - changes the hash. Recompute it from the deployed
+  `dist/index.html` as the last step before go-live, and re-check it whenever `index.html`
+  changes. A wrong hash silently breaks the hero.
 
 - **`style-src` has to allow inline attributes.** `index.html` carries 38 inline `style="..."`
   attributes (counted, not estimated). `style-src 'self'` blocks all of them. The CSP3 split
@@ -164,8 +207,12 @@ Four things in that policy are not obvious, and each was checked against the act
   if someone later wants the strict version, the fix is to move those 38 attributes into classes
   in `styles.css`, not to add a nonce.
 
-- **`img-src` needs `data:`.** The favicon in `index.html` is an inline `data:image/svg+xml` URI,
-  and `<link rel="icon">` is governed by `img-src`.
+- **`img-src` no longer needs `data:`.** It used to: the favicon in `index.html` was an inline
+  `data:image/svg+xml` URI, and `<link rel="icon">` is governed by `img-src`. Session S4 replaced
+  that inline icon with links to the real `favicon.svg`, `favicon-32.png` and
+  `apple-touch-icon.png` files, so `index.html` now contains **zero** `data:` URIs (counted, not
+  estimated: `grep -c 'data:image' index.html` returns 0). `img-src 'self'` is therefore enough,
+  and is the stricter policy. If anyone re-introduces an inline image, `data:` has to come back.
 
 - **No host needs allowing.** The only external strings in the markup are `w3.org` (an XML
   namespace, never fetched), `schema.org` (the JSON-LD `@context`, never fetched) and `wa.me`
@@ -212,23 +259,47 @@ Also worth having on, if the host offers it: gzip or brotli for `.html`, `.css`,
 ## 5. The gzip budget needs a decision
 
 `CLAUDE.md` sets a budget: the gzipped total of `dist/` must be at most 40,960 bytes, measured
-with `node tools/gzip_size.js dist`. Measured today, on a copy of the root in a scratch directory
-so the repository's own `dist/` was left alone:
+with `node tools/gzip_size.js dist`. Re-measured 4 Nov 2026 by session S4, on the integrated tree
+(S1 + S2 + S4's head change), from a real `node tools/build_dist.js .` with esbuild 0.28.2:
 
 | `dist/` contents | gzipped total | against budget |
 |---|---|---|
-| the 7 home-page files alone (baseline) | **39,258 B** | 1,702 B of headroom |
-| plus `privacy.html`, `privacy.css`, `404.html`, `404.css` | **48,165 B** | **7,205 B over** |
+| the 7 home-page files alone | **39,302 B** | 1,658 B of headroom |
+| all 11 files, i.e. `node tools/gzip_size.js dist` as written | **48,212 B** | **7,252 B over** |
 
 So merging S2's pages makes the budget check fail as it is currently written, with no change to
-the home page at all. The new files are:
+the home page at all. The four standalone-page files are:
 
 | File | raw | gzip |
 |---|---|---|
 | `privacy.html` | 18,551 B | 6,553 B |
-| `privacy.css` | 3,619 B | 967 B |
+| `privacy.css` | 3,634 B | 970 B |
 | `404.html` | 2,581 B | 949 B |
 | `404.css` | 1,016 B | 438 B |
+
+8,910 B gzipped between them, which is the whole of the overshoot.
+
+### What S4's head change cost
+
+Nothing - it paid. Measured on the same tree before and after, over the seven home-page files:
+
+| | gzipped total | headroom |
+|---|---|---|
+| before (S1's `index.html`) | 39,378 B | 1,582 B |
+| after (S4: `og:image` set, inline data-URI favicon replaced with file links) | **39,302 B** | **1,658 B** |
+
+A net **76 B saved**: the three new `og:image*` tags and the three `<link rel="icon">` lines are
+smaller than the ~920-byte inline `data:image/svg+xml` favicon they replaced.
+
+S2 recorded 39,258 B for the seven files where S4 measures 39,378 B for the same pre-change tree,
+a 120 B difference. It sits with S2's build: S4's esbuild 0.28.2 reproduces S1's committed `dist/`
+byte-for-byte for all six files S4 did not touch (after the rebuild, `git diff dist/` lists only
+`dist/index.html`), and S4 measures `privacy.css` at 3,634 B raw where S2 recorded 3,619 B - the
+same source, two minifier versions. It changes nothing about the verdict - both figures are under
+budget, and both agree the four page files are what pushes the whole-`dist/` number over - but the
+two numbers are left side by side rather than quietly reconciled, so it is visible that the
+measurement is only reproducible to about ±120 B while esbuild is installed with `--no-save` and
+unpinned. Pinning the version in `package.json` would be worth a few minutes.
 
 **This is a measurement problem, not a weight problem.** 40,960 bytes is a budget for what a
 visitor downloads to see the home page, and no home-page visitor downloads `privacy.html`. What
@@ -236,16 +307,18 @@ each page actually costs, first visit, nothing cached:
 
 | Page | gzipped bytes over the wire |
 |---|---|
-| Home | 39,258 (index + styles + the 5 scripts) |
-| Privacy | 16,428 (privacy.html + styles.css + privacy.css) |
-| 404 | 10,295 (404.html + styles.css + 404.css) |
+| Home | 39,302 (index + styles + the 5 scripts) |
+| Privacy | 16,448 (privacy.html + styles.css + privacy.css) |
+| 404 | 10,312 (404.html + styles.css + 404.css) |
 
 **Recommendation for Dave:** keep 40,960 as a *home-page* budget, measured over the seven
 home-page files, and track the standalone pages separately against their own figures. That keeps
 the constraint doing the job it was written for.
 
-S2 has not changed `tools/gzip_size.js`, `CLAUDE.md` or anything else that would move the goalposts
-unilaterally - the numbers are here so the call can be made deliberately.
+Neither S2 nor S4 has changed `tools/gzip_size.js`, `CLAUDE.md` or anything else that would move
+the goalposts unilaterally - the numbers are here so the call can be made deliberately. Until Dave
+makes it, read a failing `node tools/gzip_size.js dist` against the 7-file figure above, not the
+11-file one.
 
 ---
 
@@ -273,7 +346,10 @@ this round of work. If the icons need regenerating often, it belongs in `tools/`
 
 - [ ] `contact.php` exists on the host and the form actually delivers (§1c)
 - [ ] `privacy.html` is still held back, or has cleared all four gates in §2
-- [ ] `og:image` in `index.html` points at `https://bpsra.co.za/og-image.png` - S1 owns that line
+- [x] `og:image` in `index.html` points at `https://bpsra.co.za/og-image.png` - done by S4, with
+      `og:image:width` 1200, `og:image:height` 630 and `twitter:card` raised to
+      `summary_large_image`. Still needs a real-world check once DNS is live: the card cannot be
+      previewed while the domain does not resolve.
 - [ ] the inline-script CSP hash recomputed from the deployed `dist/index.html` (§4a)
 - [ ] CSP run in report-only mode once, console clean on all three pages
 - [ ] `/.git/config`, `/docs/...`, `/tools/...`, `/package.json` all return 404
