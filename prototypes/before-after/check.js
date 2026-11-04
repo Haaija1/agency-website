@@ -22,10 +22,15 @@
 const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 
 const DIR = __dirname;
 const SHOTS = path.join(DIR, 'shots');
-const URL = 'file://' + path.join(DIR, 'index.html');
+/* pathToFileURL, not 'file://' + path: a Windows path starts with a drive letter and uses
+   backslashes, and any path with a space or a '#' in it needs percent-encoding. Hand-built
+   file:// strings either fail to load or, worse for the request check below, fail to match
+   the prefix and report every local request as third-party. */
+const PAGE_URL = url.pathToFileURL(path.join(DIR, 'index.html')).href;
 const CHECK = fs.readFileSync(path.join(DIR, 'check-text-clear.js'), 'utf8');
 /* 0 and 1 are the two resting states; the rest walk the morph, including the two moments
    where a set of labels is half faded (0.2 and 0.8). All of them must come back clean. */
@@ -43,7 +48,7 @@ async function run() {
     const ctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h }, deviceScaleFactor: 2 });
     const page = await ctx.newPage();
     page.on('request', (r) => requests.push(r.url()));
-    await page.goto(URL, { waitUntil: 'load' });
+    await page.goto(PAGE_URL, { waitUntil: 'load' });
     await page.waitForTimeout(400);
 
     const wide = await page.evaluate(() => !!(window.BA && window.BA.wide()));
@@ -107,7 +112,7 @@ async function run() {
       const c2 = await browser.newContext(Object.assign({ viewport: { width: vp.w, height: vp.h }, deviceScaleFactor: 2 }, opts));
       const p2 = await c2.newPage();
       p2.on('request', (r) => requests.push(r.url()));
-      await p2.goto(URL, { waitUntil: 'load' });
+      await p2.goto(PAGE_URL, { waitUntil: 'load' });
       await p2.waitForTimeout(300);
       const s2 = await p2.evaluate(() => ({
         sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth,
@@ -125,8 +130,13 @@ async function run() {
 
   await browser.close();
 
-  const outside = [...new Set(requests)].filter((u) => !u.startsWith('file://' + path.dirname(DIR)) &&
-    !u.startsWith('file://' + path.resolve(DIR, '../..')));
+  /* Built with pathToFileURL for the same reason as PAGE_URL above, and with a trailing
+     separator so the prefix cannot match a sibling directory whose name merely starts the
+     same way. Chromium percent-encodes the URLs it reports, and pathToFileURL encodes the
+     prefix the same way, so the two still compare. */
+  const allowed = [path.dirname(DIR), path.resolve(DIR, '../..')]
+    .map((d) => url.pathToFileURL(d + path.sep).href);
+  const outside = [...new Set(requests)].filter((u) => !allowed.some((a) => u.startsWith(a)));
   console.log('\nrequests made: ' + new Set(requests).size + ' , all local: ' + (outside.length === 0));
   if (outside.length) fail('requests left the repo: ' + outside.join(', '));
 
