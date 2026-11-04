@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap for bpsra.co.za.
+
+  Home only, on purpose. The site is a single page; its sections are #anchors on that page,
+  and a sitemap must not list fragment URLs.
+
+  /privacy.html is deliberately LEFT OUT. It is still a DRAFT, it carries
+  <meta name="robots" content="noindex">, and it must not be announced to a crawler until
+  Haaija has had it reviewed by an attorney and the draft banner is gone. Add the <url> block
+  below in the same commit that removes that banner, and set its <lastmod> to that date.
+
+      <url>
+        <loc>https://bpsra.co.za/privacy.html</loc>
+        <lastmod>YYYY-MM-DD</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+      </url>
+
+  /404.html is not listed and never should be.
+
+  <lastmod> below is the date this file was written. Update it when the home page changes;
+  a stale lastmod is worse than none, so if it cannot be kept honest, delete the element.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://bpsra.co.za/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
