@@ -14,6 +14,14 @@ standalone-page files and checked against what `build_dist.js` actually writes, 
 no longer needs `data:` and the inline-script hash is recomputed (§4a), the gzip figures in §5 are
 re-measured, and the `og:image` item in §7 is ticked off.
 
+Updated 4 Nov 2026 by session S5 (final integration), which merged S3's prototype into the tree and
+changed two files. What changed in here: §1a and §3 now state, verified against the build, that
+`build_dist.js` does not recurse into subfolders, so `prototypes/` is never built and never
+deployed; the `/404.html` row and §7 now cover the host's error-document directive, which nothing
+had mentioned and without which the 404 page is never served; §2 lists the two further
+`TODO(Haaija)` periods S5 added to `privacy.html`; and §5 is re-measured after S5's two edits.
+`privacy.html` and `privacy.css` are still **not** deployed, and neither is `prototypes/`.
+
 ---
 
 ## 1. What production serves
@@ -45,16 +53,33 @@ Plus the two standalone pages, which the home page does not load:
 
 | Served path | From | Notes |
 |---|---|---|
-| `/404.html` | `dist/404.html` | served as the 404 body, not linked from anywhere |
+| `/404.html` | `dist/404.html` | served as the 404 body, not linked from anywhere. Deploying the file is **not** enough: the host has to be told to use it - see the error-document note below |
 | `/404.css` | `dist/404.css` | |
 | `/privacy.html` | `dist/privacy.html` | **do not serve yet** - see §2 |
 | `/privacy.css` | `dist/privacy.css` | **do not serve yet** - see §2 |
+
+**404 handling needs one line of host config.** Uploading `404.html` does nothing on its own; the
+host must be pointed at it, and the response must carry a real `404` status rather than a `200`
+with an error page in the body, or crawlers index the error page as a real one. On Apache or cPanel
+that is `ErrorDocument 404 /404.html` in `.htaccess`; on nginx, `error_page 404 /404.html;`. The
+exact directive depends on the host, so it is **UNVERIFIED** here - §7 carries it as a checklist
+item. The page's own assets are referenced root-absolute (`/styles.css`, `/404.css`,
+`/favicon.svg` - checked, not assumed), so it styles correctly however deep the missing URL was,
+which a relative path would not do.
 
 These are the current, final file names: S1's rename has landed, and the four `weave-*.js` files
 no longer exist anywhere in the repo or in `dist/`.
 
 `build_dist.js` walks the repo root and minifies every `.html`, `.css` and `.js` it finds, so the
 four standalone-page files above are picked up with no change to the build.
+
+It walks that one directory and **does not recurse**: the loop reads the root with `readdirSync`
+and skips anything that is not a file (`if (!fs.statSync(...).isFile()) continue;`). So the
+`.html`, `.css` and `.js` files under `prototypes/before-after/` are never minified, never land in
+`dist/`, and therefore cannot reach production through the build. Verified by session S5 after
+merging S3: `dist/` holds the same eleven files listed above and nothing from `prototypes/`. This
+matters because S3's prototype is a full page with its own stylesheet and script, and a build that
+recursed would have quietly added it to the deployable set.
 
 Checked against a real build on 4 Nov 2026 (session S4): `node tools/build_dist.js .` printed
 
@@ -105,7 +130,13 @@ Do not link it from `index.html` and do not announce it, until:
 
 1. every `TODO(Haaija)` in it is answered (registered name, registration number, registered
    address, Information Officer, the privacy contact address, the hosting and email providers,
-   the statutory retention period, the Regulator's current contact details);
+   the statutory retention period, the Regulator's current contact details, the PAIA-manual
+   question, and what the host logs) - **fourteen** of them as of session S5, which added three:
+   the retention period for an enquiry that does not become work, the same period as it applies to
+   WhatsApp conversations, and how quickly we undertake to acknowledge a data-subject request. S5
+   replaced a guessed "12 months" and a guessed "a few working days" with placeholders, because a
+   retention period and a response commitment are both legal questions and neither had been
+   decided. Answering these is the longest pole in §2, not a formality;
 2. an attorney has reviewed it;
 3. the draft banner, the status block and the `noindex` meta are removed;
 4. the `<url>` block commented into `sitemap.xml` is uncommented and dated.
@@ -129,7 +160,7 @@ Everything not named in §1. Specifically:
 | `docs/` | internal briefs, this file, copy proposals, the changelog |
 | `tools/` | build and measurement scripts |
 | `tests/` | test runners and fixtures |
-| `prototypes/` | S3's unfinished work; not wired into the site |
+| `prototypes/` | S3's exploratory work, merged into the tree by S5 and **not** part of the site. `prototypes/before-after/` is a standalone page (`index.html`, `before-after.css`, `before-after.js`, two check scripts, ten PNG screenshots) that `index.html` neither links nor loads, and that the build does not reach because it does not recurse (§1a). It is here to be looked at and argued about, not served |
 | `node_modules/` | never; it is also large and full of third-party code |
 | `*.md` anywhere | `README.md`, `CLAUDE.md` and everything under `docs/` |
 | the un-minified root `.html`, `.css`, `.js` | the `dist/` copies are what ships; shipping both doubles the surface and lets the two drift |
@@ -262,22 +293,32 @@ Also worth having on, if the host offers it: gzip or brotli for `.html`, `.css`,
 with `node tools/gzip_size.js dist`. Re-measured 4 Nov 2026 by session S4, on the integrated tree
 (S1 + S2 + S4's head change), from a real `node tools/build_dist.js .` with esbuild 0.28.2:
 
+Re-measured again 4 Nov 2026 by session S5 after its two edits, same esbuild 0.28.2, same command:
+
 | `dist/` contents | gzipped total | against budget |
 |---|---|---|
-| the 7 home-page files alone | **39,302 B** | 1,658 B of headroom |
-| all 11 files, i.e. `node tools/gzip_size.js dist` as written | **48,212 B** | **7,252 B over** |
+| the 7 home-page files alone | **39,328 B** | 1,632 B of headroom |
+| all 11 files, i.e. `node tools/gzip_size.js dist` as written | **48,298 B** | **7,338 B over** |
+
+The seven files counted, which is the set the budget is measured over: `index.html` (8,140 B gzip),
+`styles.css` (8,925), `grow.js` (10,599), `explorer.js` (6,256), `examples.js` (2,515),
+`motion.js` (1,504), `site.js` (1,389).
+
+S5's two edits cost **+26 B** on the home page (39,302 -> 39,328): the footer slogan plus the
+JSON-LD `slogan` line, less the footer text they replaced. `privacy.html` grew **+60 B** gzipped
+(6,553 -> 6,613) from the three `TODO(Haaija)` placeholders, and it is not deployed.
 
 So merging S2's pages makes the budget check fail as it is currently written, with no change to
 the home page at all. The four standalone-page files are:
 
 | File | raw | gzip |
 |---|---|---|
-| `privacy.html` | 18,551 B | 6,553 B |
+| `privacy.html` | 18,864 B | 6,613 B |
 | `privacy.css` | 3,634 B | 970 B |
 | `404.html` | 2,581 B | 949 B |
 | `404.css` | 1,016 B | 438 B |
 
-8,910 B gzipped between them, which is the whole of the overshoot.
+8,970 B gzipped between them, which is the whole of the overshoot.
 
 ### What S4's head change cost
 
@@ -307,13 +348,17 @@ each page actually costs, first visit, nothing cached:
 
 | Page | gzipped bytes over the wire |
 |---|---|
-| Home | 39,302 (index + styles + the 5 scripts) |
-| Privacy | 16,448 (privacy.html + styles.css + privacy.css) |
+| Home | 39,328 (index + styles + the 5 scripts) |
+| Privacy | 16,508 (privacy.html + styles.css + privacy.css) - not deployed |
 | 404 | 10,312 (404.html + styles.css + 404.css) |
 
 **Recommendation for Dave:** keep 40,960 as a *home-page* budget, measured over the seven
 home-page files, and track the standalone pages separately against their own figures. That keeps
 the constraint doing the job it was written for.
+
+S5 agrees with S4 and did not change the tool or the budget either. Note that the headroom is now
+1,632 B and has shrunk in both of the last two sessions. It is enough, but it is not a lot: the
+next person to add markup to the home page should re-measure rather than assume.
 
 Neither S2 nor S4 has changed `tools/gzip_size.js`, `CLAUDE.md` or anything else that would move
 the goalposts unilaterally - the numbers are here so the call can be made deliberately. Until Dave
@@ -346,6 +391,10 @@ this round of work. If the icons need regenerating often, it belongs in `tools/`
 
 - [ ] `contact.php` exists on the host and the form actually delivers (§1c)
 - [ ] `privacy.html` is still held back, or has cleared all four gates in §2
+- [ ] `prototypes/` is not in the uploaded set (§3). It cannot arrive via `dist/`, but it would
+      arrive via a "copy the whole repo" deploy, which is exactly what §3 says not to do
+- [ ] the host's error-document directive points at `/404.html`, and a request for a URL that does
+      not exist returns the styled page **with a 404 status**, not a 200 (§1a)
 - [x] `og:image` in `index.html` points at `https://bpsra.co.za/og-image.png` - done by S4, with
       `og:image:width` 1200, `og:image:height` 630 and `twitter:card` raised to
       `summary_large_image`. Still needs a real-world check once DNS is live: the card cannot be

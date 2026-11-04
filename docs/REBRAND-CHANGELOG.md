@@ -526,3 +526,176 @@ browser:
 So this session changed nothing about it. It remains a card-frame row divider grazing a lane
 tag's padded text box, as S1 diagnosed, and the fix still belongs to whoever owns the frame
 layer. The brief forbids retuning the router, so it is reported, not touched.
+
+---
+
+# S5 (final small integration)
+
+Session S5, 4 Nov 2026. Three small jobs: the approved slogan, a privacy-draft fix an
+independent reviewer asked for, and the finishing checks. Branch base: S4
+(`claude/bpsra-rebrand-s4-integration-af2o5t`) with S3
+(`claude/before-after-prototype-8d5w69`) merged in with `--no-ff`. The merge was clean - S3
+only adds files under `prototypes/before-after/` and edits none, so there was nothing to
+resolve.
+
+**Two source files changed: `index.html` (3 lines) and `privacy.html` (3 lines).** No
+logic, colour, layout, breakpoint or router change. `grow.js`, `explorer.js`, `motion.js`,
+`examples.js`, `site.js` and `styles.css` do not appear in this session's diff at all - no
+CSS rule was added, because the measured layout did not need one. `prototypes/` was merged
+in as-is and not edited.
+
+## 1. `index.html` - the approved slogan
+
+Haaija approved this exact wording on 4 Nov 2026: **"Spare some time, so we can save
+yours."** It is a tagline, not a claim, so no number appears next to it and it is not
+labelled as a result.
+
+| file:line | old | new | why |
+|---|---|---|---|
+| `index.html:591` | `<span>AI automation for growing businesses</span>` (footer, middle span) | `<span>Spare some time, so we can save yours.</span>` | the approved slogan, verbatim, with that capitalisation and punctuation |
+| `index.html:40` | *(absent)* | `"slogan": "Spare some time, so we can save yours.",` added to the JSON-LD block | `slogan` is the schema.org property for exactly this; it sits with `name`, `alternateName`, `url`, `description` and `telephone`, all of which are unchanged |
+
+**What was deliberately NOT touched.** "AI automation for growing businesses" is the search
+wording and stays in all four of the places a crawler reads it, plus the hero:
+
+| Still says the search wording | line |
+|---|---|
+| `<title>` | `index.html:8` |
+| `<meta name="description">` | `index.html:9` |
+| `<meta property="og:title">` | `index.html:15` |
+| JSON-LD `description` | `index.html:41` |
+| `<p class="hero__descriptor">` (the hero is Willie's) | `index.html:72` |
+
+Six occurrences of the search wording before this session, five after: the one that went is
+the footer span the slogan replaced, which is the whole of the intended change. The five in
+the table above - the four a crawler reads, plus the hero - are untouched.
+
+## 2. `privacy.html` - a guessed rule removed (DRAFT)
+
+**DRAFT - not reviewed by a lawyer.** An independent reviewer found a retention rule that
+had been invented. Nobody decided 12 months. A retention period for personal information is
+a legal question, and this file says on its face that it has not been reviewed, so a guessed
+figure in it is worse than a visible gap.
+
+| file:line | old | new | why |
+|---|---|---|---|
+| `privacy.html:174` | "12 months from the last message, then deleted." (enquiry that does not become work) | `TODO(Haaija): retention period (decide with a lawyer)` + the reasoning kept, with the figure named as an open decision | nobody decided 12 months |
+| `privacy.html:176` | "Same 12 months for an enquiry" (WhatsApp conversations) | "The same period as an enquiry, once that period is set:" + the same placeholder | the two periods are one decision; tying them keeps them from drifting apart when the figure is filled in |
+| `privacy.html:218` | "We will acknowledge within a few working days" | `TODO(Haaija): acknowledgement period (decide with a lawyer)` | found by S5's own sweep, not by the reviewer. It is the same mistake in a different coat: an undertaking to a data subject about response time that nobody had decided |
+
+Placeholders use the file's existing `.todo` span, so they render highlighted in the warn
+colours rather than hiding in body text. `TODO(Haaija)` count in `privacy.html`: **11 before,
+14 after.**
+
+### The rest of the file, swept and found clean
+
+Checked for every category of invented specific, not just the one the reviewer named.
+Nothing else needed changing, and here is why in each case, so the next reader does not have
+to redo the sweep:
+
+| Category | What is in the file | Verdict |
+|---|---|---|
+| Periods and numbers | after the three changes above, `grep -niE "[0-9]+ (months?\|years?\|weeks?\|days?)"` returns **nothing** | clean |
+| Named processors | only **WhatsApp / Meta**, which the brief allows and which §5 of the notice explains at length. The hosting provider and the mailbox provider were already `TODO(Haaija)` | clean |
+| Addresses | no postal or physical address is stated; the registered address is already a `TODO`. The only domains are `bpsra.co.za` (confirmed) and `inforegulator.org.za` (the Regulator's real site, cited as a site to visit - the notice deliberately declines to reproduce the Regulator's contact details and carries a `TODO` to copy the current ones in before publishing) | clean |
+| Statutory citations | "Protection of Personal Information Act 4 of 2013", POPIA "section 21" (written operator agreement) and "section 22" (breach notification) | correct citations of public law, not invented business facts - left as they are |
+| Dates | "Drafted: 4 November 2026" | accurate |
+
+Two things were **considered and deliberately left alone** - see the decisions section below:
+"only the two of us" (lines 153 and 193) and the security-measures list in §7 of the notice.
+
+**Unchanged and verified still in place:** both DRAFT banners (head and foot),
+`<meta name="robots" content="noindex">`, the no-JavaScript-by-design comment, the absence
+of `og:*` and canonical tags, and the status block telling a publisher to fill in every TODO
+and get an attorney to review it.
+
+## 3. `docs/DEPLOY-ALLOWLIST.md` - corrected for prototypes, privacy and 404
+
+| Section | Change | Why |
+|---|---|---|
+| header | added an S5 update paragraph | the file records who checked what and when; it is the only reason its numbers can be trusted |
+| §1a | added, with the code quoted, that `build_dist.js` **does not recurse** into subfolders, so nothing under `prototypes/` can reach `dist/` | S3's prototype is a full page with its own CSS and JS. The build not reaching it is the thing that keeps it undeployable, and nothing said so. Verified after the merge: `dist/` holds the same eleven files and nothing from `prototypes/` |
+| §1a | expanded the `/404.html` row and added a note: deploying the file does nothing without the host's error-document directive, the response must carry a real `404` status and not a `200`, the directive differs by host (`ErrorDocument` / `error_page`) and is therefore UNVERIFIED here, and the page's assets are root-absolute so it styles correctly at any URL depth | the doc listed the 404 files but never said how a 404 actually gets served. A deployer following it exactly would have shipped a 404 page nobody ever sees |
+| §2 | the `TODO(Haaija)` list now names all fourteen, including S5's three, and says why they are the long pole | the gate is "every TODO answered"; an out-of-date list understates the work |
+| §3 | rewrote the `prototypes/` row now that the files exist, naming what is in there and both reasons it is not served | it was written before S3's files were in the tree |
+| §5 | re-measured all figures after S5's edits (7 files **39,328 B**, 11 files **48,298 B**), named the seven files counted, recorded S5's cost (+26 B home page, +60 B `privacy.html`), and noted the headroom has shrunk in two consecutive sessions | the section states its numbers were measured on a real build; after an `index.html` change they were stale |
+| §7 | added two checklist items: `prototypes/` not in the uploaded set, and the error-document directive verified against a real missing URL | both are things a deployer can get wrong silently |
+
+Still correct and re-verified rather than assumed: the CSP inline-script hash
+`sha256-np25Q1eWGmUS+L5Zz9S154rVzvgKhhF14gdBLwpTP/c=` is **unchanged** by this session
+(S5's edit is outside the inline script; recomputed from both `index.html` and
+`dist/index.html` and both match the value in §4a), `grep -c privacy index.html` is still
+**0**, `grep -c 'data:image' index.html` is still **0**, and the inline `style="` count is
+still **38**.
+
+## 4. `dist/` rebuilt
+
+`npm install --no-save esbuild` (0.28.2, the same version S4 used, so the figures are
+comparable) then `node tools/build_dist.js .`, which printed the same eleven files. `dist/`
+was then checked against a **fresh rebuild from a clean `git archive` of the commit** into a
+separate directory: `diff -rq` reports every file identical, and `dist/index.html` is
+byte-for-byte equal (sha256 `528dc4e3...`, 32,052 B). The JSON-LD in the built file parses
+and carries the slogan.
+
+## 5. This changelog
+
+This section.
+
+## Decisions this session made that the brief did not cover
+
+1. **The slogan went in the footer and the JSON-LD only, not the hero or the head.** The
+   task said where to put it and what not to touch, so this is really a record of the
+   reasoning: a tagline and a search phrase are different jobs. "AI automation for growing
+   businesses" is what someone types into a search box; "Spare some time, so we can save
+   yours." is what someone remembers. Putting the slogan in `<title>` would have traded a
+   phrase that matches queries for one that does not. `slogan` is a real schema.org property
+   on `ProfessionalService`, so the structured data says which is which rather than guessing.
+2. **No CSS rule was added, because the measurement said none was needed.** The brief's
+   instruction was to add one only if the measured layout needed it. Measured in headless
+   Chromium at all six widths: the footer's height and row count are **identical** to the
+   old wording (118.7 / 118.7 / 118.7 / 148.4 / 178.1 / 178.1 px; 1 / 1 / 1 / 2 / 3 / 3
+   rows), and `documentElement.scrollWidth` equals `clientWidth` at every width. The slogan
+   span is 266.1 px wide against the old 249.2 px - 16.9 px wider, absorbed by the existing
+   `flex-wrap: wrap; justify-content: center`. A rule added "to be safe" would have been an
+   unmeasured layout change, which the brief forbids.
+3. **A third invented period was fixed, beyond the two named.** The task named the two
+   retention lines and then asked for a sweep. "We will acknowledge within a few working
+   days" is vaguer than "12 months" but it is the same class of error - an undertaking to a
+   data subject that nobody decided - so it got the same treatment. Flagged here because it
+   was not in the task list.
+4. **"Only the two of us" was left in, and is flagged rather than fixed.** Lines 153 and 193
+   of the notice say only two people see an enquiry. That is a number about the business, so
+   it was considered under the sweep. It is grounded - the brief names Haaija and Willie as
+   the two co-founders - and it describes access control rather than stating a rule about
+   personal information, so replacing it with a `TODO` would have removed true information.
+   It will become false the day a third person gets mailbox access, and whoever does that
+   needs to edit this notice. Raised for Haaija, not changed.
+5. **The security-measures list in §7 of the notice was left in, and is flagged.** It
+   asserts password-manager use, MFA "wherever the service offers it", encryption in transit
+   and limited access. None of those is a period, a number, a processor or an address, so
+   they sit outside the sweep's categories - but they are factual claims about practice in a
+   document that is a representation to the public, and this session has no evidence for
+   them. The section already says it describes measures "in general terms" and guarantees
+   nothing. Recommendation for Haaija and the attorney: confirm each line is true before
+   publishing, or soften it. Not changed, because changing it would be a copy decision this
+   session was not asked to make.
+6. **The whole-`dist/` gzip figure is still over budget, and S5 did not move the goalposts
+   either.** `node tools/gzip_size.js dist` reports 48,298 B against 40,960 because `dist/`
+   now contains the undeployed `privacy.*` and `404.*` files. The seven deployed files total
+   **39,328 B**, 1,632 B inside budget. S4 recommended redefining the budget as a home-page
+   budget; S5 agrees, and like S4 changed neither `tools/gzip_size.js` nor `CLAUDE.md`, so
+   the call stays Dave's. Noted in the allowlist §5 that the headroom has now shrunk in two
+   consecutive sessions.
+7. **`docs/V5-SPEC-AND-HANDOFF.md` still carries hostnames and server paths into a public
+   repo.** S4 raised this and it is still open. S5 is not changing it for the same reasons
+   (the brief keeps that file as history and forbids deleting anything under `docs/`), but it
+   is repeated here rather than quietly dropped, because CLAUDE.md's "no secrets, server
+   names or private paths in any file" is a repo-wide rule and a stale handoff note is a poor
+   reason to keep breaking it. Dave's call.
+8. **`git grep -iIl weave` now lists six files, all of them docs or `CLAUDE.md`.**
+   `CLAUDE.md`, `docs/COPY-PROPOSALS.md`, `docs/DEPLOY-ALLOWLIST.md`,
+   `docs/REBRAND-BRIEF.md`, `docs/REBRAND-CHANGELOG.md`, `docs/V5-SPEC-AND-HANDOFF.md`.
+   Nothing in `index.html`, `*.css`, `*.js`, `tools/`, `tests/`, `dist/` or `prototypes/`.
+   The brief's §3d gate names three of the six; the other three are history and audit trail
+   (S4 raised the same point as its decision 6). S5's own additions to the allowlist and this
+   changelog mention the old name only in sentences explaining that it is gone.
