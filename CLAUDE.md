@@ -1,6 +1,6 @@
 # CLAUDE.md: rules for every Claude Code session on this repo
 
-This repo holds the marketing site for **Business Process Redesign** (bpsra.co.za), formerly Weave. Plain HTML/CSS/JS, no framework. Read `docs/REBRAND-BRIEF.md` for the job and `docs/V5-SPEC-AND-HANDOFF.md` for how the site works.
+This repo holds the marketing site for **Business Process Redesign** (bprsa.co.za), formerly Weave. Plain HTML/CSS/JS, no framework. Read `docs/REBRAND-BRIEF.md` for the job and `docs/V5-SPEC-AND-HANDOFF.md` for how the site works.
 
 ## Where to work
 - The base for this work is the branch **`rebrand/bpsra`**. If your checkout does not contain `tests/`, `tools/` and `docs/REBRAND-BRIEF.md`, run `git fetch origin rebrand/bpsra && git checkout -b <your claude/ branch> origin/rebrand/bpsra` first.

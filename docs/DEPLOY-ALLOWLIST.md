@@ -110,7 +110,7 @@ must be deployed from the repo root.
 | `/favicon.svg` | the hub-and-spokes mark; `index.html`, `privacy.html` and `404.html` all link it |
 | `/favicon-32.png` | 32x32 fallback for browsers that will not take an SVG icon; linked from `index.html` |
 | `/apple-touch-icon.png` | 180x180, full-bleed; iOS applies its own corner mask; linked from `index.html` |
-| `/og-image.png` | 1200x630 share image - `index.html` now points `og:image` at `https://bpsra.co.za/og-image.png`, so if this file is not deployed every shared link shows a broken card |
+| `/og-image.png` | 1200x630 share image - `index.html` now points `og:image` at `https://bprsa.co.za/og-image.png`, so if this file is not deployed every shared link shows a broken card |
 | `/og-image.svg` | the source the PNG is baked from; serving it is optional |
 
 ### 1c. Not in this repository, but the site needs it
@@ -430,7 +430,7 @@ this round of work. If the icons need regenerating often, it belongs in `tools/`
       arrive via a "copy the whole repo" deploy, which is exactly what §3 says not to do
 - [ ] the host's error-document directive points at `/404.html`, and a request for a URL that does
       not exist returns the styled page **with a 404 status**, not a 200 (§1a)
-- [x] `og:image` in `index.html` points at `https://bpsra.co.za/og-image.png` - done by S4, with
+- [x] `og:image` in `index.html` points at `https://bprsa.co.za/og-image.png` - done by S4, with
       `og:image:width` 1200, `og:image:height` 630 and `twitter:card` raised to
       `summary_large_image`. Still needs a real-world check once DNS is live: the card cannot be
       previewed while the domain does not resolve.

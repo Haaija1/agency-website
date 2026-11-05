@@ -17,15 +17,15 @@ comments). Nothing about colours, layout, animation, timing or the router change
 |---|---|
 | Display name | `Business Process Redesign` |
 | Short name | `BPR` |
-| Domain / canonical | `https://bpsra.co.za/` |
+| Domain / canonical | `https://bprsa.co.za/` |
 | `alternateName` (JSON-LD only) | `Business Process Redesign South Africa` |
 | Business email | still `REPLACE_BUSINESS_EMAIL`, card still `hidden` |
 | WhatsApp numbers | unchanged; only the pre-filled text changed |
 
 Per the 4 Nov 2026 erratum: the spelling is "Process", "BPR" is approved, and
-"BPSRA" = Business Process Redesign South Africa, which appears **only** in the
+"BPRSA" = Business Process Redesign South Africa, which appears **only** in the
 JSON-LD `alternateName`. The display name, `<title>`, footer and all visible copy
-stay "Business Process Redesign". "BPSRA" is never printed as a brand name in copy.
+stay "Business Process Redesign". "BPRSA" is never printed as a brand name in copy.
 
 ---
 
@@ -37,11 +37,11 @@ stay "Business Process Redesign". "BPSRA" is never printed as a brand name in co
 |---|---|---|
 | `index.html:8` | `<title>Weave — AI automation for growing businesses</title>` | `<title>Business Process Redesign — AI automation for growing businesses</title>` |
 | `index.html:9` | `content="Weave — AI automation for growing businesses. Less repetitive work. More time for the work that matters."` | `content="Business Process Redesign — AI automation for growing businesses. Less repetitive work. More time for the work that matters."` |
-| `index.html:11` | *(absent)* | `<link rel="canonical" href="https://bpsra.co.za/">` **added** |
+| `index.html:11` | *(absent)* | `<link rel="canonical" href="https://bprsa.co.za/">` **added** |
 | `index.html:12` | comment: "Add og:url, og:image and `<link rel="canonical">` once the final domain is confirmed" | comment: "og:image is NOT set yet: it needs an absolute URL to a real image file, which session S2 adds." |
 | `index.html:14` | `og:site_name` = `Weave` | `og:site_name` = `Business Process Redesign` |
 | `index.html:15` | `og:title` = `Weave — AI automation for growing businesses` | `og:title` = `Business Process Redesign — AI automation for growing businesses` |
-| `index.html:17` | *(absent)* | `<meta property="og:url" content="https://bpsra.co.za/">` **added** |
+| `index.html:17` | *(absent)* | `<meta property="og:url" content="https://bprsa.co.za/">` **added** |
 
 `og:description` and `twitter:card` are unchanged (they carry no brand name).
 **`og:image` is deliberately still absent**: the brief says not to add it until the
@@ -51,10 +51,10 @@ image file exists in the repo. S2 adds it.
 
 | file:line | old | new |
 |---|---|---|
-| `index.html:25` | comment: "Add "url" once the final domain is confirmed." | comment: "alternateName records what BPSRA stands for; the display name stays the short form." |
+| `index.html:25` | comment: "Add "url" once the final domain is confirmed." | comment: "alternateName records what BPRSA stands for; the display name stays the short form." |
 | `index.html:31` | `"name": "Weave"` | `"name": "Business Process Redesign"` |
 | `index.html:32` | *(absent)* | `"alternateName": "Business Process Redesign South Africa"` **added** |
-| `index.html:33` | *(absent)* | `"url": "https://bpsra.co.za/"` **added** |
+| `index.html:33` | *(absent)* | `"url": "https://bprsa.co.za/"` **added** |
 | `index.html:34` | `"description": "AI automation for growing businesses. Weave helps automate repetitive work so teams can focus on what comes next."` | `"description": "AI automation for growing businesses. Business Process Redesign helps automate repetitive work so teams can focus on what comes next."` |
 
 `@context`, `@type` and `telephone` are unchanged.
@@ -337,7 +337,7 @@ they do not appear in its diff at all. No colour, layout, breakpoint or router c
 | file:line | old | new | why |
 |---|---|---|---|
 | `index.html:12` | comment: "og:image is NOT set yet: it needs an absolute URL to a real image file, which session S2 adds." | comment: "og:image is the 1200x630 image in the repo root; the width/height pair lets a scraper reserve the card before the file loads." | the comment was a note to the next session and is now false |
-| `index.html:18` | *(absent)* | `<meta property="og:image" content="https://bpsra.co.za/og-image.png">` **added** | S2 committed `og-image.png`, so the precondition the brief set (§3a: "do NOT add `og:image` unless the image file exists in the repo") is met |
+| `index.html:18` | *(absent)* | `<meta property="og:image" content="https://bprsa.co.za/og-image.png">` **added** | S2 committed `og-image.png`, so the precondition the brief set (§3a: "do NOT add `og:image` unless the image file exists in the repo") is met |
 | `index.html:19` | *(absent)* | `<meta property="og:image:width" content="1200">` **added** | lets a scraper lay the card out before the image arrives |
 | `index.html:20` | *(absent)* | `<meta property="og:image:height" content="630">` **added** | as above |
 | `index.html:21` | `<meta name="twitter:card" content="summary">` | `<meta name="twitter:card" content="summary_large_image">` | `summary` renders a small square thumbnail. The image S2 produced is 1200x630, i.e. built for the large card; `summary` would letterbox or crop it |
@@ -430,7 +430,7 @@ on the integrated tree. Changes:
 | §1a | one table of eleven served paths | split into the **seven home-page files** (the set the §5 budget is measured over) and the **four standalone-page files**, because conflating them is exactly what makes the budget check misread |
 | §1a | "Confirmed by running it." | the actual `built ...` line from the build, and the observation that eleven built files match the eleven rows exactly |
 | §1a | `privacy.html` / `privacy.css`: "**not yet** - see §2" | "**do not serve yet** - see §2" - it is built, so only the deploy step holds it back |
-| §1b | `/og-image.png`: "this is the one `og:image` must point at" | "`index.html` now points `og:image` at `https://bpsra.co.za/og-image.png`, so if this file is not deployed every shared link shows a broken card" |
+| §1b | `/og-image.png`: "this is the one `og:image` must point at" | "`index.html` now points `og:image` at `https://bprsa.co.za/og-image.png`, so if this file is not deployed every shared link shows a broken card" |
 | §1b | the three icon rows | each now names which pages link it |
 | §2 | — | adds that S4 integrated S2's files and deliberately added no link to `privacy.html`, with the `grep` that shows it |
 | §4a | `img-src 'self' data:;` and a bullet explaining that `data:` is needed for the inline favicon | `img-src 'self';` and a bullet explaining that it is **no longer** needed, because S4 replaced the inline icon with file links and `index.html` now has zero `data:` URIs |
@@ -597,7 +597,7 @@ to redo the sweep:
 |---|---|---|
 | Periods and numbers | after the three changes above, `grep -niE "[0-9]+ (months?\|years?\|weeks?\|days?)"` returns **nothing** | clean |
 | Named processors | only **WhatsApp / Meta**, which the brief allows and which §5 of the notice explains at length. The hosting provider and the mailbox provider were already `TODO(Haaija)` | clean |
-| Addresses | no postal or physical address is stated; the registered address is already a `TODO`. The only domains are `bpsra.co.za` (confirmed) and `inforegulator.org.za` (the Regulator's real site, cited as a site to visit - the notice deliberately declines to reproduce the Regulator's contact details and carries a `TODO` to copy the current ones in before publishing) | clean |
+| Addresses | no postal or physical address is stated; the registered address is already a `TODO`. The only domains are `bprsa.co.za` (confirmed) and `inforegulator.org.za` (the Regulator's real site, cited as a site to visit - the notice deliberately declines to reproduce the Regulator's contact details and carries a `TODO` to copy the current ones in before publishing) | clean |
 | Statutory citations | "Protection of Personal Information Act 4 of 2013", POPIA "section 21" (written operator agreement) and "section 22" (breach notification) | correct citations of public law, not invented business facts - left as they are |
 | Dates | "Drafted: 4 November 2026" | accurate |
 
@@ -1051,7 +1051,7 @@ git grep -iIl --untracked weave       CLAUDE.md, docs/COPY-PROPOSALS.md,
                                        (brand/ is untracked, so a plain `git grep` without
                                        --untracked silently skips it - checked explicitly)
 grep -rEo 'https?://...' brand/       only www.w3.org (the xmlns namespace) and
-  | grep -v w3.org | grep -v bpsra    bpsra.co.za; nothing else
+  | grep -v w3.org | grep -v bpsra    bprsa.co.za; nothing else
 python3 -c "PIL Image.open(...).size" brand/whatsapp-profile.png = (640, 640)
                                        brand/linkedin-banner.png = (1584, 396)
 python3 tools/contrast.py "<fg>" "<bg>"  all five pairs in brand/README.md recomputed and
@@ -1092,3 +1092,12 @@ git status --short                    only brand/ (untracked) before this edit; 
 
 ## Connection lead fix (S8 replay of a locally verified change)
 `grow.js`: `ST.L72` is now `vh * 1.2` (was `vh * 0.72`), and the card frames keep the old line via `pageR(s, vh * 0.72)`. Effect, measured by Dave in a real browser with wheel scrolling: the web's connection (dock dot) now lights 160 to 280 scroll px BEFORE the top three cards start drawing at 1440x900, 1920x1080 and 1366x768 (it used to light 120 to 360 px after). Cards start drawing at the same scroll positions as before.
+
+## Domain and emails (5 Nov)
+
+Branch `fix/domain-and-emails`, cut from 8b4523b. The domain was first written `bpsra.co.za` by mistake; Haaija confirmed the real domain is `bprsa.co.za`, and every file has been corrected (`BPSRA` to `BPRSA` where it is the acronym). Git branch names that contain the old spelling are real refs and are left as they were.
+
+- `index.html`: canonical, `og:url`, `og:image` and JSON-LD `url` now `bprsa.co.za`. The `#more-contact` card is visible with two mailto links (`hj@bprsa.co.za`, `willievanwyk@bprsa.co.za`); both LinkedIn links and the `TODO` comment removed.
+- `robots.txt`, `sitemap.xml`, `README.md`, `CLAUDE.md`, `privacy.html`, `brand/*`, `docs/*`: domain text corrected. `privacy.html` TODO placeholders left for the Information Officer.
+- `brand/email-signature.html`: the email TODO is now a mailto link to `hj@bprsa.co.za`; the phone TODO stays.
+- `dist/` regenerated by the build. No JS logic file changed.

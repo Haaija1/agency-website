@@ -2,7 +2,7 @@
 
 These replace the company's previous emblem, from before the rename. Use them only after
 Haaija confirms the registered company name - everything here is built on "Business
-Process Redesign" / "BPR" / bpsra.co.za per the brief, but none of it has been checked
+Process Redesign" / "BPR" / bprsa.co.za per the brief, but none of it has been checked
 against a CIPC registration.
 
 ## Files

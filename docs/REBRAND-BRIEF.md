@@ -1,10 +1,12 @@
-# Rebrand brief: Weave -> Business Process Redesign (bpsra.co.za)
+# Rebrand brief: Weave -> Business Process Redesign (bprsa.co.za)
+
+> Correction (5 Nov 2026): the domain was first written `bpsra.co.za` by mistake throughout this brief; the real domain is `bprsa.co.za` and the text below has been corrected.
 
 Written 4 Nov 2026 by Dave for Haaija. Source of truth for every cloud session on this repo. Read `CLAUDE.md` first, then this file, then `docs/V5-SPEC-AND-HANDOFF.md` (how the site works; it still says "Weave" because it is history).
 
 ## 1. Why
 
-"Weave" is already a registered company owned by someone else, so we cannot keep the name. The new company is **Business Process Redesign** with the domain **bpsra.co.za**. The site we have (v5, approved by Willie) stays: Haaija likes how everything merges and how the whole web branches out. This job swaps the NAME and the things that spell it, and keeps every mechanism that makes the site feel alive.
+"Weave" is already a registered company owned by someone else, so we cannot keep the name. The new company is **Business Process Redesign** with the domain **bprsa.co.za**. The site we have (v5, approved by Willie) stays: Haaija likes how everything merges and how the whole web branches out. This job swaps the NAME and the things that spell it, and keeps every mechanism that makes the site feel alive.
 
 Why the web still fits: a business process IS a web of steps, tools and people that branch and merge. The pinned intro branch, the page web, the cards drawn by the web and the example explorer already read as a process map. Do not redesign them. Only the words around them change.
 
@@ -14,8 +16,8 @@ Why the web still fits: a business process IS a web of steps, tools and people t
 |---|---|---|
 | Display name | `Business Process Redesign` | TODO(Haaija): he typed "Proses" by voice. Default is "Process". If the registered name differs, the new string is one search-and-replace. |
 | Short name (tight spaces: hero wordmark, <=480 px header, footer) | `BPR` | TODO(Haaija): confirm. Lowercase `bpr` + `.` mirrors the old `weave.` wordmark. |
-| Domain | `bpsra.co.za`, canonical `https://bpsra.co.za/` | Confirmed by Haaija. DNS is NOT live yet; do not claim it is. |
-| What "BPSRA" stands for | unknown | TODO(Haaija). Never print "BPSRA" as a brand name in copy. It appears only in URLs. |
+| Domain | `bprsa.co.za`, canonical `https://bprsa.co.za/` | Confirmed by Haaija. DNS is NOT live yet; do not claim it is. |
+| What "BPRSA" stands for | unknown | TODO(Haaija). Never print "BPRSA" as a brand name in copy. It appears only in URLs. |
 | Business email | not created yet | Keep the existing `REPLACE_BUSINESS_EMAIL` placeholder and the `hidden` contact card. Do NOT invent an address. |
 | WhatsApp numbers | unchanged | Keep both `wa.me` links. Only the pre-filled text changes (no brand name needed: "Hi, I'd like to discuss automating some of our admin work."). |
 | Colours, fonts, layout | unchanged (B3 slate + blue) | Do not touch. |
@@ -27,7 +29,7 @@ Why the web still fits: a business process IS a web of steps, tools and people t
 Every place a visitor, crawler or screen reader meets the name:
 
 - `<title>`, `<meta description>`, `og:site_name`, `og:title`, JSON-LD `name` and `description`.
-- Add now that the domain is confirmed: `<link rel="canonical" href="https://bpsra.co.za/">`, `og:url`, JSON-LD `url`. Do NOT add `og:image` unless the image file exists in the repo (session S2 adds it; leave a one-line comment).
+- Add now that the domain is confirmed: `<link rel="canonical" href="https://bprsa.co.za/">`, `og:url`, JSON-LD `url`. Do NOT add `og:image` unless the image file exists in the repo (session S2 adds it; leave a one-line comment).
 - Header `.brand` text (`<span>Weave</span>`): show `Business Process Redesign` at wide widths and `BPR` where it would wrap or crowd. The header must stay ONE row at 320 px.
 - Hero wordmark (`weave.`): replace with `bpr` + the same dot treatment. The hero must not grow by more than 24 px at any of the 8 sweep widths, or the pin maths changes. If it does, shrink the wordmark, not the hero.
 - Hero and About copy where the brand is the SUBJECT of a sentence ("Weave helps automate...", "Weave connects..."): rewrite with "We" ("We help automate repetitive work..."). Meaning unchanged. No new claims, no new numbers, no new services.
@@ -74,6 +76,6 @@ No colour, layout, animation, timing or router changes. No new sections. No new 
 
 ## 6. Open questions for Haaija (placeholders are in use meanwhile)
 1. Exact spelling of the registered name ("Process" vs "Proses").
-2. What do the letters BPSRA stand for? Is "BPR" acceptable as the short name?
-3. Business email on bpsra.co.za (a mailbox also unlocks proper SPF/DKIM/DMARC for outreach).
+2. What do the letters BPRSA stand for? Is "BPR" acceptable as the short name?
+3. Business email on bprsa.co.za (a mailbox also unlocks proper SPF/DKIM/DMARC for outreach).
 4. Willie is a co-founder and the hero is his: does he know about the new name?

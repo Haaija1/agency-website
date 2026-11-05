@@ -1,4 +1,4 @@
-# robots.txt for bpsra.co.za
+# robots.txt for bprsa.co.za
 #
 # Allow everything. The site is one public marketing page with nothing to hide from a crawler.
 # The pages that must stay out of an index say so themselves, with <meta name="robots"
@@ -11,4 +11,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bpsra.co.za/sitemap.xml
+Sitemap: https://bprsa.co.za/sitemap.xml

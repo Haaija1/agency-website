@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Sitemap for bpsra.co.za.
+  Sitemap for bprsa.co.za.
 
   Home only, on purpose. The site is a single page; its sections are #anchors on that page,
   and a sitemap must not list fragment URLs.
@@ -11,7 +11,7 @@
   below in the same commit that removes that banner, and set its <lastmod> to that date.
 
       <url>
-        <loc>https://bpsra.co.za/privacy.html</loc>
+        <loc>https://bprsa.co.za/privacy.html</loc>
         <lastmod>YYYY-MM-DD</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
@@ -24,7 +24,7 @@
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://bpsra.co.za/</loc>
+    <loc>https://bprsa.co.za/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>

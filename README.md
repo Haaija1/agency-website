@@ -1,7 +1,7 @@
 # Business Process Redesign — website
 
 Marketing site for **Business Process Redesign** (short name **BPR**), at
-**bpsra.co.za**. One page, plain HTML/CSS/JS, no framework and no build step to view
+**bprsa.co.za**. One page, plain HTML/CSS/JS, no framework and no build step to view
 it: open `index.html` in a browser. There is a minify step for what gets deployed
 (see [Build](#build)).
 
