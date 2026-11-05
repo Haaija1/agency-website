@@ -3,107 +3,591 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Weave — AI automation for growing businesses. Less repetitive work. More time for the work that matters.">
-  <meta name="theme-color" content="#0c0d0a">
-  <title>Weave — AI automation for growing businesses</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230c0d0a'/%3E%3Cpath d='M5 9l5 15 6-12 6 12 5-15' fill='none' stroke='%23ff6a35' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: dark;
-      --pbg: #0c0d0a;
-      --bg-2: #121309;
-      --ink: #f3f1e8;
-      --muted: #9b9788;
-      --muted-2: #726e5f;
-      --accent: #ff6a35;
-      --accent-dim: #7a3018;
-      --line: #2a2820;
-      --line-soft: #1c1c14;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; background: var(--pbg); color: var(--ink); font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; overflow-x: clip; }
-    ::selection { background: var(--accent); color: var(--pbg); }
-    .weave-hero { --gutter: clamp(1.5rem, 5.5vw, 6rem); --bleed: calc(var(--gutter) + max(0px, (100vw - 1600px) / 2)); --ease-out: cubic-bezier(.16, 1, .3, 1); display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; max-width: 1600px; margin-inline: auto; padding: 2.5rem var(--gutter) 3rem; }
-    .weave-hero__identity { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--line); animation: weave-appear .8s ease backwards; }
-    .weave-hero__wordmark { margin: 0; font: 700 2.5rem/1 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
-    .weave-hero__wordmark span { color: var(--accent); }
-    .weave-hero__descriptor { margin: 0; color: var(--muted); font: 400 .875rem/1.6 'IBM Plex Mono', monospace; }
-    .weave-hero__content { position: relative; isolation: isolate; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(4rem, 8vw, 8rem) clamp(4rem, 7vw, 7rem); }
-    .weave-hero__weave { position: absolute; z-index: -1; top: 0; right: calc(-1 * var(--bleed)); width: calc(100% + var(--bleed)); height: 100%; color: var(--line); pointer-events: none; -webkit-mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); mask-image: radial-gradient(70% 75% at 100% 0, #000 30%, transparent); animation: weave-appear 1.6s .2s ease backwards; }
-    .weave-hero__thread { fill: none; stroke: currentColor; stroke-width: 1; }
-    .weave-hero__gap { fill: none; stroke: var(--pbg); stroke-width: 7; }
-    .weave-hero__strand { stroke: var(--accent); stroke-width: 2; transform-box: fill-box; transform-origin: right; animation: weave-grow 1.8s .7s var(--ease-out) backwards; }
-    .weave-hero__over { color: var(--muted-2); }
-    .weave-hero__eyebrow { display: flex; align-items: center; gap: .875rem; margin: 0 0 2.25rem; color: var(--muted); font: 500 .875rem/1.6 'IBM Plex Mono', monospace; animation: weave-fade .8s .15s var(--ease-out) backwards; }
-    .weave-hero__eyebrow::before { content: ''; width: 2rem; height: 2px; background: var(--accent); flex: 0 0 auto; transform-origin: left; animation: weave-grow .9s .3s var(--ease-out) backwards; }
-    .weave-hero__layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); align-items: end; gap: clamp(2rem, 5vw, 5rem); }
-    .weave-hero h1 { margin: 0; max-width: 10ch; font: 600 clamp(3.75rem, 7.7vw, 7.75rem)/1.02 'Space Grotesk', sans-serif; letter-spacing: -.065em; }
-    .weave-hero__line { display: block; animation: weave-mask 1.2s; }
-    .weave-hero__line > span { display: block; animation: weave-rise 1s .2s var(--ease-out) backwards; }
-    .weave-hero__line--accent { color: var(--accent); animation-duration: 1.3s; }
-    .weave-hero__line--accent > span { animation-delay: .3s; }
-    .weave-hero__intro { padding-bottom: .375rem; animation: weave-fade .9s .45s var(--ease-out) backwards; }
-    .weave-hero__copy { margin: 0 0 2rem; max-width: 28ch; color: var(--muted); font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.6; }
-    .weave-hero__copy strong { color: var(--ink); font-weight: 400; }
-    .weave-hero__cta { display: inline-flex; justify-content: space-between; align-items: center; gap: 2rem; min-height: 3.75rem; padding: 1rem 1.5rem; background: var(--accent); color: var(--pbg); text-decoration: none; font-size: 1rem; font-weight: 500; border: 1px solid var(--accent); transition: background-color .15s ease, border-color .15s ease, transform .15s ease; }
-    .weave-hero__cta:hover { background: var(--ink); border-color: var(--ink); }
-    .weave-hero__cta:active { transform: translateY(1px); }
-    .weave-hero__cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
-    .weave-hero__cta svg { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; transition: transform .2s var(--ease-out); }
-    .weave-hero__cta:hover svg { transform: translateX(.25rem); }
-    .weave-hero__closing { margin: 0; border-top: 1px solid var(--line); padding-top: 1.5rem; color: var(--muted); font: 400 .875rem/1.7 'IBM Plex Mono', monospace; animation: weave-appear .8s .7s ease backwards; }
-    @keyframes weave-appear { from { opacity: 0; } }
-    @keyframes weave-fade { from { opacity: 0; transform: translateY(.75rem); } }
-    @keyframes weave-rise { from { transform: translateY(105%); } }
-    @keyframes weave-mask { from, to { clip-path: inset(-.25em -.25em 0); } }
-    @keyframes weave-grow { from { transform: scaleX(0); } }
-    @media (max-width: 999px) { .weave-hero__layout { grid-template-columns: 1fr; gap: 2.5rem; } .weave-hero h1 { font-size: clamp(3.25rem, 12vw, 5.75rem); } .weave-hero__copy { max-width: 35ch; } }
-    @media (max-width: 760px) { .weave-hero { padding-top: 1.75rem; } .weave-hero__content { padding-block: 4.5rem 3.75rem; } .weave-hero__eyebrow { margin-bottom: 1.5rem; } }
-    @media (prefers-reduced-motion: reduce) { .weave-hero *, .weave-hero *::before { animation: none !important; transition: none !important; } }
-  </style>
+  <script>/* the hero holds still for a few scrolls only on a big screen and for visitors who accept motion; grow.js confirms it once the page is measured */
+if (matchMedia('(min-width:960px) and (min-height:600px) and (prefers-reduced-motion:no-preference)').matches) { var d = document.documentElement; d.className += ' pin-on'; d.style.setProperty('--pin', Math.round(Math.max(320, Math.min(440, innerHeight * 0.46))) + 'px'); }</script>
+  <title>Business Process Redesign — AI automation for growing businesses</title>
+  <meta name="description" content="Business Process Redesign — AI automation for growing businesses. Less repetitive work. More time for the work that matters.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://bprsa.co.za/">
+  <!-- Social sharing. og:image is the 1200x630 image in the repo root; the width/height pair lets a scraper reserve the card before the file loads. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Business Process Redesign">
+  <meta property="og:title" content="Business Process Redesign — AI automation for growing businesses">
+  <meta property="og:description" content="Less repetitive work. More time for the work that matters.">
+  <meta property="og:url" content="https://bprsa.co.za/">
+  <meta property="og:image" content="https://bprsa.co.za/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Icons. The SVG wins wherever it is understood; the 32px PNG is the fallback. No data: URI any more, so the CSP no longer needs img-src data:. -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" defer></script>
+  <script src="motion.js" defer></script>
+  <script src="examples.js" defer></script>
+  <script src="explorer.js" defer></script>
+  <script src="grow.js" defer></script>
+  <!-- Structured data. "alternateName" records what BPRSA stands for; the display name stays the short form. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Business Process Redesign",
+    "alternateName": "Business Process Redesign South Africa",
+    "url": "https://bprsa.co.za/",
+    "slogan": "Spare some time, so we can save yours.",
+    "description": "AI automation for growing businesses. Business Process Redesign helps automate repetitive work so teams can focus on what comes next.",
+    "telephone": ["+27 73 851 6860", "+27 76 400 9597"]
+  }
+  </script>
 </head>
-<body>
-  <main>
-    <section class="weave-hero" aria-labelledby="weave-headline">
-      <div class="weave-hero__identity">
-        <p class="weave-hero__wordmark">weave<span aria-hidden="true">.</span></p>
-        <p class="weave-hero__descriptor">AI automation for growing businesses</p>
-      </div>
-      <div class="weave-hero__content">
-        <svg class="weave-hero__weave" aria-hidden="true" focusable="false">
-          <defs>
-            <pattern id="weave-cloth" width="64" height="64" patternUnits="userSpaceOnUse">
-              <path class="weave-hero__thread" d="M0 16h64M0 48h64"/>
-              <path class="weave-hero__gap" d="M16 0v64M48 0v64"/>
-              <path class="weave-hero__thread" d="M16 0v64M48 0v64"/>
-              <path class="weave-hero__gap" d="M6 16h20M38 48h20"/>
-              <path class="weave-hero__thread" d="M6 16h20M38 48h20"/>
-            </pattern>
-            <pattern id="weave-over" y="40" width="64" height="16" patternUnits="userSpaceOnUse">
-              <path class="weave-hero__gap" d="M16 0v16"/>
-              <path class="weave-hero__thread weave-hero__over" d="M16 0v16"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#weave-cloth)"/>
-          <line class="weave-hero__strand" x1="0" y1="48" x2="100%" y2="48"/>
-          <rect y="40" width="100%" height="16" fill="url(#weave-over)"/>
-        </svg>
-        <p class="weave-hero__eyebrow">Less repetition. More possibility.</p>
-        <div class="weave-hero__layout">
-          <h1 id="weave-headline"><span class="weave-hero__line"><span>Make room for</span></span> <span class="weave-hero__line weave-hero__line--accent"><span>better work.</span></span></h1>
-          <div class="weave-hero__intro">
-            <p class="weave-hero__copy"><strong>Your time is better spent moving your business forward.</strong> Weave helps automate repetitive work, so you can focus on what comes next.</p>
-            <!-- Integration target: connect this to the future contact section before launch. -->
-            <a class="weave-hero__cta" href="#contact">Let’s talk automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
-          </div>
+<body id="top">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ SHARED HEADER / NAV ============ -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Business Process Redesign"><svg class="mark" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24" stroke="var(--ink-4)" stroke-width="1.2" fill="none"/><circle cx="16" cy="16" r="3.6" fill="var(--ink)"/><circle cx="6" cy="8" r="2.2" fill="var(--ink)"/><circle cx="26" cy="9" r="2.2" fill="var(--ink)"/><circle cx="9" cy="26" r="2.2" fill="var(--ink)"/><circle cx="25" cy="24" r="2.2" fill="var(--ink)"/></svg><span class="brand-name" aria-hidden="true"><span class="brand-name__full">Business Process Redesign</span><span class="brand-name__short">BPR</span></span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li class="nav-optional"><a href="#case-study">Example</a></li>
+        <li><a class="nav-cta" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO (owned by Willie) ============ -->
+<div class="hero-pin" id="hero-pin">
+<section class="hero" aria-labelledby="hero-headline">
+  <div class="hero__identity">
+    <p class="hero__wordmark">bpr<span aria-hidden="true">.</span></p>
+    <p class="hero__descriptor">AI automation for growing businesses</p>
+  </div>
+  <div class="hero__content">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Less repetition. More possibility.</p>
+      <div class="hero__layout">
+        <h1 id="hero-headline"><span class="hero__line"><span>Make room for</span></span> <span class="hero__line hero__line--accent"><span>better work.</span></span></h1>
+        <div class="hero__intro">
+          <p class="hero__copy"><strong>Your time is better spent moving your business forward.</strong> We help automate repetitive work, so you can focus on what comes next.</p>
+          <a class="hero__cta" href="#contact">Let’s talk automation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
         </div>
       </div>
-      <p class="weave-hero__closing">More time for the work that matters.</p>
-    </section>
-    <!-- About / Story intentionally deferred until the company story is ready. -->
-  </main>
+    </div>
+    <div class="web-wrap">
+      <svg class="web" viewBox="0 0 600 520" role="img" aria-labelledby="web-t web-d">
+        <title id="web-t">Your team and the tools it uses, joined into one web</title>
+        <desc id="web-d">Your team in the centre, joined by thin curved threads to the tools it uses: Invoices, Chat, Calendar, Tracker, Email, Enquiries, Spreadsheets. Tools that work closely together are joined by thicker threads.</desc>
+        <g class="guides">
+          <circle cx="300" cy="260" r="88.4"/>
+          <circle cx="300" cy="260" r="176.8"/>
+          <circle cx="300" cy="260" r="229.8"/>
+          <line x1="300" y1="260" x2="300" y2="30.2"/>
+          <line x1="300" y1="260" x2="414.9" y2="61"/>
+          <line x1="300" y1="260" x2="499" y2="145.1"/>
+          <line x1="300" y1="260" x2="529.8" y2="260"/>
+          <line x1="300" y1="260" x2="499" y2="374.9"/>
+          <line x1="300" y1="260" x2="414.9" y2="459"/>
+          <line x1="300" y1="260" x2="300" y2="489.8"/>
+          <line x1="300" y1="260" x2="185.1" y2="459"/>
+          <line x1="300" y1="260" x2="101" y2="374.9"/>
+          <line x1="300" y1="260" x2="70.2" y2="260"/>
+          <line x1="300" y1="260" x2="101" y2="145.1"/>
+          <line x1="300" y1="260" x2="185.1" y2="61"/>
+        </g>
+        <g class="links">
+          <path class="link" pathLength="1" data-ends="w-team w-sheets" style="--i:0" stroke-width="1.8" d="M300,260 Q265.7,190.6 211.4,135.3"/>
+          <path class="link" pathLength="1" data-ends="w-team w-enquiries" style="--i:1" stroke-width="2.3" d="M300,260 Q238.3,211 164.5,183.6"/>
+          <path class="link" pathLength="1" data-ends="w-team w-tracker" style="--i:2" stroke-width="2.3" d="M300,260 Q269,338.7 264.1,423.2"/>
+          <path class="link" pathLength="1" data-ends="w-enquiries w-invoices" style="--i:3" stroke-width="1.3" d="M164.5,183.6 Q276.3,171.9 379,125.9"/>
+          <path class="link" pathLength="1" data-ends="w-enquiries w-chat" style="--i:4" stroke-width="1.8" d="M164.5,183.6 Q310.7,209.2 457.5,187.9"/>
+          <path class="link" pathLength="1" data-ends="w-enquiries w-email" style="--i:5" stroke-width="1.8" d="M164.5,183.6 Q154.4,279.4 174.8,373.5"/>
+          <path class="link" pathLength="1" data-ends="w-sheets w-email" style="--i:6" stroke-width="1.3" d="M211.4,135.3 Q174,251.5 174.8,373.5"/>
+          <path class="link" pathLength="1" data-ends="w-sheets w-tracker" style="--i:7" stroke-width="1.3" d="M211.4,135.3 Q214.7,283.5 264.1,423.2"/>
+          <path class="link" pathLength="1" data-ends="w-invoices w-tracker" style="--i:8" stroke-width="1.8" d="M379,125.9 Q297.8,265.4 264.1,423.2"/>
+          <path class="link" pathLength="1" data-ends="w-chat w-calendar" style="--i:9" stroke-width="1.3" d="M457.5,187.9 Q434.9,288 444.5,390.1"/>
+          <path class="link" pathLength="1" data-ends="w-tracker w-calendar" style="--i:10" stroke-width="2.3" d="M264.1,423.2 Q357,421.1 444.5,390.1"/>
+        </g>
+        <g class="nodes">
+          <g class="node" id="w-team" data-nb="w-sheets w-enquiries w-tracker" style="--i:0" transform="translate(300,260)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="0" y="-12" width="103.6" height="32"/>
+            <circle class="halo" r="14" style="stroke:var(--accent-slate)"/>
+            <circle class="dot" r="7"/>
+            <text class="node-name" x="14" y="4" text-anchor="start">Your team</text>
+          </g>
+          <g class="node" id="w-invoices" data-nb="w-enquiries w-tracker" style="--i:1" transform="translate(379,125.9)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="0" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-indigo)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="12" y="4" text-anchor="start">Invoices</text>
+          </g>
+          <g class="node" id="w-chat" data-nb="w-enquiries w-calendar" style="--i:2" transform="translate(457.5,187.9)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="0" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-teal)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="12" y="4" text-anchor="start">Chat</text>
+          </g>
+          <g class="node" id="w-calendar" data-nb="w-chat w-tracker" style="--i:3" transform="translate(444.5,390.1)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="0" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-amber)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="12" y="4" text-anchor="start">Calendar</text>
+          </g>
+          <g class="node" id="w-tracker" data-nb="w-team w-sheets w-invoices w-calendar" style="--i:4" transform="translate(264.1,423.2)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="-101.6" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-rose)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="-12" y="4" text-anchor="end">Tracker</text>
+          </g>
+          <g class="node" id="w-email" data-nb="w-enquiries w-sheets" style="--i:5" transform="translate(174.8,373.5)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="-101.6" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-violet)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="-12" y="4" text-anchor="end">Email</text>
+          </g>
+          <g class="node" id="w-enquiries" data-nb="w-team w-invoices w-chat w-email" style="--i:6" transform="translate(164.5,183.6)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="-101.6" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-sky)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="-12" y="4" text-anchor="end">Enquiries</text>
+          </g>
+          <g class="node" id="w-sheets" data-nb="w-team w-email w-tracker" style="--i:7" transform="translate(211.4,135.3)">
+            <circle class="hit" r="22"/>
+            <rect class="hit" x="-101.6" y="-12" width="101.6" height="32"/>
+            <circle class="halo" r="12" style="stroke:var(--accent-lime)"/>
+            <circle class="dot" r="5"/>
+            <text class="node-name" x="-12" y="4" text-anchor="end">Spreadsheets</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <p class="hero__closing">More time for the work that matters.</p>
+</section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="threaded" aria-labelledby="about-title">
+  <a class="thread-node" href="#about" aria-label="Why we do this section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
+  <div class="wrap">
+    <p class="kicker">Why we do this</p>
+    <h2 id="about-title">Your tools should work <em>together.</em></h2>
+    <p class="lede">When a business grows, the work between its systems grows too: copying information, chasing updates, and checking the same details twice. We connect those steps so your team can spend more time on work that needs their judgement.</p>
+    <div class="proof">
+      <article class="proof-item"><p class="num" aria-hidden="true">01</p><div><h3>Start with the work</h3><p>We look at how your team works today, where information gets stuck, and which tasks are worth automating.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">02</p><div><h3>Build around your business</h3><p>We connect the tools you already use where practical. AI is an option when it helps; clear rules and simple integrations often do the job.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">03</p><div><h3>Keep people in control</h3><p>Approvals, exceptions, and handovers are part of the design. Your team should know what happens automatically and when someone needs to step in.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="threaded" aria-labelledby="services-title">
+  <a class="thread-node" href="#services" aria-label="Services section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
+  <div class="wrap">
+    <p class="kicker">What We Do</p>
+    <h2 id="services-title">Support for every stage <em>of your workflow.</em></h2>
+    <p class="lede">Start with the process you want to improve. We agree the scope, deliverables, and proposal with you before work begins.</p>
+
+    <table class="ptable">
+      <thead>
+        <tr><th scope="col">Service</th><th scope="col">What it is</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tier"><span class="n">01</span>Discovery &amp; Audit</td>
+          <td class="desc">One-time. We map your actual process, find where automation genuinely helps, and hand you a roadmap — before you commit to a build.</td>
+        </tr>
+        <tr>
+          <td class="tier"><span class="n">02</span>Implementation</td>
+          <td class="desc">We connect your tools, build the workflow, and test agreed scenarios with your team before rollout. Documentation and a clear handover are part of the work.</td>
+        </tr>
+        <tr>
+          <td class="tier"><span class="n">03</span>Operations Retainer</td>
+          <td class="desc">Ongoing. Monitoring, tuning, and reporting as your data and rules change. Automations left unmonitored drift — this is what keeps yours accurate.</td>
+        </tr>
+        <tr>
+          <td class="tier"><span class="n">04</span>Hybrid / Licensing</td>
+          <td class="desc">For repeatable workflows, we assess whether a reusable solution can fit your operation, with configuration and ongoing support agreed upfront.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="ptable-note">Every project is scoped individually. <a href="#contact">Tell us about your workflow for a tailored proposal →</a></p>
+  </div>
+</section>
+
+<!-- ============ PROCESS: how it works + risk band ============ -->
+<section id="process" class="threaded" aria-labelledby="process-title">
+  <a class="thread-node" href="#process" aria-label="Process section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
+  <div class="wrap">
+    <p class="kicker">How It Works</p>
+    <h2 id="process-title">Four steps, each with <em>something to show for it.</em></h2>
+    <p class="lede">You always know what happens next and what you will have at the end of each step.</p>
+
+    <!-- Steps mirror the four services above and use only what that copy already promises. -->
+    <ol class="steps">
+      <li class="step">
+        <p class="step-n" aria-hidden="true">01</p>
+        <h3>Talk it through</h3>
+        <p>Tell us which task takes too much time and which tools your team uses. A short note is enough to start.</p>
+        <div class="step-out"><p><span>You get</span>A view on whether there is a fit, and what the next step would be.</p></div>
+      </li>
+      <li class="step">
+        <p class="step-n" aria-hidden="true">02</p>
+        <h3>Map and scope</h3>
+        <p>We map how the work actually happens and find where automation genuinely helps, before any build begins.</p>
+        <div class="step-out"><p><span>You get</span>A roadmap, and a proposal with the scope and deliverables agreed with you.</p></div>
+      </li>
+      <li class="step">
+        <p class="step-n" aria-hidden="true">03</p>
+        <h3>Build and test</h3>
+        <p>We connect your tools, build the workflow, and test the agreed scenarios with your team before rollout.</p>
+        <div class="step-out"><p><span>You get</span>A working workflow, documentation, and a clear handover.</p></div>
+      </li>
+      <li class="step">
+        <p class="step-n" aria-hidden="true">04</p>
+        <h3>Run and tune</h3>
+        <p>Your data and rules change, so we keep the automation accurate with monitoring and tuning.</p>
+        <div class="step-out"><p><span>You get</span>Regular reporting, and adjustments as things change.</p></div>
+      </li>
+    </ol>
+
+    <!--
+      Risk band. Every line below restates copy already on this page, so it makes no new promise.
+      Add any of these only once they are confirmed as the business's real terms:
+        - the client owns what is built / no lock-in
+        - pilot first, then scale up
+        - a pause switch and a rollback plan
+        - a guarantee
+        - timelines, and how much of the client's time a project needs each week
+    -->
+    <div class="assure">
+      <h3>You stay in control</h3>
+      <p class="assure-intro">Automation should reduce risk, not add it. This is how we work.</p>
+      <ul class="assure-list">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>
+          <div><strong>Scope before build</strong><p>The proposal and deliverables are agreed with you before work begins.</p></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>
+          <div><strong>Roadmap before you commit</strong><p>Discovery gives you a roadmap before you decide whether to build.</p></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>
+          <div><strong>Tested with your team</strong><p>Agreed scenarios are tested with your people before anything goes live.</p></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5L20 6.5"/></svg>
+          <div><strong>People stay in the loop</strong><p>Approvals, exceptions, and handovers are designed in, so your team knows when to step in.</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAMPLE WORKFLOWS: the hero web, bigger. Hover or tap a tool to open its workflow. ============
+     explorer.js builds the interactive version into #wfx. Without it, the list below is the content (it is generated from
+     examples.js by tests/wf_list.js, and examples.test.js fails if the two ever differ). -->
+<section id="workflows" class="threaded" aria-labelledby="workflows-title">
+  <a class="thread-node" href="#workflows" aria-label="Example workflows section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
+  <div class="wrap">
+    <p class="kicker">Example Workflows</p>
+    <h2 id="workflows-title">Pick a tool to see <em>how it would run.</em></h2>
+    <p class="lede">Each point on the web is a tool your team already uses. Open one to see an illustrative workflow: what starts it, what runs on its own, where AI helps, and where a person decides. These show an approach we can discuss for your business, not measured client results.</p>
+    <div class="wfx" id="wfx"></div>
+    <ul class="wf-list" role="list">
+    <li class="wf-item">
+      <h3>Enquiries</h3>
+      <ol>
+        <li>New enquiry</li>
+        <li>Check the details</li>
+        <li>Flag what is unclear</li>
+        <li>Update the tracker</li>
+        <li>A person reviews</li>
+        <li>Team sees one view</li>
+      </ol>
+      <p class="wf-saved">About 1 h 40 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Invoices</h3>
+      <ol>
+        <li>Job marked done</li>
+        <li>Draft the invoice</li>
+        <li>Check the totals</li>
+        <li>You approve it</li>
+        <li>Send to the client</li>
+        <li>Logged in the tracker</li>
+      </ol>
+      <p class="wf-saved">About 1 h 30 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Chat</h3>
+      <ol>
+        <li>Message arrives</li>
+        <li>Sort by topic</li>
+        <li>Draft a reply</li>
+        <li>A person writes it</li>
+        <li>A person checks it</li>
+        <li>Send the reply</li>
+        <li>Logged to the contact</li>
+      </ol>
+      <p class="wf-saved">About 1 h 20 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Calendar</h3>
+      <ol>
+        <li>Booking request</li>
+        <li>Check availability</li>
+        <li>Pick free times</li>
+        <li>You confirm</li>
+        <li>Offer the times</li>
+        <li>Booked and reminded</li>
+      </ol>
+      <p class="wf-saved">About 1 h 30 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Tracker</h3>
+      <ol>
+        <li>Job changes status</li>
+        <li>Update the tracker</li>
+        <li>Work out who needs it</li>
+        <li>Exceptions to a person</li>
+        <li>Notify them</li>
+        <li>Everyone is in step</li>
+      </ol>
+      <p class="wf-saved">About 1 h 15 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Email</h3>
+      <ol>
+        <li>Email arrives</li>
+        <li>Pull out the key details</li>
+        <li>Match it to a record</li>
+        <li>File it</li>
+        <li>Unclear ones to a person</li>
+        <li>Records are up to date</li>
+      </ol>
+      <p class="wf-saved">About 1 h 30 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Spreadsheets</h3>
+      <ol>
+        <li>Every Friday</li>
+        <li>Read source one</li>
+        <li>Read source two</li>
+        <li>Read source three</li>
+        <li>Combine in one sheet</li>
+        <li>List the differences</li>
+        <li>A person checks them</li>
+        <li>Clean sheet is ready</li>
+      </ol>
+      <p class="wf-saved">About 2 h 15 min back each week (illustrative)</p>
+    </li>
+    <li class="wf-item">
+      <h3>Your team</h3>
+      <ol>
+        <li>Your team</li>
+        <li>Approvals</li>
+        <li>Exceptions</li>
+        <li>Handovers</li>
+      </ol>
+      <p class="wf-saved">Approvals, exceptions, and handovers stay with people.</p>
+    </li>
+    </ul>
+    <p class="caption wfx-cap">Illustrative examples. The times are our estimates, not a client result.</p>
+  </div>
+</section>
+
+<!-- ============ WORKFLOW EXAMPLE ============ -->
+<section id="case-study" class="threaded" aria-labelledby="case-study-title">
+  <a class="thread-node" href="#case-study" aria-label="Workflow example section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
+  <div class="wrap">
+    <p class="kicker">Workflow Example</p>
+    <h2 id="case-study-title">From scattered updates to <em>one clear view.</em></h2>
+    <p class="lede">An illustrative workflow: bringing incoming job details, a shared tracker, and team updates together. This shows an approach we can discuss for your business, rather than a measured client result.</p>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-bolt" viewBox="0 0 16 16"><path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol><symbol id="i-fork" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="4" cy="3.5" r="1.6"/><circle cx="4" cy="12.5" r="1.6"/><circle cx="12" cy="5.5" r="1.6"/><path d="M4 5.1v5.8M12 7.1c0 2.4-2.6 3-6.4 4.2"/></symbol><symbol id="i-spark" viewBox="0 0 16 16"><path d="M8 1l1.6 5.4L15 8l-5.4 1.6L8 15l-1.6-5.4L1 8l5.4-1.6z" fill="currentColor"/></symbol><symbol id="i-mail" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><rect x="1.8" y="3.2" width="12.4" height="9.6" rx="1.6"/><path d="m2.4 4.4 5.6 4.4 5.6-4.4"/></symbol></svg>
+    <div class="canvas-demo">
+      <span class="pill agentic ai-summary"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg>1 of 4 steps use AI</span>
+      <ol class="flow" role="list">
+        <li class="wnode">
+          <div class="wnode-head"><span class="wnode-glyph"><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg></span><span class="wnode-title">New enquiry</span></div>
+          <div class="wnode-summary">a new enquiry or job arrives</div>
+          <div class="wnode-foot"><span class="pill deterministic">No AI</span></div>
+        </li>
+        <li class="edge" aria-hidden="true"></li>
+        <li class="wnode">
+          <div class="wnode-head"><span class="wnode-glyph"><svg class="icon" aria-hidden="true"><use href="#i-fork"/></svg></span><span class="wnode-title">Check the details</span></div>
+          <div class="wnode-summary">required fields, duplicates</div>
+          <div class="wnode-foot"><span class="pill deterministic">No AI</span></div>
+        </li>
+        <li class="edge" aria-hidden="true"></li>
+        <li class="wnode agentic">
+          <div class="wnode-head"><span class="wnode-glyph"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg></span><span class="wnode-title">Flag what is unclear</span></div>
+          <div class="wnode-summary">sent to a person to review</div>
+          <div class="wnode-foot"><span class="pill agentic"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg>AI</span></div>
+        </li>
+        <li class="edge" aria-hidden="true"></li>
+        <li class="wnode">
+          <div class="wnode-head"><span class="wnode-glyph"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span><span class="wnode-title">Update and notify</span></div>
+          <div class="wnode-summary">shared tracker, right person</div>
+          <div class="wnode-foot"><span class="pill deterministic">No AI</span></div>
+        </li>
+      </ol>
+    </div>
+    <p class="caption">Illustrative example, not a client result. Each card is one step; the pill says whether AI is involved.</p>
+    <div class="proof">
+      <article class="proof-item"><p class="num" aria-hidden="true">01</p><div><h3>Capture the details once</h3><p>A new enquiry or job arrives. The workflow collects the required details and uses a consistent reference to keep related information together.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">02</p><div><h3>Check before updating</h3><p>Required fields and duplicate entries are checked. Missing or unclear information is sent to a person for review before the record moves forward.</p></div></article>
+      <article class="proof-item"><p class="num" aria-hidden="true">03</p><div><h3>Give the team a shared view</h3><p>The agreed tracker is updated and the right person is notified. The team can see the next action without chasing the same update in several places.</p></div></article>
+    </div>
+
+    <!--
+      "Show the week". Illustrative only: the bar lengths (--w, 0 to 1) are made-up proportions, not
+      measurements, and there are deliberately no numbers. Do not replace them with real client
+      figures until the client has signed off (see README). Once they have, swap the --w values and
+      the wording here; the layout does not change. The client's name, if approved to appear at all,
+      can use the .redacted style ("Client name withheld").
+      Without JavaScript both lanes stay visible, so the table reads as a plain before/after list.
+    -->
+    <div class="week" id="week" data-state="before">
+      <div class="week-head">
+        <div>
+          <h3 id="week-title">Show the week</h3>
+          <p class="week-sub">Where the hands-on time goes across a working week, by hand and with the workflow in place.</p>
+        </div>
+        <button class="switch" type="button" role="switch" aria-checked="false" aria-label="Show the week with the workflow in place" hidden>
+          <span class="sw-before" aria-hidden="true">Before</span>
+          <span class="switch-track" aria-hidden="true"></span>
+          <span class="sw-after" aria-hidden="true">After</span>
+        </button>
+      </div>
+      <table class="week-table" aria-labelledby="week-title" aria-describedby="week-note">
+        <thead>
+          <tr><th scope="col">Day</th><th scope="col">Where the hands-on time goes</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Mon</th>
+            <td>
+              <div class="lane" data-lane="before"><span class="lane-tag">By hand</span><span class="lane-what">Re-keying new jobs into the tracker</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.85"></span></div></div>
+              <div class="lane" data-lane="after"><span class="lane-tag">With the workflow</span><span class="lane-what">Reviewing the few records it flagged</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.2"></span></div></div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Tue</th>
+            <td>
+              <div class="lane" data-lane="before"><span class="lane-tag">By hand</span><span class="lane-what">Chasing missing details by message</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.7"></span></div></div>
+              <div class="lane" data-lane="after"><span class="lane-tag">With the workflow</span><span class="lane-what">Answering the clarification requests that come back</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.15"></span></div></div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Wed</th>
+            <td>
+              <div class="lane" data-lane="before"><span class="lane-tag">By hand</span><span class="lane-what">Comparing lists to spot duplicates</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.6"></span></div></div>
+              <div class="lane" data-lane="after"><span class="lane-tag">With the workflow</span><span class="lane-what">Confirming the duplicates it caught</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.1"></span></div></div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Thu</th>
+            <td>
+              <div class="lane" data-lane="before"><span class="lane-tag">By hand</span><span class="lane-what">Updating the team on where each job stands</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.75"></span></div></div>
+              <div class="lane" data-lane="after"><span class="lane-tag">With the workflow</span><span class="lane-what">Stepping in on the exceptions only</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.12"></span></div></div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Fri</th>
+            <td>
+              <div class="lane" data-lane="before"><span class="lane-tag">By hand</span><span class="lane-what">Reconciling the week’s tracker</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.9"></span></div></div>
+              <div class="lane" data-lane="after"><span class="lane-tag">With the workflow</span><span class="lane-what">Checking the tracker looks right</span><div class="bar-track" aria-hidden="true"><span class="bar" style="--w:.15"></span></div></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="week-note" id="week-note">Illustrative example. Bar lengths show relative effort for the workflow above and are not measured client results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="threaded threaded--end" aria-labelledby="contact-title">
+  <a class="thread-node" href="#contact" aria-label="Contact section"><svg viewBox="3 7 26 19" aria-hidden="true" focusable="false"><path pathLength="1" d="M5 9.5Q12 11 16 15L16 24M27 9.5Q20 11 16 15"/></svg></a>
+  <div class="wrap">
+    <p class="kicker">Get In Touch</p>
+    <h2 id="contact-title">Tell us what's <em>actually</em> eating your team's time.</h2>
+    <p class="lede">Send a short note, or start a WhatsApp conversation. Tell us which task takes too much time and what tools your team uses.</p>
+    <div class="contact-grid">
+      <div class="contact-card contact-card--form">
+        <h3>Send us a note</h3>
+        <p>A short description is enough to start. We’ll reply to talk through the process.</p>
+        <form class="contact-form" id="contact-form" action="contact.php" method="post">
+          <div class="field">
+            <label for="cf-name">Your name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required aria-describedby="cf-name-error">
+            <p class="field-error" id="cf-name-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="cf-email-error">
+            <p class="field-error" id="cf-email-error" hidden></p>
+          </div>
+          <div class="field">
+            <label for="cf-message">What’s taking up your team’s time?</label>
+            <textarea id="cf-message" name="message" rows="5" maxlength="3000" minlength="10" required aria-describedby="cf-message-hint cf-message-error"></textarea>
+            <p class="field-hint" id="cf-message-hint">Keep it general. Leave out passwords and customer records.</p>
+            <p class="field-error" id="cf-message-error" hidden></p>
+          </div>
+          <!-- Spam trap: real visitors never see or fill this. -->
+          <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="t" value="">
+          <button class="btn" type="submit">Send note →</button>
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="contact-card">
+        <h3>Prefer WhatsApp?</h3>
+        <p>Message either number to start a conversation.</p>
+        <div class="contact-actions"><a class="btn secondary" id="whatsapp-contact" href="https://wa.me/27738516860?text=Hi%2C%20I%27d%20like%20to%20discuss%20automating%20some%20of%20our%20admin%20work." target="_blank" rel="noopener noreferrer">WhatsApp +27 73 851 6860 →</a>
+        <a class="btn secondary" href="https://wa.me/27764009597?text=Hi%2C%20I%27d%20like%20to%20discuss%20automating%20some%20of%20our%20admin%20work." target="_blank" rel="noopener noreferrer">WhatsApp +27 76 400 9597 →</a></div>
+        <p class="contact-note">Opens WhatsApp; you choose when to send.</p>
+      </div>
+      <div class="contact-card" id="more-contact">
+        <h3>Or reach us directly</h3>
+        <p>Email either of us directly.</p>
+        <div class="contact-actions"><a class="btn secondary" href="mailto:hj@bprsa.co.za">Email hj@bprsa.co.za →</a>
+        <a class="btn secondary" href="mailto:willievanwyk@bprsa.co.za">Email willievanwyk@bprsa.co.za →</a></div>
+      </div>
+      <div class="contact-card">
+        <h3>What to include</h3>
+        <ul class="contact-prompts"><li>The repetitive task you want to improve.</li><li>The tools or spreadsheets involved.</li><li>What a better process would look like.</li></ul>
+        <p class="contact-note contact-next"><strong>What happens next:</strong> we’ll reply to talk through your process and see whether there’s a fit. Nothing is agreed until you’ve seen a proposal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 Business Process Redesign</span>
+  <span>Spare some time, so we can save yours.</span>
+  <a href="#top">Back to top</a>
+</footer>
+
 </body>
 </html>

@@ -1,0 +1,26 @@
+# Line endings.
+#
+# Every source text file in this repo stays LF in the working tree on every
+# platform, including a Windows checkout with core.autocrlf=true. This is not a
+# style preference: tooling here slices the raw bytes of index.html and looks for
+# a literal '\n' (tests/examples.test.js did, and failed on a CRLF checkout even
+# on a correct tree). Pinning eol=lf removes that whole class of failure instead
+# of making each tool defend against it.
+#
+# `text=auto` is the baseline: git stores LF in the index for anything it detects
+# as text. The explicit rules below also force LF on checkout.
+
+* text=auto
+
+*.html  text eol=lf
+*.css   text eol=lf
+*.js    text eol=lf
+*.py    text eol=lf
+*.md    text eol=lf
+*.svg   text eol=lf
+*.xml   text eol=lf
+*.txt   text eol=lf
+
+# Raster images: never touched, never line-ending-converted. A CRLF conversion
+# applied to a PNG corrupts it.
+*.png   binary

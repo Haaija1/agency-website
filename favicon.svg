@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Business Process Redesign">
+  <title>Business Process Redesign</title>
+  <!--
+    The hub-and-spokes mark: one centre, four nodes, four paths between them. The same geometry
+    as the header .brand svg in index.html and the same colours as the inline data-URI favicon
+    there, so the file and the inline fallback cannot drift apart.
+
+    The mark does not spell a letter, which is why it survived the rename from the old name.
+
+    Colours are literal hex, never a CSS custom property reference: an SVG loaded through
+    <link rel="icon"> is a separate document and never sees the page's custom properties.
+    (Written out in words on purpose: an XML comment may not contain the two-hyphen
+    sequence a custom property name starts with, and a browser parses this file as XML.)
+      square  #1a1a1a  (as in the inline favicon)
+      spokes  #8a8a86  5.02:1 on the square
+      nodes   #ffffff  17.40:1 on the square
+    Measured with python tools/contrast.py.
+
+    NOTE for review: #1a1a1a is the pre-B3 near-black. The live palette's ink is the slate
+    #2f3b52. Matching it is a one-hex change here and one in the inline favicon; left as-is
+    so this file agrees with index.html today.
+  -->
+  <rect width="32" height="32" rx="7" fill="#1a1a1a"/>
+  <path d="M16 16L6 8M16 16L26 9M16 16L9 26M16 16L25 24" stroke="#8a8a86" stroke-width="1.2" fill="none"/>
+  <circle cx="16" cy="16" r="3.6" fill="#ffffff"/>
+  <circle cx="6" cy="8" r="2.2" fill="#ffffff"/>
+  <circle cx="26" cy="9" r="2.2" fill="#ffffff"/>
+  <circle cx="9" cy="26" r="2.2" fill="#ffffff"/>
+  <circle cx="25" cy="24" r="2.2" fill="#ffffff"/>
+</svg>
