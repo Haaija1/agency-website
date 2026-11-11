@@ -13,7 +13,7 @@ history of how the page works (written under the old name).
 ## What the page is
 
 A single scrolling page: hero, why we do this, services, process, example workflows,
-a workflow example, contact. Behind the content a web of threads grows down the page
+a workflow example, demo screenshots, contact. Behind the content a web of threads grows down the page
 as you scroll, draws the card borders, and joins the big interactive tool web in
 "Example workflows". All of it is progressive enhancement:
 
@@ -40,6 +40,8 @@ that is deliberate and approved.
 | `grow.js` | The web that grows down the page: router, pin, card frames. |
 | `tests/` | Node unit tests. |
 | `tools/` | Measurement and build scripts. |
+| `demos/` | Three anonymised screenshots shown in the Demos section. See `docs/DEMOS-SECTION.md`. |
+| `grain.svg` | Paper-grain tile used by the organic layer at the end of `styles.css`. |
 | `dist/` | Minified output, committed. Most of what gets deployed — see [Deploy](#deploy) for the icons, `robots.txt` and `sitemap.xml` that go up from the repo root. |
 
 ## Checks
