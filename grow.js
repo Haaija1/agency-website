@@ -374,7 +374,7 @@
   function mk(tag, attrs) { var e = doc.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
   function Web(cls, parent) { this.svg = mk('svg', { 'class': cls, 'aria-hidden': 'true', focusable: 'false' }); parent.appendChild(this.svg); this.items = []; this.dots = []; this.sl = null; this.ready = false; this.heroDots = []; }
   var pageWeb = new Web('grow-web', main), introWeb = hero ? new Web('grow-web intro-web', hero) : null;
-  var BOX = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.hero__cta,.thread-node,button,.pill,.field,input,textarea';
+  var BOX = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.hero__cta,.thread-node,button,.pill,.field,input,textarea,.demo-shot';
   var BLOCK = 'p,h1,h2,h3,h4,h5,li,td,th,dt,dd,label,legend,figcaption,button,a,div,section';
   var FRAME = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card', frameSvg = mk('svg', { 'class': 'frame-web', 'aria-hidden': 'true', focusable: 'false' }), frames = [], stubs = [];
   main.appendChild(frameSvg);
