@@ -374,7 +374,7 @@
   function mk(tag, attrs) { var e = doc.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
   function Web(cls, parent) { this.svg = mk('svg', { 'class': cls, 'aria-hidden': 'true', focusable: 'false' }); parent.appendChild(this.svg); this.items = []; this.dots = []; this.sl = null; this.ready = false; this.heroDots = []; }
   var pageWeb = new Web('grow-web', main), introWeb = hero ? new Web('grow-web intro-web', hero) : null;
-  var BOX = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.hero__cta,.thread-node,button,.pill,.field,input,textarea';
+  var BOX = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.hero__cta,.thread-node,button,.pill,.field,input,textarea,.demo-shot';
   var BLOCK = 'p,h1,h2,h3,h4,h5,li,td,th,dt,dd,label,legend,figcaption,button,a,div,section';
   var FRAME = '.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card', frameSvg = mk('svg', { 'class': 'frame-web', 'aria-hidden': 'true', focusable: 'false' }), frames = [], stubs = [];
   main.appendChild(frameSvg);
@@ -561,7 +561,7 @@
     var inP = null, outP = null, fTop = 0;
     if (fld) {                                            /* the tool web is blocked; the page web comes in above it (port in) and leaves below it (port a) */
       var fr = fld.getBoundingClientRect(); fTop = fr.top - mr.top;
-      blocks.push([fr.left - mr.left, fTop, fr.right - mr.left, fr.bottom - mr.top, 6]);
+      blocks.push([fr.left - mr.left, fTop, fr.right - mr.left, fr.bottom - mr.top, 8]);
       slice.call(fld.querySelectorAll('.wx-port')).forEach(function (e) {
         if (!e.getClientRects().length) return;                       /* not shown on narrow screens */
         var r = e.getBoundingClientRect(), k = e.getAttribute('data-port'), p = { x: r.left + r.width / 2 - mr.left, y: r.top - mr.top + (k === 'in' ? -10 : 10) };   /* 10px off the box, the explorer's stem bridges the gap */

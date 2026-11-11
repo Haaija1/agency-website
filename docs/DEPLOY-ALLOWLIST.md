@@ -22,6 +22,10 @@ had mentioned and without which the 404 page is never served; §2 lists the two 
 `TODO(Haaija)` periods S5 added to `privacy.html`; and §5 is re-measured after S5's two edits.
 `privacy.html` and `privacy.css` are still **not** deployed, and neither is `prototypes/`.
 
+Updated 11 Nov 2026 (Demos section and organic layer): §1b now lists `grain.svg` and the three `demos/*.webp`
+screenshots. The gzip budget in §5 is re-measured: 40,832 B of 40,960 B, 128 B headroom. Nothing else in
+this file changed.
+
 Updated 4 Nov 2026 by session S6 (fixes from the review of S5). What changed in here: §5 is no
 longer an open question - the budget is now measured over the seven home-page files by
 `node tools/gzip_size.js dist --site`, which S6 added, and the figures for the four
@@ -111,6 +115,8 @@ must be deployed from the repo root.
 | `/favicon-32.png` | 32x32 fallback for browsers that will not take an SVG icon; linked from `index.html` |
 | `/apple-touch-icon.png` | 180x180, full-bleed; iOS applies its own corner mask; linked from `index.html` |
 | `/og-image.png` | 1200x630 share image - `index.html` now points `og:image` at `https://bprsa.co.za/og-image.png`, so if this file is not deployed every shared link shows a broken card |
+| `/grain.svg` | 180x180 paper-grain tile used as a CSS background by the organic layer in `styles.css`. A real file rather than a `data:` URI so the CSP stays `img-src 'self'`. Without it the grain simply does not show |
+| `/demos/shipment-review.webp`, `/demos/learner-desk-chat.webp`, `/demos/returns-assistant.webp` | the three screenshots in the Demos section (`#demos`). Upload the whole `demos/` folder. Anonymised: no client names, logos, URLs or phone numbers (see `docs/DEMOS-SECTION.md`). Without them the section shows broken images |
 | `/og-image.svg` | the source the PNG is baked from; serving it is optional |
 
 ### 1c. Not in this repository, but the site needs it

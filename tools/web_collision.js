@@ -47,7 +47,7 @@
   }
   // Second, separate count: threads and dots drawn INSIDE a bordered card/table (empty padding, not text). Reported apart so the
   // text-only claim stays comparable with v2; Phase 3 should aim for boxHits: 0 as well.
-  const boxes = [...main.querySelectorAll('.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.wx-web,.wx-stage')].map((e) => { const r = e.getBoundingClientRect(); return [r.left + scrollX, r.top + scrollY, r.right + scrollX, r.bottom + scrollY]; });
+  const boxes = [...main.querySelectorAll('.ptable,.step,.proof,.assure,.canvas-demo,.week,.contact-card,.wx-web,.wx-stage,.demo-shot')].map((e) => { const r = e.getBoundingClientRect(); return [r.left + scrollX, r.top + scrollY, r.right + scrollX, r.bottom + scrollY]; });
   let boxHits = 0;
   for (const s of svgs) {
     if (s.classList.contains('frame-web')) continue;
