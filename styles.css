@@ -849,3 +849,22 @@ main{ position:relative; }
   .demos{ grid-template-columns:minmax(0,1fr); gap:var(--space-7); }
   .demo--shipment,.demo--chat,.demo--returns{ grid-column:1; }
 }
+
+/* ---------- Organic layer: softer shapes, gentle colour washes, paper grain ----------
+   One block on purpose, so it can be reverted alone. Scoped to .threaded sections: the hero is untouched.
+   The web draws card borders from each card's own corner radius (grow.js), so rounder cards stay in step.
+   grain.svg is a real file, not a data: URI, so the CSP img-src 'self' needs no change. */
+:root{ --o-r:22px; --o-r-lg:30px; --o-shadow:0 12px 32px rgba(42,111,219,.07), 0 2px 8px rgba(26,26,26,.05); }
+.threaded{ background-image:url(grain.svg); background-size:180px; }
+#services{ background-image:url(grain.svg), radial-gradient(52rem 30rem at 96% 14%, rgba(42,111,219,.07), rgba(42,111,219,0) 68%); background-size:180px, auto; }
+#workflows{ background-image:url(grain.svg), radial-gradient(48rem 28rem at 2% 22%, rgba(42,111,219,.06), rgba(42,111,219,0) 70%); background-size:180px, auto; }
+#demos{ background-image:url(grain.svg), radial-gradient(54rem 30rem at 98% 30%, rgba(42,111,219,.08), rgba(42,111,219,0) 68%), radial-gradient(40rem 26rem at 0% 88%, rgba(42,111,219,.05), rgba(42,111,219,0) 70%); background-size:180px, auto, auto; }
+#contact{ background-image:url(grain.svg), radial-gradient(50rem 30rem at 4% 70%, rgba(42,111,219,.07), rgba(42,111,219,0) 70%); background-size:180px, auto; }
+.threaded .ptable,.threaded .proof,.threaded .assure,.threaded .week,.threaded .contact-card,.threaded .wx-stage{ border-radius:var(--o-r-lg); box-shadow:var(--o-shadow); }
+.threaded .step,.threaded .wf-item{ border-radius:var(--o-r); box-shadow:var(--o-shadow); }
+.threaded .btn,.threaded .switch,.threaded .sw-before,.threaded .sw-after{ border-radius:999px; }
+.threaded input,.threaded textarea{ border-radius:14px; }
+.threaded .demo-shot{ box-shadow:var(--o-shadow); }
+.threaded .demo--shipment .demo-shot{ border-radius:38px 24px 34px 26px; }
+.threaded .demo--returns .demo-shot{ border-radius:26px 40px 28px 36px; }
+.threaded .demo-shot--phone{ border-radius:36px; }
